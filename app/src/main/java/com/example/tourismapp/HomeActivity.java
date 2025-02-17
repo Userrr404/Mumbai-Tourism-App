@@ -4,19 +4,27 @@ import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
 
 import androidx.activity.EdgeToEdge;
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
+
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class HomeActivity extends AppCompatActivity {
 
     Button btnLogout;
+    BottomNavigationView bottomNavigationView;
 
     @SuppressLint("MissingInflatedId")
     @Override
@@ -38,6 +46,7 @@ public class HomeActivity extends AppCompatActivity {
 //        });
 
         btnLogout = findViewById(R.id.btnLogOutHome);
+        bottomNavigationView = findViewById(R.id.bottomNavigationHome);
 
         btnLogout.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -54,5 +63,41 @@ public class HomeActivity extends AppCompatActivity {
                 startActivity(iLogin);
             }
         });
+
+
+        // FOR BOTTOM NAVIGATION SELECT
+        bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                int id = item.getItemId();
+
+                if(id == R.id.nav_home){
+                    loadFragment(new HomeFragment(),false);
+                } else if (id == R.id.nav_search) {
+                    loadFragment(new SearchFragment(),false);
+                }else{ // PROFILE
+                    loadFragment(new ProfileFragment(),true);
+                }
+
+
+                // TO CHANGE SELECTION OF FRAGMENT
+                return true;
+            }
+        });
+
+        // BY-DEFAULT OPEN FRAGMENT
+        bottomNavigationView.setSelectedItemId(R.id.nav_profile);
+    }
+
+    public void loadFragment(Fragment fragment, boolean flag){
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+
+        if(flag){
+            fragmentTransaction.add(R.id.fragmentContainer,fragment);
+        }else{
+            fragmentTransaction.replace(R.id.fragmentContainer,fragment);
+        }
+        fragmentTransaction.commit();
     }
 }
