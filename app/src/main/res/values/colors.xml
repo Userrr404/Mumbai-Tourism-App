@@ -4,4 +4,5 @@
     <color name="white">#FFFFFFFF</color>
     <color name="lavender">#8692F7</color>
     <color name="sky_blue">#82B1FF</color>
+    <color name="gray">#BCBCBC</color>
 </resources>
