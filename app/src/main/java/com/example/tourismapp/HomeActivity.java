@@ -1,20 +1,13 @@
 package com.example.tourismapp;
 
 import android.annotation.SuppressLint;
-import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.MenuItem;
-import android.view.View;
 import android.view.WindowManager;
-import android.widget.Button;
 
 import androidx.activity.EdgeToEdge;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
@@ -22,11 +15,9 @@ import androidx.fragment.app.FragmentTransaction;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class HomeActivity extends AppCompatActivity {
-
-    Button btnLogout;
     BottomNavigationView bottomNavigationView;
 
-    @SuppressLint("MissingInflatedId")
+    @SuppressLint({"MissingInflatedId"})
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -44,26 +35,7 @@ public class HomeActivity extends AppCompatActivity {
 //            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
 //            return insets;
 //        });
-
-        btnLogout = findViewById(R.id.btnLogOutHome);
         bottomNavigationView = findViewById(R.id.bottomNavigationHome);
-
-        btnLogout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                // TO RE-TRANSFER TO LOGOUT
-                SharedPreferences preferences = getSharedPreferences("login",MODE_PRIVATE);
-
-                SharedPreferences.Editor editor = preferences.edit();
-                editor.putBoolean("flag",false);
-                editor.apply();
-
-                Intent iLogin = new Intent(HomeActivity.this, LoginActivity.class);
-                startActivity(iLogin);
-            }
-        });
-
 
         // FOR BOTTOM NAVIGATION SELECT
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -84,7 +56,6 @@ public class HomeActivity extends AppCompatActivity {
                 return true;
             }
         });
-
         // BY-DEFAULT OPEN FRAGMENT
         bottomNavigationView.setSelectedItemId(R.id.nav_profile);
     }

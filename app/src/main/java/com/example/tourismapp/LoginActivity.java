@@ -17,6 +17,9 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.io.IOException;
 
 import okhttp3.Call;
@@ -29,7 +32,7 @@ import okhttp3.Response;
 
 public class LoginActivity extends AppCompatActivity {
 
-    private static final String BASE_URL = "http://192.168.0.100:1505/project_1/db_verify.php";
+    private static final String BASE_URL = "http://192.168.0.102:1505/project_1/login.php";
 
     private final OkHttpClient client = new OkHttpClient();
 
@@ -105,37 +108,74 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onFailure(@NonNull Call call, @NonNull IOException e) {
                 runOnUiThread(() ->{
-                    Toast.makeText(LoginActivity.this, "Request failed", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(LoginActivity.this, "Network Error", Toast.LENGTH_SHORT).show();
                 });
             }
 
+//            @Override
+//            public void onResponse(@NonNull Call call, @NonNull Response response) throws IOException {
+//                assert response.body() != null;
+//                String responseBody = response.body().string();
+//
+//                runOnUiThread(() ->{
+//                    if(responseBody.equals("success")){
+//
+//                        // SAVE THE LOGIN STATE
+//                        SharedPreferences preferences = getSharedPreferences("login",MODE_PRIVATE);
+//
+//                        SharedPreferences.Editor editor = preferences.edit();
+//                        editor.putBoolean("flag",true);
+////                        editor.putString("email",email);
+//                        editor.apply();
+//
+//                        // START HOME ACTIVITY
+//                        Intent iHome = new Intent(LoginActivity.this, HomeActivity.class);
+//                        startActivity(iHome);
+//
+//                    } else if (responseBody.equals("Invalid email or password")) {
+//                        // Show invalid login message
+//                        Toast.makeText(LoginActivity.this, "Invalid email or Password", Toast.LENGTH_SHORT).show();
+//                    } else if (responseBody.equals("Invalid request method")) {
+//                        // Handle invalid request method message
+//                        Toast.makeText(LoginActivity.this, "Invalid request method", Toast.LENGTH_SHORT).show();
+//                    }
+//                });
+//            }
+
             @Override
             public void onResponse(@NonNull Call call, @NonNull Response response) throws IOException {
-                assert response.body() != null;
                 String responseBody = response.body().string();
-
-                runOnUiThread(() ->{
-                    if(responseBody.equals("success")){
+                if(!responseBody.contains("Invalid")){
+                    try{
+                        JSONObject jsonObject = new JSONObject(responseBody);
+                        String userId = jsonObject.getString("id");
+                        String userEmail = jsonObject.getString("email");
+                        String userPassword = jsonObject.getString("password");
 
                         // SAVE THE LOGIN STATE
-                        SharedPreferences preferences = getSharedPreferences("login",MODE_PRIVATE);
-
-                        SharedPreferences.Editor editor = preferences.edit();
-                        editor.putBoolean("flag",true);
+                        SharedPreferences sharedPreferences = getSharedPreferences("login",MODE_PRIVATE);
+                        SharedPreferences.Editor editor = sharedPreferences.edit();
+                        editor.putString("user_id",userId);
+                        editor.putString("email",userEmail);
+                        editor.putString("password",userPassword);
+                        editor.putBoolean("isLoggedIn",true);
                         editor.apply();
 
-                        // START HOME ACTIVITY
-                        Intent iHome = new Intent(LoginActivity.this, HomeActivity.class);
-                        startActivity(iHome);
-
-                    } else if (responseBody.equals("Invalid email or password")) {
-                        // Show invalid login message
-                        Toast.makeText(LoginActivity.this, "Invalid email or Password", Toast.LENGTH_SHORT).show();
-                    } else if (responseBody.equals("Invalid request method")) {
-                        // Handle invalid request method message
-                        Toast.makeText(LoginActivity.this, "Invalid request method", Toast.LENGTH_SHORT).show();
+                        // START THE ACTIVITY
+                        runOnUiThread(() -> {
+                            Toast.makeText(LoginActivity.this,"Login Successfully", Toast.LENGTH_SHORT).show();
+                            Intent iHome = new Intent(LoginActivity.this, HomeActivity.class);
+                            startActivity(iHome);
+                            finish();
+                        });
+                    } catch (JSONException e) {
+                        throw new RuntimeException(e);
                     }
-                });
+                }else{
+                    runOnUiThread(() -> {
+                        Toast.makeText(LoginActivity.this, "Invalid Credentials", Toast.LENGTH_SHORT).show();
+                    });
+                }
             }
         });
     }

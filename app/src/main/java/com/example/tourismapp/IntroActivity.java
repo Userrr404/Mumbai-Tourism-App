@@ -8,9 +8,6 @@ import android.view.WindowManager;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
 
 public class IntroActivity extends AppCompatActivity {
 
@@ -37,15 +34,17 @@ public class IntroActivity extends AppCompatActivity {
             @Override
             public void run() {
                 SharedPreferences preferences = getSharedPreferences("login",MODE_PRIVATE);
-                Boolean check = preferences.getBoolean("flag",false);
+                boolean isLogin = preferences.getBoolean("isLoggedIn",false);
+                String userId = preferences.getString("user_id",null);
 
-                if(check){
+                if(userId != null && isLogin){
                     Intent iHome = new Intent(IntroActivity.this, HomeActivity.class);
                     startActivity(iHome);
                 }else{
                     Intent iLogin = new Intent(IntroActivity.this, LoginActivity.class);
                     startActivity(iLogin);
                 }
+                finish();
             }
         },4000);
     }

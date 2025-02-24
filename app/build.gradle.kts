@@ -45,6 +45,8 @@ dependencies {
     implementation(platform(libs.okhttp.bom))
 
     // define any required OkHttp artifacts without version
-    implementation("com.squareup.okhttp3:okhttp")
+    implementation(libs.squareup.okhttp)
     implementation(libs.squareup.logging.interceptor)
+
+    implementation(libs.volley)
 }

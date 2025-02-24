@@ -9,12 +9,6 @@
     android:orientation="vertical"
     tools:context=".HomeActivity">
 
-    <Button
-        android:layout_marginTop="50dp"
-        android:id="@+id/btnLogOutHome"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Log Out"/>
 
     <FrameLayout
         android:id="@+id/fragmentContainer"

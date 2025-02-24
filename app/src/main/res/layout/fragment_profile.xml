@@ -46,6 +46,14 @@
             </androidx.cardview.widget.CardView>
 
             <TextView
+                android:id="@+id/tvUserId"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="User ID: "
+                android:textSize="18sp"
+                android:textColor="@color/white"/>
+
+            <TextView
                 android:id="@+id/txtFullNamePro"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -119,6 +127,7 @@
                 android:orientation="horizontal">
 
                 <Button
+                    android:id="@+id/btnLogoutPro"
                     android:layout_width="match_parent"
                     android:layout_height="70dp"
                     android:layout_gravity="center"
