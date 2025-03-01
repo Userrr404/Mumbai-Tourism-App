@@ -49,4 +49,7 @@ dependencies {
     implementation(libs.squareup.logging.interceptor)
 
     implementation(libs.volley)
+
+
+    implementation (libs.glide)
 }
