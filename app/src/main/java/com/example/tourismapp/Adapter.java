@@ -38,13 +38,31 @@ public class Adapter extends RecyclerView.Adapter<ImageViewHolder>{
         Glide.with(context).load(model.getImage()).into(holder.item_imageView);
         holder.item_txtImageName.setText(model.getName());
 
+//        holder.itemView.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Intent intent = new Intent(context,DetailsActivity.class);
+//                intent.putExtra("urlImage",model.getImage());
+//                intent.putExtra("name",model.getName());
+//                intent.putExtra("info",model.getInfo());
+//
+//                context.startActivity(intent);
+//            }
+//        });
+
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(context,DetailsActivity.class);
+                Intent intent = new Intent(context, DetailsActivity.class);
                 intent.putExtra("urlImage",model.getImage());
                 intent.putExtra("name",model.getName());
-                intent.putExtra("info",model.getInfo());
+                intent.putExtra("description",model.getDescription());
+                intent.putExtra("category",model.getCategory());
+                intent.putExtra("tags",model.getTags());
+                intent.putExtra("exact_location",model.getExact_location());
+                intent.putExtra("timing",model.getTiming());
+                intent.putExtra("fees",model.getFees());
+                intent.putExtra("contact",model.getContact());
 
                 context.startActivity(intent);
             }

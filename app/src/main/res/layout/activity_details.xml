@@ -6,35 +6,85 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="16dp"
     tools:context=".DetailsActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:paddingTop="100dp">
-
-        <ImageView
-            android:id="@+id/imageViewDetail"
-            android:layout_width="match_parent"
-            android:layout_height="300dp"
-            android:scaleType="fitXY"/>
+        android:layout_margin="5dp">
 
         <TextView
             android:id="@+id/txtViewName"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textStyle="bold"
-            android:textSize="20sp"
-            android:paddingTop="10dp"/>
+            android:textSize="40sp"
+            android:text="name"
+            android:textAlignment="center"/>
+
+        <ImageView
+            android:id="@+id/imageViewDetail"
+            android:layout_width="match_parent"
+            android:layout_height="300dp"
+            android:scaleType="fitXY"
+            android:layout_marginBottom="5dp" />
 
         <TextView
             android:id="@+id/txtViewInfo"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textSize="16sp"
-            android:paddingTop="5dp"/>
+            android:paddingTop="5dp"
+            android:text="Description"/>
+
+        <TextView
+            android:id="@+id/txtViewCategory"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="16sp"
+            android:paddingTop="5dp"
+            android:text="Category"/>
+
+        <TextView
+            android:id="@+id/txtViewTags"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="16sp"
+            android:paddingTop="5dp"
+            android:text="Tags"/>
+
+        <TextView
+            android:id="@+id/txtViewLocation"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="16sp"
+            android:paddingTop="5dp"
+            android:text="Location"/>
+
+        <TextView
+            android:id="@+id/txtViewTiming"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="16sp"
+            android:paddingTop="5dp"
+            android:text="Time"/>
+
+        <TextView
+            android:id="@+id/txtViewFees"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="16sp"
+            android:paddingTop="5dp"
+            android:text="Time"/>
+
+        <TextView
+            android:id="@+id/txtViewContact"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="16sp"
+            android:paddingTop="5dp"
+            android:text="Contact"/>
 
         <TextView
             android:id="@+id/txtViewId"

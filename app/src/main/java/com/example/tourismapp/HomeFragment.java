@@ -30,7 +30,8 @@ import java.util.List;
 public class HomeFragment extends Fragment {
 
     RecyclerView recyclerView;
-    String url = "http://192.168.0.100:1505/project_1/getimage.php";
+//    String url = "http://192.168.0.100:1505/project_1/getimage.php";
+    String url = "http://192.168.0.100:1505/project_1/db_getimg.php";
     List<Model> imagelist;
 
     Model model;
@@ -83,14 +84,29 @@ public class HomeFragment extends Fragment {
                         for (int i = 0; i < jsonArray.length(); i++) {
                             JSONObject object = jsonArray.getJSONObject(i);
 
+//                            String id = object.getString("id");
+//                            String url2 = object.getString("image");
+//                            String name = object.getString("name");
+//                            String info = object.getString("info");
+//
+//                            String urlImage = "http://192.168.0.100:1505/project_1"+url2;
+//
+//                            model = new Model(id, urlImage, name, info);
+
                             String id = object.getString("id");
-                            String url2 = object.getString("image");
+                            String url2 = object.getString("image_path");
                             String name = object.getString("name");
-                            String info = object.getString("info");
+                            String description = object.getString("description");
+                            String category = object.getString("category");
+                            String tags = object.getString("tags");
+                            String exact_location = object.getString("exact_location");
+                            String timing = object.getString("timing");
+                            String fees = object.getString("fees");
+                            String contact = object.getString("contact");
 
                             String urlImage = "http://192.168.0.100:1505/project_1"+url2;
 
-                            model = new Model(id, urlImage, name, info);
+                            model = new Model(id,urlImage,name,description,category,tags,exact_location,timing,fees,contact);
                             imagelist.add(model);
                             adapter.notifyDataSetChanged();
                         }
