@@ -1,5 +1,6 @@
 package com.example.tourismapp;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.view.LayoutInflater;
@@ -22,6 +23,13 @@ public class Adapter extends RecyclerView.Adapter<ImageViewHolder>{
     public Adapter(Context context,List<Model> imagelist){
         this.context = context;
         this.imagelist = imagelist;
+    }
+
+    // SEARCH VIEW
+    @SuppressLint("NotifyDataSetChanged")
+    public void setFilteredList(List<Model> filteredList){
+        this.imagelist = filteredList;
+        notifyDataSetChanged();
     }
 
     @NonNull

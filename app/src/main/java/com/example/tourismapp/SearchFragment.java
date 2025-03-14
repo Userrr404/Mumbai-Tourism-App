@@ -3,10 +3,10 @@ package com.example.tourismapp;
 import android.annotation.SuppressLint;
 import android.os.Bundle;
 
+import androidx.appcompat.widget.SearchView;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -30,21 +30,22 @@ public class SearchFragment extends Fragment {
 
     RecyclerView recyclerView;
     //    String url = "http://192.168.0.100:1505/project_1/getimage.php";
-    String url = "http://192.168.0.107:1505/project_1/db_getimg.php";
+    String url = "http://192.168.0.102:1505/project_1/db_getimg.php";
     List<Model> imagelist;
 
     Model model;
 
     LinearLayoutManager linearLayoutManager;
 
-    Adapter adapter;
+    // SEARCH VIEW
+    private SearchView searchViewSearch;
 
+    Adapter adapter;
     public SearchFragment() {
         // Required empty public constructor
     }
 
-
-
+    @SuppressLint("MissingInflatedId")
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -63,7 +64,43 @@ public class SearchFragment extends Fragment {
 
         getImage();
 
+        // SEARCH VIEW
+        searchViewSearch = rootView.findViewById(R.id.searchViewSearch);
+        searchViewSearch.clearFocus();
+        searchViewSearch.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                filteredList(newText);
+                return true;
+            }
+        });
+
         return rootView;
+    }
+
+    // SEARCH VIEW
+    private void filteredList(String text) {
+        List<Model> filteredList = new ArrayList<>();
+        for(Model model1 : imagelist){
+            if(model1.getName().toLowerCase().contains(text.toLowerCase())){
+                filteredList.add(model1);
+            } else if (model1.getCategory().toLowerCase().contains(text.toLowerCase())) {
+                filteredList.add(model1);
+            }else if(model1.getTags().toLowerCase().contains(text.toLowerCase())){
+                filteredList.add(model1);
+            }
+        }
+
+        if(filteredList.isEmpty()){
+            Toast.makeText(requireActivity(),"No data found",Toast.LENGTH_SHORT).show();
+        }else{
+            adapter.setFilteredList(filteredList);
+        }
     }
 
     public void getImage(){
@@ -103,7 +140,7 @@ public class SearchFragment extends Fragment {
                             String fees = object.getString("fees");
                             String contact = object.getString("contact");
 
-                            String urlImage = "http://192.168.0.107:1505/project_1/"+url2;
+                            String urlImage = "http://192.168.0.102:1505/project_1/"+url2;
 //                            http://localhost:1505/project_1/tourist/gateway_of_india.jpg
 
                             model = new Model(id,urlImage,name,description,category,tags,exact_location,timing,fees,contact);
