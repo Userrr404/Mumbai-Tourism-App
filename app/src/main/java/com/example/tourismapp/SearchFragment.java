@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.Toast;
 
 import com.android.volley.Request;
@@ -30,7 +31,7 @@ public class SearchFragment extends Fragment {
 
     RecyclerView recyclerView;
     //    String url = "http://192.168.0.100:1505/project_1/getimage.php";
-    String url = "http://192.168.0.102:1505/project_1/db_getimg.php";
+    String url = "http://192.168.0.106:1505/project_1/db_getimg.php";
     List<Model> imagelist;
 
     Model model;
@@ -39,6 +40,9 @@ public class SearchFragment extends Fragment {
 
     // SEARCH VIEW
     private SearchView searchViewSearch;
+
+//    SEARCH NAVIGATION BUTTON
+    Button btnFunSearch,btnTempleSearch, btnFamilySearch,btnCoupleSearch,btnBeachSearch,btnMonumentSearch,btnCavesSearch,btnFortsSearch,btnMuseumsSearch,btnFreeEntrySearch;
 
     Adapter adapter;
     public SearchFragment() {
@@ -62,7 +66,18 @@ public class SearchFragment extends Fragment {
         adapter = new Adapter(getContext(),imagelist);
         recyclerView.setAdapter(adapter);
 
-        getImage();
+
+//        SEARCH NAVIGATION BUTTON
+        btnFunSearch = rootView.findViewById(R.id.btnFunSearch);
+        btnTempleSearch = rootView.findViewById(R.id.btnTempleSearch);
+        btnFamilySearch = rootView.findViewById(R.id.btnFamilySearch);
+        btnCoupleSearch = rootView.findViewById(R.id.btnCoupleSearch);
+        btnBeachSearch = rootView.findViewById(R.id.btnBeachSearch);
+        btnMonumentSearch = rootView.findViewById(R.id.btnMonumentSearch);
+        btnCavesSearch = rootView.findViewById(R.id.btnCavesSearch);
+        btnFortsSearch = rootView.findViewById(R.id.btnFortsSearch);
+        btnMuseumsSearch = rootView.findViewById(R.id.btnMuseumsSearch);
+        btnFreeEntrySearch = rootView.findViewById(R.id.btnFreeEntrySearch);
 
         // SEARCH VIEW
         searchViewSearch = rootView.findViewById(R.id.searchViewSearch);
@@ -80,6 +95,89 @@ public class SearchFragment extends Fragment {
             }
         });
 
+        // SEARCH NAVIGATION BUTTON
+        btnFunSearch.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                String funSearch = "fun";
+                filteredList(funSearch);
+            }
+        });
+
+        btnTempleSearch.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String templeSearch = "temple";
+                filteredList(templeSearch);
+            }
+        });
+
+        btnFamilySearch.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String familySearch = "family";
+                filteredList(familySearch);
+            }
+        });
+
+        btnCoupleSearch.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String coupleSearch = "romantic";
+                filteredList(coupleSearch);
+            }
+        });
+
+        btnBeachSearch.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String beachSearch = "beach";
+                filteredList(beachSearch);
+            }
+        });
+
+        btnMonumentSearch.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String monumentSearch = "monument";
+                filteredList(monumentSearch);
+            }
+        });
+
+        btnCavesSearch.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String cavesSearch = "caves";
+                filteredList(cavesSearch);
+            }
+        });
+
+        btnFortsSearch.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String fortsSearch = "forts";
+                filteredList(fortsSearch);
+            }
+        });
+
+        btnMuseumsSearch.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String museumsSearch = "museums";
+                filteredList(museumsSearch);
+            }
+        });
+
+        btnFreeEntrySearch.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String freeSearch = "free";
+                filteredList(freeSearch);
+            }
+        });
+
+        getImage();
         return rootView;
     }
 
@@ -92,6 +190,8 @@ public class SearchFragment extends Fragment {
             } else if (model1.getCategory().toLowerCase().contains(text.toLowerCase())) {
                 filteredList.add(model1);
             }else if(model1.getTags().toLowerCase().contains(text.toLowerCase())){
+                filteredList.add(model1);
+            } else if (model1.getFees().toLowerCase().contains(text.toLowerCase())) {
                 filteredList.add(model1);
             }
         }
@@ -140,7 +240,7 @@ public class SearchFragment extends Fragment {
                             String fees = object.getString("fees");
                             String contact = object.getString("contact");
 
-                            String urlImage = "http://192.168.0.102:1505/project_1/"+url2;
+                            String urlImage = "http://192.168.0.106:1505/project_1/"+url2;
 //                            http://localhost:1505/project_1/tourist/gateway_of_india.jpg
 
                             model = new Model(id,urlImage,name,description,category,tags,exact_location,timing,fees,contact);

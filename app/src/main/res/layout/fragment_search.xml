@@ -20,6 +20,79 @@
          TO SHOW app:queryHint="Search Here ...."
          TEXT -->
 
+    <!-- SEARCH NAVIGATION BUTTON -->
+    <HorizontalScrollView
+        android:layout_width="match_parent"
+        android:layout_height="60dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/btnFunSearch"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Fun"/>
+
+            <Button
+                android:id="@+id/btnTempleSearch"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Temple"/>
+
+            <Button
+                android:id="@+id/btnFamilySearch"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Family" />
+
+            <Button
+                android:id="@+id/btnCoupleSearch"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Couple"/>
+
+            <Button
+                android:id="@+id/btnBeachSearch"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Beach"/>
+
+            <Button
+                android:id="@+id/btnMonumentSearch"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Monument"/>
+
+            <Button
+                android:id="@+id/btnCavesSearch"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Caves"/>
+
+            <Button
+                android:id="@+id/btnFortsSearch"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Forts"/>
+
+            <Button
+                android:id="@+id/btnMuseumsSearch"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Museums"/>
+
+            <Button
+                android:id="@+id/btnFreeEntrySearch"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Free Entry"/>
+
+        </LinearLayout>
+    </HorizontalScrollView>
+
 
 
     <!-- TODO: Update blank fragment layout -->
