@@ -32,7 +32,7 @@ import okhttp3.Response;
 
 public class LoginActivity extends AppCompatActivity {
 
-    private static final String BASE_URL = "http://192.168.0.106:1505/project_1/login.php";
+    private static final String BASE_URL = "http://192.168.0.106:1505/project_1/db_login.php";
 
     private final OkHttpClient client = new OkHttpClient();
 
@@ -150,14 +150,23 @@ public class LoginActivity extends AppCompatActivity {
                         JSONObject jsonObject = new JSONObject(responseBody);
                         String userId = jsonObject.getString("id");
                         String userEmail = jsonObject.getString("email");
-                        String userPassword = jsonObject.getString("password");
+                        String username = jsonObject.getString("username");
+//                        String fullName = jsonObject.getString("full_name");
+
+//                        Used optString("full_name", userId) → If full_name is missing, it defaults to "Guest" instead of crashing.
+                        String fullName = jsonObject.optString("full_name","").trim();
+
+                        if(fullName.isEmpty()){
+                            fullName = userId;  // IF full_name IS EMPTY, USE userId
+                        }
 
                         // SAVE THE LOGIN STATE
                         SharedPreferences sharedPreferences = getSharedPreferences("login",MODE_PRIVATE);
                         SharedPreferences.Editor editor = sharedPreferences.edit();
                         editor.putString("user_id",userId);
                         editor.putString("email",userEmail);
-                        editor.putString("password",userPassword);
+                        editor.putString("username",username);
+                        editor.putString("fullName",fullName);
                         editor.putBoolean("isLoggedIn",true);
                         editor.apply();
 
@@ -166,7 +175,6 @@ public class LoginActivity extends AppCompatActivity {
                             Toast.makeText(LoginActivity.this,"Login Successfully", Toast.LENGTH_SHORT).show();
                             Intent iHome = new Intent(LoginActivity.this, HomeActivity.class);
                             startActivity(iHome);
-                            finish();
                         });
                     } catch (JSONException e) {
                         throw new RuntimeException(e);

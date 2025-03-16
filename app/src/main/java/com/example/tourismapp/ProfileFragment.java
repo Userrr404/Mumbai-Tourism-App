@@ -57,13 +57,6 @@ public class ProfileFragment extends Fragment {
         imgProfilePro = rootView.findViewById(R.id.imgProfilePro);
 
         SharedPreferences sharedPreferences = requireActivity().getSharedPreferences("login", Context.MODE_PRIVATE);
-        String userId = sharedPreferences.getString("user_id","N/A");
-        String email = sharedPreferences.getString("email","N/A");
-        String password = sharedPreferences.getString("password","N/A");
-
-        txtProfilePro.setText("User ID: " +userId);
-        txtFullNamePro.setText("Email: " +email);
-        txtUsernamePro.setText("Password: " +password);
 
         btnLogoutPro.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -89,5 +82,40 @@ public class ProfileFragment extends Fragment {
 
 
         return rootView;
+    }
+
+    /* NOT CHANGES APPLY AFTER SAVE BUTTON CLICKED IN EditProfileActivity file THAT'S WHY WE USE onResume()
+
+    SharedPreferences sharedPreferences = requireActivity().getSharedPreferences("login", Context.MODE_PRIVATE);
+    String userId = sharedPreferences.getString("user_id","N/A");
+    //        String email = sharedPreferences.getString("email","N/A");
+    String username = sharedPreferences.getString("username","N/A");
+    String fullName = sharedPreferences.getString("fullName","N/A");
+
+//        txtProfilePro.setText("User ID: " +userId);
+        txtFullNamePro.setText("User No: " +fullName);
+        txtUsernamePro.setText(username);
+
+     */
+
+//  NOT CHANGES APPLY AFTER SAVE BUTTON CLICKED IN EditProfileActivity file THAT'S WHY WE USE onResume()
+    @Override
+    public void onResume(){
+        super.onResume();
+        loadUserProfile();
+    }
+
+    public void loadUserProfile(){
+        SharedPreferences sharedPreferences = requireActivity().getSharedPreferences("login", Context.MODE_PRIVATE);
+        String userId = sharedPreferences.getString("user_id","N/A");
+        //        String email = sharedPreferences.getString("email","N/A");
+        String username = sharedPreferences.getString("username","N/A");
+        String fullName = sharedPreferences.getString("fullName","N/A");
+
+//        txtProfilePro.setText("User ID: " +userId);
+//        txtFullNamePro.setText("User No: " +fullName);
+
+        txtFullNamePro.setText(fullName);  // DISPLAY full_name OR user_id (HANDLE IN loginActivity.java)
+        txtUsernamePro.setText(username);
     }
 }

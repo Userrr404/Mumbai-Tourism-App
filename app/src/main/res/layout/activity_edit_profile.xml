@@ -10,5 +10,29 @@
     android:gravity="center"
     tools:context=".EditProfileActivity">
 
+    <TextView
+        android:id="@+id/txtUserIDProfile"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="User ID"/>
+
+    <EditText
+        android:id="@+id/editFullNameProfile"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="FullName"/>
+
+    <EditText
+        android:id="@+id/editUsernameProfile"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Username"/>
+
+    <Button
+        android:id="@+id/btnSaveProfile"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Save"/>
+
 
 </LinearLayout>
