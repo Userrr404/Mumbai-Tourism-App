@@ -8,32 +8,39 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:gravity="center"
-    tools:context=".EditProfileActivity">
+    android:padding="20dp"
+    tools:context=".EditEmailAddActivity">
 
     <TextView
-        android:id="@+id/txtUserIDProfile"
+        android:id="@+id/txtUserIDEmailProfile"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:text="User id"/>
 
-    <EditText
-        android:id="@+id/editFullNameProfile"
+    <TextView
+        android:id="@+id/txtEmailAddProfile"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="FullName"
-        android:inputType="textPersonName"/>
+        android:text="old Email Address"/>
 
     <EditText
-        android:id="@+id/editUsernameProfile"
+        android:id="@+id/editEmailAddProfile"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Username"
-        android:inputType="textPersonName"/>
+        android:hint="New Email Address"
+        android:inputType="textEmailAddress"/>
+
+    <EditText
+        android:id="@+id/editPasswordEmailProfile"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Enter Password"
+        android:inputType="textPassword"/>
 
     <Button
-        android:id="@+id/btnSaveProfile"
+        android:id="@+id/btnSaveEmailProfile"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Save"/>
-
 
 </LinearLayout>

@@ -8,8 +8,11 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.view.WindowManager;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -61,7 +64,6 @@ public class EditProfileActivity extends AppCompatActivity {
         String userId = sharedPreferences.getString("user_id","N/A");
         String username = sharedPreferences.getString("username","N/A");
         String fullName = sharedPreferences.getString("fullName","User NO: "+userId);
-
         txtUserIDProfile.setText(userId);
         editUsernameProfile.setText(username);
         editFullNameProfile.setText(fullName);

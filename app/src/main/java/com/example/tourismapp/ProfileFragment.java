@@ -80,6 +80,14 @@ public class ProfileFragment extends Fragment {
             }
         });
 
+        // OPEN EDIT EMAIL ADD ACTIVITY
+        btnEditEmailAddPro.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent iEditEmailAdd = new Intent(getActivity(), EditEmailAddActivity.class);
+                startActivity(iEditEmailAdd);
+            }
+        });
 
         return rootView;
     }
