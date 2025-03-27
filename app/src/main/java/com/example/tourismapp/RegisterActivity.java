@@ -26,8 +26,8 @@ import okhttp3.Response;
 
 public class RegisterActivity extends AppCompatActivity {
 
-    // My insert data API
-    private static final String BASE_URL = "http://192.168.0.106:1505/project_1/db_insert.php";
+    // Signup the users API
+    private static final String BASE_URL = "http://192.168.0.100/tourism/db_insert_reg.php";
 
     // OkHttp library
     private final OkHttpClient client = new OkHttpClient();
@@ -111,38 +111,36 @@ public class RegisterActivity extends AppCompatActivity {
         call.enqueue(new Callback() {
             @Override
             public void onFailure(@NonNull Call call, @NonNull IOException e) {
-                editUsernameReg.setText("");
-                editEmailAddReg.setText("");
-                editPasswordReg.setText("");
-                editConfirmPassReg.setText("");
-                txtRedirectLoginReg.setText(e.toString());
+                runOnUiThread(() ->{
+                    Toast.makeText(RegisterActivity.this,"Request Failed: " +e.getMessage(),Toast.LENGTH_SHORT).show();
+                    editUsernameReg.setText("");
+                    editEmailAddReg.setText("");
+                    editPasswordReg.setText("");
+                    editConfirmPassReg.setText("");
+                    txtRedirectLoginReg.setText("Request Failed: " + e.getMessage());
+                });
             }
-
             @Override
             public void onResponse(@NonNull Call call, @NonNull Response response) throws IOException {
                 assert response.body() != null;
                 String resp = response.body().string();
 
-                if(response.isSuccessful()){
-                    // RUN VIEW RELATED CODE ON MAIN THREAD
-                    RegisterActivity.this.runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            try{
-                                Toast.makeText(RegisterActivity.this, "Signup Successfully", Toast.LENGTH_SHORT).show();
-                                editUsernameReg.setText("");
-                                editEmailAddReg.setText("");
-                                editPasswordReg.setText("");
-                                editConfirmPassReg.setText("");
-                                Intent iLogin = new Intent(RegisterActivity.this, LoginActivity.class);
-                                startActivity(iLogin);
-                            }catch (Exception e){
-                                e.printStackTrace();
-                            }
-                        }
-                    });
-                    // END OF RUNNING ON MAIN THREAD
-                }
+                runOnUiThread(() ->{
+                    if(resp.contains("Inserted Successfully")){
+                        Toast.makeText(RegisterActivity.this,"Signup Successfully",Toast.LENGTH_SHORT).show();
+                        editUsernameReg.setText("");
+                        editEmailAddReg.setText("");
+                        editPasswordReg.setText("");
+                        editConfirmPassReg.setText("");
+                        
+                        Intent iLogin = new Intent(RegisterActivity.this, LoginActivity.class);
+                        startActivity(iLogin);
+                    } else if (resp.contains("Username already in use")) {
+                        Toast.makeText(RegisterActivity.this,"Username is already in use.Choose a different one.",Toast.LENGTH_SHORT).show();
+                    }else{
+                        Toast.makeText(RegisterActivity.this,"Signup Failed!",Toast.LENGTH_SHORT).show();
+                    }
+                });
             }
         });
     }
