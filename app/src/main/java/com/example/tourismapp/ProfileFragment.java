@@ -89,6 +89,15 @@ public class ProfileFragment extends Fragment {
             }
         });
 
+        // OPEN EDIT PASSWORD ACTIVITY
+        btnChangePassPro.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent iEditPass = new Intent(getActivity(), EditPasswordActivity.class);
+                startActivity(iEditPass);
+            }
+        });
+
         return rootView;
     }
 
