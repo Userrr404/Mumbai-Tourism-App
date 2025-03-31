@@ -47,7 +47,7 @@ public class HomeActivity extends AppCompatActivity {
                     loadFragment(new HomeFragment(),false);
                 } else if (id == R.id.nav_search) {
                     loadFragment(new SearchFragment(),false);
-                }else{ // PROFILE
+                } else{ // PROFILE
                     loadFragment(new ProfileFragment(),true);
                 }
 

@@ -256,7 +256,8 @@ public class SearchFragment extends Fragment {
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                Toast.makeText(getContext(),error.getMessage(),Toast.LENGTH_SHORT).show();
+                // if database doesn't have data
+                Toast.makeText(getContext(),"Error fetching search results",Toast.LENGTH_SHORT).show();
 //                System.out.println("Volley Error: " + error.getMessage());
 //                Toast.makeText(getContext(), error.getMessage(), Toast.LENGTH_SHORT).show();
             }

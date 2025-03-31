@@ -120,7 +120,9 @@ public class HomeFragment extends Fragment {
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                Toast.makeText(getContext(),error.getMessage(),Toast.LENGTH_SHORT).show();
+//                Toast.makeText(getContext(),error.getMessage(),Toast.LENGTH_SHORT).show();
+                // if database doesn't content data
+                Toast.makeText(getContext(),"Error fetching data results",Toast.LENGTH_SHORT).show();
 //                System.out.println("Volley Error: " + error.getMessage());
 //                Toast.makeText(getContext(), error.getMessage(), Toast.LENGTH_SHORT).show();
             }
