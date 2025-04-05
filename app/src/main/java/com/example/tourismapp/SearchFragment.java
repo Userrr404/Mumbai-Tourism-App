@@ -31,7 +31,7 @@ public class SearchFragment extends Fragment {
 
     RecyclerView recyclerView;
     //    String url = "http://192.168.0.100:1505/project_1/getimage.php";
-    String url = "http://192.168.0.100:1505/project_1/db_getimg.php";
+    String url = "http://192.168.0.100/tourism/db_display_places.php";
     List<Model> imagelist;
 
     Model model;
@@ -199,7 +199,8 @@ public class SearchFragment extends Fragment {
         if(filteredList.isEmpty()){
             Toast.makeText(requireActivity(),"No data found",Toast.LENGTH_SHORT).show();
         }else{
-            adapter.setFilteredList(filteredList);
+//            adapter.setFilteredList(filteredList);
+            Toast.makeText(requireActivity(),"ERROR",Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -240,7 +241,7 @@ public class SearchFragment extends Fragment {
                             String fees = object.getString("fees");
                             String contact = object.getString("contact");
 
-                            String urlImage = "http://192.168.0.100:1505/project_1/"+url2;
+                            String urlImage = "http://192.168.0.100/tourism/"+url2;
 //                            http://localhost:1505/project_1/tourist/gateway_of_india.jpg
 
                             model = new Model(id,urlImage,name,description,category,tags,exact_location,timing,fees,contact);

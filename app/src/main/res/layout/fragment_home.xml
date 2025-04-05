@@ -8,6 +8,53 @@
     android:orientation="vertical"
     tools:context=".HomeFragment">
 
+    <FrameLayout
+        android:id="@+id/fakeHomeScreenLayoutHome"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="visible">
+
+        <ProgressBar
+            android:id="@+id/progressBarFakeHome"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            style="?android:attr/progressBarStyleLarge"
+            android:layout_gravity="center"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Loading Places..."
+            android:textSize="20sp"
+            android:layout_marginTop="50dp"
+            android:layout_gravity="center"
+            android:padding="20dp"/>
+
+    </FrameLayout>
+
+
+<!--    To check internet is on or off-->
+
+    <TextView
+        android:id="@+id/txtInternetOffHome"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Internet is off"
+        android:textSize="20sp"
+        android:textColor="#ff0000"
+        android:visibility="gone"
+        android:layout_gravity="center"
+        android:padding="10dp"/>
+
+    <Button
+        android:id="@+id/btnRefreshHome"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Refresh"
+        android:visibility="gone"
+        android:layout_gravity="center_horizontal"
+        android:padding="10dp"/>
+
     <!-- TODO: Update blank fragment layout -->
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerViewHome"

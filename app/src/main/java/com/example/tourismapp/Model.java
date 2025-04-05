@@ -1,7 +1,6 @@
 package com.example.tourismapp;
 
 public class Model {
-
     private String id,image,name,description, category, tags, exact_location, timing, fees, contact;
 
     public Model(String id, String image, String name, String description,String category,String tags, String exact_location, String timing,String fees, String contact){

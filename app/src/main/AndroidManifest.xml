@@ -17,6 +17,9 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
+            android:name=".FakeHomeActivity"
+            android:exported="false" />
+        <activity
             android:name=".ErrorActivity"
             android:exported="false" />
         <activity

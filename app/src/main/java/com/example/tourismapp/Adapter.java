@@ -17,6 +17,7 @@ import com.bumptech.glide.Glide;
 import java.util.List;
 
 public class Adapter extends RecyclerView.Adapter<ImageViewHolder>{
+
     private Context context;
     private List<Model> imagelist;
 
@@ -43,7 +44,7 @@ public class Adapter extends RecyclerView.Adapter<ImageViewHolder>{
     public void onBindViewHolder(@NonNull ImageViewHolder holder, int position) {
         Model model = imagelist.get(position);
 
-        Glide.with(context).load(model.getImage()).into(holder.item_imageView);
+        Glide.with(context).load(model.getImage()).into(holder.item_imageview);
         holder.item_txtImageName.setText(model.getName());
 
 //        holder.itemView.setOnClickListener(new View.OnClickListener() {
@@ -81,18 +82,18 @@ public class Adapter extends RecyclerView.Adapter<ImageViewHolder>{
     public int getItemCount() {
         return imagelist.size();
     }
+
 }
 
 class ImageViewHolder extends RecyclerView.ViewHolder{
+
     TextView item_txtImageName;
-    ImageView item_imageView;
+    ImageView item_imageview;
 
-
-    // CONSTRUCTOR
     public ImageViewHolder(@NonNull View itemView) {
         super(itemView);
 
-        item_imageView = itemView.findViewById(R.id.item_imageView);
+        item_imageview = itemView.findViewById(R.id.item_imageView);
         item_txtImageName = itemView.findViewById(R.id.item_txtImageName);
     }
 }
