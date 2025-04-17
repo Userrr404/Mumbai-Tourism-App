@@ -1,16 +1,25 @@
 package com.example.tourismapp;
 
 import android.annotation.SuppressLint;
+import android.content.BroadcastReceiver;
+import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 
 import androidx.appcompat.widget.SearchView;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
+import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.Request;
@@ -30,8 +39,7 @@ import java.util.List;
 public class SearchFragment extends Fragment {
 
     RecyclerView recyclerView;
-    //    String url = "http://192.168.0.100:1505/project_1/getimage.php";
-    String url = "http://192.168.0.100/tourism/db_display_places.php";
+    String url = "http://192.168.0.108/tourism/db_display_places.php";
     List<Model> imagelist;
 
     Model model;
@@ -45,6 +53,17 @@ public class SearchFragment extends Fragment {
     Button btnFunSearch,btnTempleSearch, btnFamilySearch,btnCoupleSearch,btnBeachSearch,btnMonumentSearch,btnCavesSearch,btnFortsSearch,btnMuseumsSearch,btnFreeEntrySearch;
 
     Adapter adapter;
+
+    Button btnRefreshSearch;
+
+    TextView txtInternetOffSearch;
+
+    View fakeScreen;
+
+    // Create a BroadcastReceiver to Detect Internet Connectivity Changes
+    private BroadcastReceiver networkReceiver;
+
+    private boolean fakeHomeActivityStarted = false;
     public SearchFragment() {
         // Required empty public constructor
     }
@@ -75,9 +94,14 @@ public class SearchFragment extends Fragment {
         btnBeachSearch = rootView.findViewById(R.id.btnBeachSearch);
         btnMonumentSearch = rootView.findViewById(R.id.btnMonumentSearch);
         btnCavesSearch = rootView.findViewById(R.id.btnCavesSearch);
-        btnFortsSearch = rootView.findViewById(R.id.btnFortsSearch);
+        btnFortsSearch = rootView.findViewById(R.id.btnFortSearch);
         btnMuseumsSearch = rootView.findViewById(R.id.btnMuseumsSearch);
-        btnFreeEntrySearch = rootView.findViewById(R.id.btnFreeEntrySearch);
+        btnFreeEntrySearch = rootView.findViewById(R.id.btnFreeSearch);
+
+        // FAKE
+        btnRefreshSearch = rootView.findViewById(R.id.btnRefreshSearch);
+        txtInternetOffSearch = rootView.findViewById(R.id.txtInternetOffSearch);
+        fakeScreen = rootView.findViewById(R.id.fakeHomeScreenLayoutSearch);
 
         // SEARCH VIEW
         searchViewSearch = rootView.findViewById(R.id.searchViewSearch);
@@ -104,7 +128,7 @@ public class SearchFragment extends Fragment {
                 filteredList(funSearch);
             }
         });
-
+//
         btnTempleSearch.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -112,7 +136,7 @@ public class SearchFragment extends Fragment {
                 filteredList(templeSearch);
             }
         });
-
+//
         btnFamilySearch.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -124,7 +148,7 @@ public class SearchFragment extends Fragment {
         btnCoupleSearch.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String coupleSearch = "romantic";
+                String coupleSearch = "couple";
                 filteredList(coupleSearch);
             }
         });
@@ -177,39 +201,60 @@ public class SearchFragment extends Fragment {
             }
         });
 
-        getImage();
+        checkInternetAndLoadData();
         return rootView;
     }
 
-    // SEARCH VIEW
-    private void filteredList(String text) {
-        List<Model> filteredList = new ArrayList<>();
-        for(Model model1 : imagelist){
-            if(model1.getName().toLowerCase().contains(text.toLowerCase())){
-                filteredList.add(model1);
-            } else if (model1.getCategory().toLowerCase().contains(text.toLowerCase())) {
-                filteredList.add(model1);
-            }else if(model1.getTags().toLowerCase().contains(text.toLowerCase())){
-                filteredList.add(model1);
-            } else if (model1.getFees().toLowerCase().contains(text.toLowerCase())) {
-                filteredList.add(model1);
-            }
-        }
+    private void checkInternetAndLoadData() {
+        if(isInternetAvailable()){
 
-        if(filteredList.isEmpty()){
-            Toast.makeText(requireActivity(),"No data found",Toast.LENGTH_SHORT).show();
+            // show loading only if data isn't already fetched
+            if(imagelist.isEmpty()){
+                fakeScreen.setVisibility(View.VISIBLE);
+            }
+
+            recyclerView.setVisibility(View.VISIBLE);
+            txtInternetOffSearch.setVisibility(View.GONE);
+            btnRefreshSearch.setVisibility(View.GONE);
+            searchViewSearch.setVisibility(View.VISIBLE);
+            getImage();
         }else{
-//            adapter.setFilteredList(filteredList);
-            Toast.makeText(requireActivity(),"ERROR",Toast.LENGTH_SHORT).show();
+            recyclerView.setVisibility(View.GONE);
+            txtInternetOffSearch.setVisibility(View.VISIBLE);
+            btnRefreshSearch.setVisibility(View.VISIBLE);
+            fakeScreen.setVisibility(View.GONE);
+            searchViewSearch.setVisibility(View.GONE);
         }
     }
+
 
     public void getImage(){
         StringRequest request = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
             @SuppressLint("NotifyDataSetChanged")
             @Override
             public void onResponse(String response) {
+//                fakeScreen.setVisibility(View.GONE);
                 imagelist.clear();
+
+                if(!isValidJson(response)){
+                    // If response is invalid, redirect to FakeHomeScreen Activity
+//                    Toast.makeText(getContext(), "Database is offline.", Toast.LENGTH_SHORT).show();
+                    // Give fakeHomeActivityStarted true to store only one time call fakeHomeActivity
+
+                    // IS BETTER TO USE requireActivity() or isAdded() to ensure fragment is attached to its activity
+                    // TO PREVENT FOLLOWING ERROR WE USE
+//                    java.lang.NullPointerException: Attempt to invoke virtual method 'java.lang.String android.content.Context.getPackageName()' on a null object reference
+//                    at android.content.ComponentName.<init>(ComponentName.java:133)
+//                    at android.content.Intent.<init>(Intent.java:7994)
+//                    at com.example.tourismapp.HomeFragment$2.onResponse(HomeFragment.java:165)
+                    if(!fakeHomeActivityStarted && isAdded()){
+                        fakeHomeActivityStarted = true;
+//                        Intent iFake = new Intent(getContext(), FakeHomeActivity.class);
+                        Intent iFake = new Intent(requireActivity(), FakeHomeActivity.class);
+                        startActivity(iFake);
+                    }
+                    return;
+                }
 
                 try {
                     JSONObject jsonObject = new JSONObject(response);
@@ -220,15 +265,6 @@ public class SearchFragment extends Fragment {
 
                         for (int i = 0; i < jsonArray.length(); i++) {
                             JSONObject object = jsonArray.getJSONObject(i);
-
-//                            String id = object.getString("id");
-//                            String url2 = object.getString("image");
-//                            String name = object.getString("name");
-//                            String info = object.getString("info");
-//
-//                            String urlImage = "http://192.168.0.100:1505/project_1"+url2;
-//
-//                            model = new Model(id, urlImage, name, info);
 
                             String id = object.getString("id");
                             String url2 = object.getString("image_path");
@@ -241,30 +277,150 @@ public class SearchFragment extends Fragment {
                             String fees = object.getString("fees");
                             String contact = object.getString("contact");
 
-                            String urlImage = "http://192.168.0.100/tourism/"+url2;
-//                            http://localhost:1505/project_1/tourist/gateway_of_india.jpg
+                            String urlImage = "http://192.168.0.108/tourism/"+url2;
 
                             model = new Model(id,urlImage,name,description,category,tags,exact_location,timing,fees,contact);
                             imagelist.add(model);
-//                            adapter.notifyDataSetChanged();
                         }
-                        adapter.notifyDataSetChanged();
+
+                        // Delay Showing the data by 3 seconds
+                        new Handler().postDelayed(new Runnable() {
+                            @Override
+                            public void run() {
+                                adapter.notifyDataSetChanged();
+                                fakeScreen.setVisibility(View.GONE);
+                                recyclerView.setVisibility(View.VISIBLE);
+                            }
+                        },5000);
                     }
                 } catch (JSONException e) {
-                    throw new RuntimeException(e);
+//                    throw new RuntimeException(e);
+                    e.printStackTrace();
+                    Toast.makeText(getContext(),"Error Parsing data", Toast.LENGTH_SHORT).show();
+                    // Give fakeHomeActivityStarted true to store only one time call fakeHomeActivity
+                    if(!fakeHomeActivityStarted){
+                        fakeHomeActivityStarted = true;
+                        Intent iFake = new Intent(getContext(), FakeHomeActivity.class);
+                        startActivity(iFake);
+                    }
                 }
             }
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                // if database doesn't have data
-                Toast.makeText(getContext(),"Error fetching search results",Toast.LENGTH_SHORT).show();
+//                Toast.makeText(getContext(),error.getMessage(),Toast.LENGTH_SHORT).show();
+                // if database doesn't content data
+                Toast.makeText(getContext(),"Error fetching data results",Toast.LENGTH_SHORT).show();
 //                System.out.println("Volley Error: " + error.getMessage());
 //                Toast.makeText(getContext(), error.getMessage(), Toast.LENGTH_SHORT).show();
+                fakeScreen.setVisibility(View.GONE);
+
+                // IS BETTER TO USE requireActivity() or isAdded() to ensure fragment is attached to its activity
+                if(!fakeHomeActivityStarted && isAdded()){
+                    fakeHomeActivityStarted = true;
+//                    Intent iFake = new Intent(getContext(), FakeHomeActivity.class);
+                    Intent iFake = new Intent(requireActivity(), FakeHomeActivity.class);
+                    startActivity(iFake);
+                }
             }
         });
 
         RequestQueue requestQueue = Volley.newRequestQueue(requireContext());
         requestQueue.add(request);
+    }
+
+    /**
+     * Function to check if response is valid JSON
+     */
+
+    private boolean isValidJson(String response){
+        try {
+            new JSONObject(response);
+            return true;
+        }catch (JSONException e){
+            return false;
+        }
+    }
+
+    private boolean isInternetAvailable() {
+        ConnectivityManager connectivityManager = (ConnectivityManager) requireActivity().getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo activeNetwork = connectivityManager.getActiveNetworkInfo();
+        return activeNetwork != null && activeNetwork.isConnected();
+    }
+
+    /* Once data is fetched, it's shown in the RecyclerView, and even if you later turn off the internet, it continues to display the fetched data.
+       If internet is off (even after previous fetch), hide the data and show a message like “Internet is off” and a “Refresh” button.
+       write in onResume()
+       This ensures that when the fragment becomes visible again, it checks the internet.
+    */
+
+    @Override
+    public void onResume(){
+
+        super.onResume();
+//        This ensures that if the user goes back to HomeFragment, the logic can work again.
+        fakeHomeActivityStarted = false;
+    }
+
+    //Register the Receiver in onStart() and Unregister in onStop()
+
+    @Override
+    public void onStart(){
+
+        super.onStart();
+        registerNetworkReceiver();
+    }
+
+    @Override
+    public void onStop(){
+
+        super.onStop();
+        if(networkReceiver != null){
+            requireActivity().unregisterReceiver(networkReceiver);
+        }
+    }
+
+    private void registerNetworkReceiver(){
+        networkReceiver = new BroadcastReceiver(){
+
+            @Override
+            public void onReceive(Context context, Intent intent) {
+                if(!isInternetAvailable()){
+                    imagelist.clear();
+                    adapter.notifyDataSetChanged();
+                    txtInternetOffSearch.setVisibility(View.VISIBLE);
+                    btnRefreshSearch.setVisibility(View.VISIBLE);
+                    fakeScreen.setVisibility(View.GONE);
+                    recyclerView.setVisibility(View.GONE);
+                    searchViewSearch.setVisibility(View.GONE);
+                }else{
+                    checkInternetAndLoadData();
+                }
+            }
+        };
+        IntentFilter filter = new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION);
+        requireActivity().registerReceiver(networkReceiver,filter);
+    }
+
+    // SEARCH VIEW
+    private void filteredList(String text) {
+        List<Model> filteredList = new ArrayList<>();
+        for(Model model1 : imagelist){
+            if(model1.getName().toLowerCase().contains(text.toLowerCase())) {
+                filteredList.add(model1);
+            } else if (model1.getCategory().toLowerCase().contains(text.toLowerCase())) {
+                filteredList.add(model1);
+            } else if (model1.getTags().toLowerCase().contains(text.toLowerCase())) {
+                filteredList.add(model1);
+            } else if (model1.getFees().equalsIgnoreCase(text)) { // use equals() instead of contains()
+                filteredList.add(model1);
+            }
+        }
+
+        if(filteredList.isEmpty()){
+            Toast.makeText(requireActivity(),"No data found",Toast.LENGTH_SHORT).show();
+        }else{
+            adapter.setFilteredList(filteredList);
+        }
     }
 }

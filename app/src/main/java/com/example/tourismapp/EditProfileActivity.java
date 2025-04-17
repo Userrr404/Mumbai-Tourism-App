@@ -83,7 +83,7 @@ public class EditProfileActivity extends AppCompatActivity {
 
                 OkHttpClient client = new OkHttpClient();
 
-                String URL = "http://192.168.0.100/tourism/db_updateProfile_pro.php";
+                String URL = "http://192.168.0.108/tourism/db_updateProfile_pro.php";
                 RequestBody formBody = new FormBody.Builder()
                         .add("id",USERID)
                         .add("username",USERNAME)
