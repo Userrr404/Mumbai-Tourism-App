@@ -8,30 +8,6 @@
     android:orientation="vertical"
     tools:context=".SearchFragment">
 
-    <FrameLayout
-        android:id="@+id/fakeHomeScreenLayoutSearch"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:visibility="visible">
-
-        <ProgressBar
-            android:id="@+id/progressBarFakeSearch"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            style="?android:attr/progressBarStyleLarge"
-            android:layout_gravity="center"/>
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Loading Places..."
-            android:textSize="20sp"
-            android:layout_marginTop="50dp"
-            android:layout_gravity="center"
-            android:padding="20dp"/>
-
-    </FrameLayout>
-
     <TextView
         android:id="@+id/txtInternetOffSearch"
         android:layout_width="wrap_content"
@@ -52,6 +28,7 @@
         android:layout_gravity="center_horizontal"
         android:padding="10dp"/>
 
+
     <androidx.appcompat.widget.SearchView
         android:id="@+id/searchViewSearch"
         android:layout_width="match_parent"
@@ -61,6 +38,7 @@
         app:iconifiedByDefault="false" />
 
     <HorizontalScrollView
+        android:id="@+id/horizontalScrollContainerSearch"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 

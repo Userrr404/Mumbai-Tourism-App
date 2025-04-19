@@ -83,7 +83,7 @@ public class EditPasswordActivity extends AppCompatActivity {
 
                 OkHttpClient client = new OkHttpClient();
 
-                String URL = "http://192.168.0.108/tourism/db_updatePassword_pro.php";
+                String URL = "http://192.168.0.104/tourism/db_updatePassword_pro.php";
                 RequestBody formBody = new FormBody.Builder()
                         .add("id",USERID)
                         .add("username",USERNAME)

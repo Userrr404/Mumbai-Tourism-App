@@ -92,7 +92,7 @@ public class EditEmailAddActivity extends AppCompatActivity {
             return;
         }
 
-        String URL = "http://192.168.0.108/tourism/db_updateEmail_pro.php";
+        String URL = "http://192.168.0.104/tourism/db_updateEmail_pro.php";
         OkHttpClient client = new OkHttpClient();
 
         RequestBody formBody = new FormBody.Builder()

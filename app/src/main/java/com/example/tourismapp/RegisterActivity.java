@@ -27,7 +27,7 @@ import okhttp3.Response;
 public class RegisterActivity extends AppCompatActivity {
 
     // Signup the users API
-    private static final String BASE_URL = "http://192.168.0.108/tourism/db_insert_reg.php";
+    private static final String BASE_URL = "http://192.168.0.104/tourism/db_insert_reg.php";
 
     // OkHttp library
     private final OkHttpClient client = new OkHttpClient();
