@@ -32,7 +32,7 @@ import okhttp3.Response;
 
 public class LoginActivity extends AppCompatActivity {
 
-    private static final String BASE_URL = "http://192.168.0.104/tourism/db_verify_login.php";
+    private static final String BASE_URL = "http://192.168.0.100/tourism/db_verify_login.php";
 
     private final OkHttpClient client = new OkHttpClient();
 

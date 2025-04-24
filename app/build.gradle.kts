@@ -52,4 +52,7 @@ dependencies {
 
 
     implementation (libs.glide)
+//    Failed to find GeneratedAppGlideModule. You should include an annotationProcessor compile dependency... for this next line add
+
+    annotationProcessor(libs.compiler) // Add this
 }

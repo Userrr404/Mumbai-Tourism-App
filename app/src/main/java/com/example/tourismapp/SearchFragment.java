@@ -36,8 +36,10 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 public class SearchFragment extends Fragment {
 
@@ -61,6 +63,7 @@ public class SearchFragment extends Fragment {
 
     TextView txtInternetOffSearch;
     Adapter adapter;
+    Set<String> savedPlacesIds = new HashSet<>();
     public SearchFragment() {
         // Required empty public constructor
     }
@@ -79,7 +82,7 @@ public class SearchFragment extends Fragment {
         linearLayoutManager = new LinearLayoutManager(getContext());
         recyclerView.setLayoutManager(linearLayoutManager);
         imagelist = new ArrayList<>();
-        adapter = new Adapter(getContext(),imagelist);
+        adapter = new Adapter(getContext(),imagelist,savedPlacesIds);
         recyclerView.setAdapter(adapter);
 
         horizontalScrollContainer = rootView.findViewById(R.id.horizontalScrollContainer);
@@ -278,7 +281,7 @@ public class SearchFragment extends Fragment {
             return;
         }
 
-        String searchURL = "http://192.168.0.104/tourism/db_search_places.php";
+        String searchURL = "http://192.168.0.101/tourism/DB_search_user_places.php";
 
         StringRequest request = new StringRequest(Request.Method.POST, searchURL, new Response.Listener<String>() {
             @SuppressLint("NotifyDataSetChanged")
@@ -297,7 +300,7 @@ public class SearchFragment extends Fragment {
                         for (int i = 0; i < jsonArray.length(); i++) {
                             JSONObject object = jsonArray.getJSONObject(i);
 
-                            String id = object.getString("id");
+                            String id = object.getString("place_id");
                             String url2 = object.getString("image_path");
                             String name = object.getString("name");
                             String description = object.getString("description");
@@ -308,7 +311,7 @@ public class SearchFragment extends Fragment {
                             String fees = object.getString("fees");
                             String contact = object.getString("contact");
 
-                            String urlImage = "http://192.168.0.104/tourism/"+url2;
+                            String urlImage = "http://192.168.0.101/tourism/"+url2;
 
                             model = new Model(id,urlImage,name,description,category,tags,exact_location,timing,fees,contact);
                             imagelist.add(model);
