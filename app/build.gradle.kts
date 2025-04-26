@@ -37,6 +37,7 @@ dependencies {
     implementation(libs.material)
     implementation(libs.activity)
     implementation(libs.constraintlayout)
+    implementation(libs.gridlayout)
     testImplementation(libs.junit)
     androidTestImplementation(libs.ext.junit)
     androidTestImplementation(libs.espresso.core)
@@ -55,4 +56,6 @@ dependencies {
 //    Failed to find GeneratedAppGlideModule. You should include an annotationProcessor compile dependency... for this next line add
 
     annotationProcessor(libs.compiler) // Add this
+
+    implementation (libs.material.v1110)
 }

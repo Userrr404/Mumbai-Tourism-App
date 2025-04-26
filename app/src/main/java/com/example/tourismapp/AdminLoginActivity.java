@@ -3,6 +3,7 @@ package com.example.tourismapp;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
@@ -97,6 +98,7 @@ public class AdminLoginActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call call, Response response) throws IOException {
                 String res = response.body().string();
+                Log.d("Response", "Response: " + res);  // Add this line to debug the response body
 
                 AdminLoginActivity.this.runOnUiThread(() -> {
                     try {
@@ -105,14 +107,18 @@ public class AdminLoginActivity extends AppCompatActivity {
                         String message = jsonObject.getString("message");
 
                         if (success) {
+                            String adminEmail = jsonObject.getString("email");
+
                             Toast.makeText(AdminLoginActivity.this, "Login Successful", Toast.LENGTH_SHORT).show();
-                            Intent i = new Intent(AdminLoginActivity.this, DashboardActivity.class);
-                            startActivity(i);
+                            Intent iAdminDash = new Intent(AdminLoginActivity.this, DashboardActivity.class);
+                            iAdminDash.putExtra("adminEmail", adminEmail);
+                            startActivity(iAdminDash);
                             finish();
                         } else {
                             Toast.makeText(AdminLoginActivity.this, message, Toast.LENGTH_SHORT).show();
                         }
                     } catch (Exception e) {
+                        Log.e("ParsingError", "Error parsing JSON: " + e.getMessage());  // Log detailed error
                         Toast.makeText(AdminLoginActivity.this, "Parsing Error", Toast.LENGTH_SHORT).show();
                     }
                 });

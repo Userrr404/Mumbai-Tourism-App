@@ -5,4 +5,12 @@
     <color name="lavender">#8692F7</color>
     <color name="sky_blue">#82B1FF</color>
     <color name="gray">#BCBCBC</color>
+    <color name="lightGray">#F5F5F5</color>
+    <color name="darkGray">#212121</color>
+    <color name="teal">#009688</color>
+    <color name="lightTeal">#B2DFDB</color>
+    <color name="purple_700">#3700B3</color>
+    <color name="purple_500">#6200EE</color>
+    <color name="purple_200">#BB86FC</color>
+
 </resources>

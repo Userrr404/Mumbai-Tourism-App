@@ -60,7 +60,7 @@ public class ProfileFragment extends Fragment {
         txtAdminAccess.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent iAdmin = new Intent(getActivity(), AdminSignupActivity.class);
+                Intent iAdmin = new Intent(getActivity(), AdminLoginActivity.class);
                 startActivity(iAdmin);
             }
         });
