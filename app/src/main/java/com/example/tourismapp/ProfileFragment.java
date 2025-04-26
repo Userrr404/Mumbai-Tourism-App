@@ -28,7 +28,7 @@ import java.io.IOException;
 
 public class ProfileFragment extends Fragment {
 
-    private TextView txtProfilePro, txtFullNamePro, txtUsernamePro;
+    private TextView txtProfilePro, txtFullNamePro, txtUsernamePro, txtAdminAccess;
     private Button btnEditProfilePro, btnEditEmailAddPro, btnChangePassPro, btnLogoutPro;
     private ImageView imgProfilePro;
 
@@ -48,6 +48,7 @@ public class ProfileFragment extends Fragment {
         txtProfilePro = rootView.findViewById(R.id.txtProfilePro);
         txtFullNamePro = rootView.findViewById(R.id.txtFullNamePro);
         txtUsernamePro = rootView.findViewById(R.id.txtUsernamePro);
+        txtAdminAccess = rootView.findViewById(R.id.txtAdminAccess);
 
         btnEditProfilePro = rootView.findViewById(R.id.btnEditProfilePro);
         btnEditEmailAddPro = rootView.findViewById(R.id.btnEditChangeEmailAddPro);
@@ -55,6 +56,14 @@ public class ProfileFragment extends Fragment {
         btnLogoutPro = rootView.findViewById(R.id.btnLogoutPro);
 
         imgProfilePro = rootView.findViewById(R.id.imgProfilePro);
+
+        txtAdminAccess.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent iAdmin = new Intent(getActivity(), AdminSignupActivity.class);
+                startActivity(iAdmin);
+            }
+        });
 
         SharedPreferences sharedPreferences = requireActivity().getSharedPreferences("login", Context.MODE_PRIVATE);
 
