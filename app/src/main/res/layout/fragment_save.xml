@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".SaveFragment">
+
+    <TextView
+        android:id="@+id/txtInternetOffSave"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Internet is off"
+        android:textSize="20sp"
+        android:textColor="#ff0000"
+        android:visibility="gone"
+        android:layout_gravity="center"
+        android:padding="10dp"/>
+
+    <Button
+        android:id="@+id/btnRefreshSave"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Refresh"
+        android:visibility="gone"
+        android:layout_gravity="center_horizontal"
+        android:padding="10dp"/>
+
+    <!-- TODO: Update blank fragment layout -->
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerViewSave"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="8dp"/>
+
+    <TextView
+        android:id="@+id/txtEmptyMessageSave"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="You haven't saved anything yet!"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:visibility="gone"
+        android:layout_gravity="center"/>
+
+</LinearLayout>

@@ -7,6 +7,11 @@
         android:icon="@drawable/home_svgrepo_com"/>
 
     <item
+        android:id="@+id/nav_saved"
+        android:title="Save"
+        android:icon="@drawable/saved_svgrepo_com"/>
+
+    <item
         android:id="@+id/nav_search"
         android:title="Search"
         android:icon="@drawable/search_svgrepo_com"/>
