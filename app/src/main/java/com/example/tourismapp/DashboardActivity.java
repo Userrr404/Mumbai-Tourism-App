@@ -21,7 +21,7 @@ public class DashboardActivity extends AppCompatActivity {
     TextView textLoggedInUser;
     ImageView userProfileIcon;
 
-    CardView cardViewPlaces;
+    CardView cardViewPlaces, cardViewUsers;
 
     Button buttonLogout, buttonSignup;
 
@@ -40,7 +40,8 @@ public class DashboardActivity extends AppCompatActivity {
         textLoggedInUser = findViewById(R.id.textLoggedInUser);
         userProfileIcon = findViewById(R.id.userProfileIcon);
 
-        CardView cardViewPlaces = findViewById(R.id.cardViewPlaces);
+        cardViewPlaces = findViewById(R.id.cardViewPlaces);
+        cardViewUsers = findViewById(R.id.cardViewUsers);
 
         buttonLogout = findViewById(R.id.buttonLogout);
         buttonSignup = findViewById(R.id.buttonSignup);
@@ -58,6 +59,14 @@ public class DashboardActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(DashboardActivity.this, ViewPlacesActivity.class);
                 startActivity(intent);
+            }
+        });
+
+        cardViewUsers.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent iUsers = new Intent(DashboardActivity.this, AllUsersActivity.class);
+                startActivity(iUsers);
             }
         });
 
@@ -83,5 +92,6 @@ public class DashboardActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
     }
 }
