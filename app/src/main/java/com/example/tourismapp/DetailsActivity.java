@@ -33,10 +33,13 @@ import okhttp3.Response;
 public class DetailsActivity extends AppCompatActivity {
 
     ImageView imageViewDetail;
-//    TextView txtViewName, txtViewInfo, txtViewId;
     TextView txtViewId, txtViewName, txtViewInfo, txtViewCategory,txtViewTags, txtViewLocation, txtViewTiming, txtViewFees, txtViewContact;
+    Button bookingButton;
     private EditText feedbackEditText;
     private Button submitFeedbackButton;
+
+    String imageUrl, id, name, info; // Declare globally to access inside button click
+    String loggedUserId,loggedUserEmail;
 
     @SuppressLint({"MissingInflatedId"})
     @Override
@@ -58,20 +61,6 @@ public class DetailsActivity extends AppCompatActivity {
         });
 
         imageViewDetail = findViewById(R.id.imageViewDetail);
-//        txtViewName = findViewById(R.id.txtViewName);
-//        txtViewInfo = findViewById(R.id.txtViewInfo);
-//        txtViewId = findViewById(R.id.txtViewId);
-//
-//        Intent intent = getIntent();
-//        String imageUrl = intent.getStringExtra("urlImage");
-//        String name = intent.getStringExtra("name");
-//        String info = intent.getStringExtra("info");
-//        String id = intent.getStringExtra("id");
-//
-//        txtViewName.setText(name);
-//        txtViewInfo.setText(info);
-//        txtViewId.setText(id);
-
         txtViewId = findViewById(R.id.txtViewId);
         txtViewName = findViewById(R.id.txtViewName);
         txtViewInfo = findViewById(R.id.txtViewInfo);
@@ -81,22 +70,29 @@ public class DetailsActivity extends AppCompatActivity {
         txtViewTiming = findViewById(R.id.txtViewTiming);
         txtViewFees = findViewById(R.id.txtViewFees);
         txtViewContact = findViewById(R.id.txtViewContact);
+
+        // Booking
+        bookingButton = findViewById(R.id.btnBooking);
+
         // Find views
         feedbackEditText = findViewById(R.id.feedbackEditText);
         submitFeedbackButton = findViewById(R.id.submitFeedbackButton);
 
-        submitFeedbackButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                submitFeedback();
-            }
-        });
+        // Get username from SharedPreferences
+        SharedPreferences preferences = getSharedPreferences("login", MODE_PRIVATE);
+        loggedUserId = preferences.getString("user_id", null);
+        loggedUserEmail = preferences.getString("email",null);
+
+        if (loggedUserId == null && loggedUserEmail == null) {
+            Toast.makeText(DetailsActivity.this, "User not logged in", Toast.LENGTH_SHORT).show();
+            return;
+        }
 
         Intent intent = getIntent();
-        String imageUrl = intent.getStringExtra("urlImage");
-        String id = intent.getStringExtra("id");
-        String name = intent.getStringExtra("name");
-        String info = intent.getStringExtra("description");
+        imageUrl = intent.getStringExtra("urlImage");
+        id = intent.getStringExtra("place_id");
+        name = intent.getStringExtra("name");
+        info = intent.getStringExtra("description");
         String category = intent.getStringExtra("category");
         String tags = intent.getStringExtra("tags");
         String location = intent.getStringExtra("exact_location");
@@ -116,6 +112,29 @@ public class DetailsActivity extends AppCompatActivity {
 
 
         Glide.with(this).load(imageUrl).into(imageViewDetail);
+
+        bookingButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent iBook = new Intent(DetailsActivity.this, BookingActivity.class);
+
+                iBook.putExtra("place_id",id);
+                iBook.putExtra("image_path",imageUrl);
+                iBook.putExtra("name",name);
+                iBook.putExtra("description",info);
+                iBook.putExtra("user_id",loggedUserId);
+                iBook.putExtra("email",loggedUserEmail);
+                startActivity(iBook);
+            }
+        });
+
+        submitFeedbackButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                submitFeedback();
+            }
+        });
+
     }
 
     private void submitFeedback() {

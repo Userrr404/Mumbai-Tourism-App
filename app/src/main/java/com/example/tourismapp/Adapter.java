@@ -73,6 +73,7 @@ public class Adapter extends RecyclerView.Adapter<ImageViewHolder>{
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(context, DetailsActivity.class);
+                intent.putExtra("place_id",model.getId());
                 intent.putExtra("urlImage",model.getImage());
                 intent.putExtra("name",model.getName());
                 intent.putExtra("description",model.getDescription());

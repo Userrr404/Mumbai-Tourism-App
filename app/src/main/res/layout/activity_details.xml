@@ -90,6 +90,20 @@
             android:paddingBottom="16dp"
             android:visibility="gone" />
 
+        <!-- Booking Button -->
+        <Button
+            android:id="@+id/btnBooking"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Book Now"
+            android:backgroundTint="#FF5722"
+            android:textColor="#FFFFFF"
+            android:layout_marginTop="20dp"
+            android:paddingLeft="24dp"
+            android:paddingRight="24dp"
+            android:layout_gravity="center" />
+
+
         <!-- Feedback Title -->
         <TextView
             android:id="@+id/txtViewFeedback"
