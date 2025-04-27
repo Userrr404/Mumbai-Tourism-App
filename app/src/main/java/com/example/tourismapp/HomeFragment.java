@@ -43,7 +43,7 @@ import java.util.Set;
 
 public class HomeFragment extends Fragment {
     RecyclerView recyclerView;
-    String url = "http://192.168.0.100/tourism/DB_display_tourist_places.php";
+    String url = "http://192.168.0.101/tourism/DB_display_tourist_places.php";
     List<Model> imagelist;
     Model model;
     LinearLayoutManager linearLayoutManager;
@@ -95,7 +95,7 @@ public class HomeFragment extends Fragment {
 
     @NonNull
     private JsonObjectRequest getJsonObjectRequest(String userId, String username) {
-        String savedPlacesURL = "http://192.168.0.100/tourism/TB_get_user_saved_places.php?user_id=" + userId + "&username=" + username;
+        String savedPlacesURL = "http://192.168.0.101/tourism/TB_get_user_saved_places.php?user_id=" + userId + "&username=" + username;
 
         JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, savedPlacesURL, null,
                 response -> {
@@ -171,7 +171,7 @@ public class HomeFragment extends Fragment {
                             String timing = object.getString("timing");
                             String fees = object.getString("fees");
                             String contact = object.getString("contact");
-                            String urlImage = "http://192.168.0.100/tourism/"+url2;
+                            String urlImage = "http://192.168.0.101/tourism/"+url2;
                             model = new Model(id,urlImage,name,description,category,tags,exact_location,timing,fees,contact);
                             imagelist.add(model);
                         }

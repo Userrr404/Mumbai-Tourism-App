@@ -16,6 +16,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Handler;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -38,6 +39,7 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Objects;
 import java.util.Set;
 
 public class SaveFragment extends Fragment {
@@ -170,14 +172,21 @@ public class SaveFragment extends Fragment {
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                Toast.makeText(getContext(),"Error fetching data results",Toast.LENGTH_SHORT).show();
-//                fakeScreen.setVisibility(View.GONE);
 
-                if(!fakeHomeActivityStarted){
-                    fakeHomeActivityStarted = true;
-                    Intent iFake = new Intent(getContext(), FakeHomeActivity.class);
-                    startActivity(iFake);
+                Context context = requireContext().getApplicationContext();  // Get the context (activity) associated with the fragment
+                if (context != null) {
+                    Toast.makeText(getContext(),"Error fetching data results",Toast.LENGTH_SHORT).show();
+
+                    if(!fakeHomeActivityStarted){
+                        fakeHomeActivityStarted = true;
+                        Intent iFake = new Intent(getContext(), FakeHomeActivity.class);
+                        startActivity(iFake);
+                    }
+
+                } else {
+                    Log.e("SaveFragment", "Context is null, can't show Toast.");
                 }
+//                fakeScreen.setVisibility(View.GONE);
             }
         });
         RequestQueue requestQueue = Volley.newRequestQueue(requireContext());

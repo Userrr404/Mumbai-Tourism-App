@@ -1,97 +1,134 @@
-<?xml version="1.0" encoding="utf-8"?>
 <ScrollView
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".DetailsActivity">
+    android:background="#FAFAFA">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:layout_margin="5dp">
+        android:padding="5dp"
+        android:gravity="center_horizontal">
 
+        <!-- Place Name -->
         <TextView
             android:id="@+id/txtViewName"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:text="Place Name"
             android:textStyle="bold"
-            android:textSize="40sp"
-            android:text="name"
-            android:textAlignment="center"/>
+            android:textSize="28sp"
+            android:textColor="#333333"
+            android:gravity="center"
+            android:paddingBottom="12dp" />
 
-        <ImageView
-            android:id="@+id/imageViewDetail"
+        <!-- Image inside simple FrameLayout for better style -->
+        <FrameLayout
             android:layout_width="match_parent"
-            android:layout_height="300dp"
-            android:scaleType="fitXY"
-            android:layout_marginBottom="5dp" />
+            android:layout_height="250dp"
+            android:layout_marginBottom="16dp"
+            android:background="@drawable/image_background">
 
+            <ImageView
+                android:id="@+id/imageViewDetail"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scaleType="centerCrop" />
+        </FrameLayout>
+
+        <!-- Info -->
         <TextView
             android:id="@+id/txtViewInfo"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textSize="16sp"
-            android:paddingTop="5dp"
-            android:text="Description"/>
+            style="@style/DetailTextStyle"
+            android:text="Info about the place" />
 
+        <!-- Category -->
         <TextView
             android:id="@+id/txtViewCategory"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textSize="16sp"
-            android:paddingTop="5dp"
-            android:text="Category"/>
+            style="@style/DetailTextStyle"
+            android:text="Category" />
 
+        <!-- Tags -->
         <TextView
             android:id="@+id/txtViewTags"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textSize="16sp"
-            android:paddingTop="5dp"
-            android:text="Tags"/>
+            style="@style/DetailTextStyle"
+            android:text="Tags" />
 
+        <!-- Location -->
         <TextView
             android:id="@+id/txtViewLocation"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textSize="16sp"
-            android:paddingTop="5dp"
-            android:text="Location"/>
+            style="@style/DetailTextStyle"
+            android:text="Location" />
 
+        <!-- Timing -->
         <TextView
             android:id="@+id/txtViewTiming"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textSize="16sp"
-            android:paddingTop="5dp"
-            android:text="Time"/>
+            style="@style/DetailTextStyle"
+            android:text="Timing" />
 
+        <!-- Fees -->
         <TextView
             android:id="@+id/txtViewFees"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textSize="16sp"
-            android:paddingTop="5dp"
-            android:text="Time"/>
+            style="@style/DetailTextStyle"
+            android:text="Fees" />
 
+        <!-- Contact -->
         <TextView
             android:id="@+id/txtViewContact"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textSize="16sp"
-            android:paddingTop="5dp"
-            android:text="Contact"/>
+            style="@style/DetailTextStyle"
+            android:text="Contact" />
 
+        <!-- Optional ID -->
         <TextView
             android:id="@+id/txtViewId"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="16sp"
+            android:textColor="#888888"
+            android:paddingBottom="16dp"
+            android:visibility="gone" />
+
+        <!-- Feedback Title -->
+        <TextView
+            android:id="@+id/txtViewFeedback"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Leave your feedback:"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:textColor="#333333"
+            android:paddingTop="16dp"
+            android:paddingBottom="8dp" />
+
+        <!-- Feedback EditText -->
+        <EditText
+            android:id="@+id/feedbackEditText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textSize="20sp"
-            android:paddingTop="10dp"/>
+            android:hint="Enter your feedback"
+            android:minLines="3"
+            android:gravity="top|start"
+            android:background="@drawable/feedback_edittext_bg"
+            android:padding="12dp"
+            android:textColor="#000000"
+            android:textColorHint="#888888"
+            android:textSize="16sp"
+            android:inputType="textMultiLine" />
+
+        <!-- Submit Button -->
+        <Button
+            android:id="@+id/submitFeedbackButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Submit Feedback"
+            android:backgroundTint="#009688"
+            android:textColor="#FFFFFF"
+            android:layout_marginTop="16dp"
+            android:paddingLeft="24dp"
+            android:paddingRight="24dp"
+            android:layout_gravity="center" />
 
     </LinearLayout>
 
