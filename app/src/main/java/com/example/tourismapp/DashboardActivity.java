@@ -21,7 +21,7 @@ public class DashboardActivity extends AppCompatActivity {
     TextView textLoggedInUser;
     ImageView userProfileIcon;
 
-    CardView cardViewPlaces, cardViewUsers, cardViewBookings, cardViewFeedback;
+    CardView cardAddPlace, cardViewPlaces, cardViewUsers, cardViewBookings, cardViewFeedback;
 
     Button buttonLogout, buttonSignup;
 
@@ -40,6 +40,7 @@ public class DashboardActivity extends AppCompatActivity {
         textLoggedInUser = findViewById(R.id.textLoggedInUser);
         userProfileIcon = findViewById(R.id.userProfileIcon);
 
+        cardAddPlace = findViewById(R.id.cardAddPlace);
         cardViewPlaces = findViewById(R.id.cardViewPlaces);
         cardViewUsers = findViewById(R.id.cardViewUsers);
         cardViewBookings = findViewById(R.id.cardManageBookings);
@@ -55,6 +56,14 @@ public class DashboardActivity extends AppCompatActivity {
         if (adminEmail != null) {
             textLoggedInUser.setText("Logged in as: " + adminEmail);
         }
+
+        cardAddPlace.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent iAddPlace = new Intent(DashboardActivity.this, AddPlaceActivity.class);
+                startActivity(iAddPlace);
+            }
+        });
 
         cardViewPlaces.setOnClickListener(new View.OnClickListener() {
             @Override

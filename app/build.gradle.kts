@@ -38,6 +38,8 @@ dependencies {
     implementation(libs.activity)
     implementation(libs.constraintlayout)
     implementation(libs.gridlayout)
+    implementation(libs.tools.core)
+    implementation(libs.games.activity)
     testImplementation(libs.junit)
     androidTestImplementation(libs.ext.junit)
     androidTestImplementation(libs.espresso.core)
@@ -58,4 +60,6 @@ dependencies {
     annotationProcessor(libs.compiler) // Add this
 
     implementation (libs.material.v1110)
+
+    implementation (libs.volley)
 }
