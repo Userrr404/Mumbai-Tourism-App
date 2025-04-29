@@ -17,6 +17,8 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import com.example.tourismapp.Utills.ApiClient;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -83,9 +85,9 @@ public class EditPasswordActivity extends AppCompatActivity {
 
                 OkHttpClient client = new OkHttpClient();
 
-                String URL = "http://192.168.0.104/tourism/db_updatePassword_pro.php";
+                String URL = ApiClient.UPDATE_USER_PASSWORD;
                 RequestBody formBody = new FormBody.Builder()
-                        .add("id",USERID)
+                        .add("user_id",USERID)
                         .add("username",USERNAME)
                         .add("password",OLDPASS)
                         .add("new_password",NEWPASS)

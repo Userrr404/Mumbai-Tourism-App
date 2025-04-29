@@ -12,6 +12,8 @@ import androidx.core.view.WindowInsetsCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.tourismapp.Utills.ApiClient;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -56,7 +58,7 @@ public class AllUsersActivity extends AppCompatActivity {
         // Fetch user data from your server via API (using OkHttp or any other networking library)
         // This is just a placeholder for the actual networking code
 
-        String url = "http://192.168.0.101/tourism/admin_api/db_get_all_users.php";  // Replace with actual API endpoint
+        String url = ApiClient.VIEW_ALL_SIGNUP_USER_URL;  // Replace with actual API endpoint
         OkHttpClient client = new OkHttpClient();
         Request request = new Request.Builder()
                 .url(url)
@@ -77,9 +79,9 @@ public class AllUsersActivity extends AppCompatActivity {
                         for (int i = 0; i < jsonArray.length(); i++) {
                             JSONObject userObj = jsonArray.getJSONObject(i);
                             String username = userObj.getString("username");
-                            String email = userObj.getString("email");
-                            String password = userObj.getString("password");
-                            String full_name = userObj.getString("full_name");
+                            String email = userObj.getString("user_email");
+                            String password = userObj.getString("user_password");
+                            String full_name = userObj.getString("user_fullName");
                             // Add users to the list
                             userList.add(new User(username, email,password,full_name));
                         }

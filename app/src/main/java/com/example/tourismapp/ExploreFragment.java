@@ -11,6 +11,7 @@ import android.net.NetworkInfo;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.widget.SearchView;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -30,6 +31,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.tourismapp.Utills.ApiClient;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -41,9 +43,10 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-public class HomeFragment extends Fragment {
+public class ExploreFragment extends Fragment {
+    private SearchView searchView;
     RecyclerView recyclerView;
-    String url = "http://192.168.0.101/tourism/DB_display_tourist_places.php";
+    String url = ApiClient.DISPLAY_PLACES_URL;
     List<Model> imagelist;
     Model model;
     LinearLayoutManager linearLayoutManager;
@@ -54,7 +57,7 @@ public class HomeFragment extends Fragment {
     private BroadcastReceiver networkReceiver;
     private boolean fakeHomeActivityStarted = false;
     Set<String> savedPlacesIds = new HashSet<>();
-    public HomeFragment() {
+    public ExploreFragment() {
         // Required empty public constructor
     }
 
@@ -62,7 +65,7 @@ public class HomeFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.fragment_home, container, false);
+        View rootView = inflater.inflate(R.layout.fragment_explore, container, false);
         recyclerView = rootView.findViewById(R.id.recyclerViewHome);
         linearLayoutManager = new LinearLayoutManager(getContext());
         recyclerView.setLayoutManager(linearLayoutManager);
@@ -90,12 +93,107 @@ public class HomeFragment extends Fragment {
         });
         fakeScreen.setVisibility(View.VISIBLE);
         recyclerView.setVisibility(View.GONE);
+
+        // SEARCH VIEW
+        searchView = rootView.findViewById(R.id.searchView);
+        searchView.clearFocus();
+        searchView.setIconifiedByDefault(false);  // Ensures SearchView is not iconified by default.
+        searchView.setQueryHint("Search Places"); // Set the hint text.
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                filteredList(newText);
+                return true;
+            }
+        });
+
         return rootView;
+    }
+
+    private void filteredList(String text) {
+
+        if(text.trim().isEmpty()){
+            imagelist.clear();
+//            adapter.setFilteredList(imagelist);  // Clear the list if no search text
+            getImage();
+            return;
+        }
+
+        String searchURL = ApiClient.SEARCH_PLACES_URL;
+
+        StringRequest request = new StringRequest(Request.Method.POST, searchURL, new Response.Listener<String>() {
+            @SuppressLint("NotifyDataSetChanged")
+            @Override
+            public void onResponse(String response) {
+//                fakeScreen.setVisibility(View.GONE);
+                imagelist.clear();
+
+                try {
+                    JSONObject jsonObject = new JSONObject(response);
+                    String success = jsonObject.getString("success");
+
+                    if (success.equals("1")) {
+                        JSONArray jsonArray = jsonObject.getJSONArray("data");
+
+                        for (int i = 0; i < jsonArray.length(); i++) {
+                            JSONObject object = jsonArray.getJSONObject(i);
+
+                            String id = object.getString("place_id");
+                            String url2 = object.getString("image_path");
+                            String name = object.getString("name");
+                            String description = object.getString("description");
+                            String category = object.getString("category");
+                            String tags = object.getString("tags");
+                            String exact_location = object.getString("exact_location");
+                            String timing = object.getString("timing");
+                            String fees = object.getString("fees");
+                            String contact = object.getString("contact");
+
+                            String urlImage = ApiClient.SHORT_URL+url2;
+
+                            model = new Model(id,urlImage,name,description,category,tags,exact_location,timing,fees,contact);
+                            imagelist.add(model);
+                        }
+
+                        adapter.setFilteredList(imagelist);
+                    }else{
+                        Toast.makeText(getContext(), "No data found", Toast.LENGTH_SHORT).show();
+                        imagelist.clear();
+                        adapter.setFilteredList(imagelist);
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                    Toast.makeText(getContext(),"Error Parsing data", Toast.LENGTH_SHORT).show();
+
+                }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+
+                Toast.makeText(getContext(),"Error fetching data results",Toast.LENGTH_SHORT).show();
+            }
+        }){
+            protected Map<String, String> getParams(){
+                Map<String ,String> params = new HashMap<>();
+                params.put("query",text.trim()); // trim the spaces
+                return params;
+            }
+        };
+
+        RequestQueue requestQueue = Volley.newRequestQueue(requireContext());
+        requestQueue.add(request);
+
     }
 
     @NonNull
     private JsonObjectRequest getJsonObjectRequest(String userId, String username) {
-        String savedPlacesURL = "http://192.168.0.101/tourism/TB_get_user_saved_places.php?user_id=" + userId + "&username=" + username;
+        String savedPlacesURL = ApiClient.GET_USER_SAVE_PLACES_URL + "user_id=" + userId + "&username=" + username;
 
         JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, savedPlacesURL, null,
                 response -> {
@@ -171,7 +269,7 @@ public class HomeFragment extends Fragment {
                             String timing = object.getString("timing");
                             String fees = object.getString("fees");
                             String contact = object.getString("contact");
-                            String urlImage = "http://192.168.0.101/tourism/"+url2;
+                            String urlImage = ApiClient.SHORT_URL + url2;
                             model = new Model(id,urlImage,name,description,category,tags,exact_location,timing,fees,contact);
                             imagelist.add(model);
                         }
@@ -182,7 +280,7 @@ public class HomeFragment extends Fragment {
                                 fakeScreen.setVisibility(View.GONE);
                                 recyclerView.setVisibility(View.VISIBLE);
                             }
-                        },5000);
+                        },2000);
                     }
                 } catch (JSONException e) {
 //                    throw new RuntimeException(e);

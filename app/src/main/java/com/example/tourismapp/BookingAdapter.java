@@ -15,6 +15,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.example.tourismapp.Utills.ApiClient;
 
 import java.io.IOException;
 import java.util.List;
@@ -95,7 +96,7 @@ public class BookingAdapter extends RecyclerView.Adapter<BookingViewHolder>{
                 .build();
 
         Request request = new Request.Builder()
-                .url("http://192.168.0.101/tourism/admin_api/db_update_booking_status.php")
+                .url(ApiClient.UPDATE_BOOKING_URL)
                 .post(formBody)
                 .build();
 
@@ -135,7 +136,7 @@ public class BookingAdapter extends RecyclerView.Adapter<BookingViewHolder>{
                 .build();
 
         Request request = new Request.Builder()
-                .url("http://192.168.0.101/tourism/admin_api/db_delete_booking.php")
+                .url(ApiClient.DELETE_BOOKING_URL)
                 .post(formBody)
                 .build();
 

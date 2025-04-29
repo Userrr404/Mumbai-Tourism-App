@@ -20,6 +20,7 @@ import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.bumptech.glide.Glide;
+import com.example.tourismapp.Utills.ApiClient;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -109,7 +110,7 @@ public class Adapter extends RecyclerView.Adapter<ImageViewHolder>{
         });
     }
     private void removePlace(Model model, ImageView filledSaveIcon, ImageView normalSaveIcon) {
-        String removePlaceURL = "http://192.168.0.100/tourism/TB_user_remove_place.php";
+        String removePlaceURL = ApiClient.REMOVE_PLACE_URL;
         StringRequest removeRequest = new StringRequest(Request.Method.POST, removePlaceURL,
                 response -> {
                     try {
@@ -145,7 +146,7 @@ public class Adapter extends RecyclerView.Adapter<ImageViewHolder>{
         requestQueue.add(removeRequest);
     }
     private void savePlace(Model model, ImageView itemNormalSaveIcon) {
-        String savePlaceURL = "http://192.168.0.100/tourism/TB_user_save_places.php";
+        String savePlaceURL = ApiClient.SAVE_PLACE_URL;
         if (username == null || username.isEmpty()) {
             Toast.makeText(context, "Username missing!", Toast.LENGTH_SHORT).show();
             return;

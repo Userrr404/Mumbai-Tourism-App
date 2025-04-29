@@ -1,5 +1,6 @@
 package com.example.tourismapp;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -8,12 +9,19 @@ import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.WindowManager;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
+import android.widget.ImageView;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
 
 public class IntroActivity extends AppCompatActivity {
 
+    ImageView logoImageIntro;
+    Animation splashAnim;
+
+    @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -26,11 +34,9 @@ public class IntroActivity extends AppCompatActivity {
                 WindowManager.LayoutParams.FLAG_FULLSCREEN
         );
         setContentView(R.layout.activity_intro);
-//        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
-//            Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
-//            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
-//            return insets;
-//        });
+
+        logoImageIntro = findViewById(R.id.logoImageIntro);
+        splashAnim = AnimationUtils.loadAnimation(this,R.anim.splash_animation);
         /**
          * Also check user data is on or not
          * using isNetworkAvailable() func.
@@ -58,6 +64,12 @@ public class IntroActivity extends AppCompatActivity {
                 finish();
             }
         },4000);
+
+        /**
+         * Animated logo
+         */
+
+        logoImageIntro.startAnimation(splashAnim);
     }
 
     /**

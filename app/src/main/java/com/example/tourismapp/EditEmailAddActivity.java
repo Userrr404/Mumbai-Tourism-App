@@ -17,6 +17,8 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import com.example.tourismapp.Utills.ApiClient;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -64,7 +66,7 @@ public class EditEmailAddActivity extends AppCompatActivity {
 
         sharedPreferences = getSharedPreferences("login",MODE_PRIVATE);
         String userId = sharedPreferences.getString("user_id","N/A");
-        String oldEmail = sharedPreferences.getString("email","N/A");
+        String oldEmail = sharedPreferences.getString("user_email","N/A");
 
         txtEmailAddProfile.setText(oldEmail);
         txtUserIdEmailProfile.setText(userId);
@@ -92,13 +94,13 @@ public class EditEmailAddActivity extends AppCompatActivity {
             return;
         }
 
-        String URL = "http://192.168.0.104/tourism/db_updateEmail_pro.php";
+        String URL = ApiClient.UPDATE_USER_EMAIL;
         OkHttpClient client = new OkHttpClient();
 
         RequestBody formBody = new FormBody.Builder()
-                .add("id",userId)
-                .add("email",newEmail)
-                .add("password",password)
+                .add("user_id",userId)
+                .add("user_email",newEmail)
+                .add("user_password",password)
                 .build();
 
         Request request = new Request.Builder()
@@ -129,7 +131,7 @@ public class EditEmailAddActivity extends AppCompatActivity {
 
                         if(status.equals("success")){
                             SharedPreferences.Editor editor = sharedPreferences.edit();
-                            editor.putString("email",newEmail);
+                            editor.putString("user_email",newEmail);
                             editor.apply();
 
                             Toast.makeText(EditEmailAddActivity.this,"Email Add Updated Successfully",Toast.LENGTH_SHORT).show();

@@ -1,76 +1,91 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<ScrollView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:background="@drawable/login"
+    android:id="@+id/main"
     tools:context=".LoginActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:gravity="center_horizontal"
+        android:padding="24dp">
 
-        <LinearLayout
+        <!-- App Logo (optional) -->
+        <ImageView
+            android:id="@+id/loginLogo"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:src="@drawable/tourism_logo"
+            android:scaleType="centerInside"
+            android:layout_marginTop="80dp"
+            android:layout_marginBottom="24dp"/>
+
+        <!-- Email -->
+        <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:layout_marginTop="400dp"
-            android:padding="20dp">
+            android:layout_marginTop="16dp"
+            app:startIconDrawable="@drawable/email_svgrepo_com"
+            app:boxBackgroundMode="outline"
+            app:boxStrokeColor="@color/lavender">
 
-            <EditText
+            <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/editEmailAddLog"
-                android:layout_width="350dp"
+                android:layout_width="match_parent"
                 android:layout_height="60dp"
-                android:background="@drawable/edittext_lavender_border"
-                android:layout_marginTop="30dp"
-                android:padding="8dp"
                 android:hint="Email"
-                android:inputType="textEmailAddress"
-                android:drawableStart="@drawable/email_svgrepo_com"
-                android:drawablePadding="8dp"/>
+                android:inputType="textEmailAddress"/>
+        </com.google.android.material.textfield.TextInputLayout>
 
-            <EditText
+        <!-- Password -->
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            app:startIconDrawable="@drawable/password_svgrepo_com"
+            app:endIconMode="password_toggle"
+            app:boxBackgroundMode="outline"
+            app:boxStrokeColor="@color/lavender">
+
+            <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/editPasswordLog"
-                android:layout_width="350dp"
+                android:layout_width="match_parent"
                 android:layout_height="60dp"
-                android:background="@drawable/edittext_lavender_border"
-                android:layout_marginTop="30dp"
-                android:padding="8dp"
                 android:hint="Password"
-                android:inputType="textPassword"
-                android:drawableStart="@drawable/password_svgrepo_com"
-                android:drawablePadding="8dp"/>
+                android:inputType="textPassword"/>
+        </com.google.android.material.textfield.TextInputLayout>
 
-            <Button
-                android:id="@+id/btnLoginLog"
-                android:layout_width="350dp"
-                android:layout_height="70dp"
-                android:text="Login"
-                android:textColor="@color/white"
-                android:textSize="18sp"
-                android:layout_marginTop="30dp"
-                android:background="@drawable/btn_login"
-                app:cornerRadius="30dp"/>
+        <!-- Login Button -->
+        <Button
+            android:id="@+id/btnLoginLog"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:text="Login"
+            android:textColor="@color/white"
+            android:backgroundTint="@color/sky_blue"
+            android:textSize="18sp"
+            android:layout_marginTop="24dp"
+            app:cornerRadius="30dp"
+            android:elevation="4dp"/>
 
-            <TextView
-                android:id="@+id/txtRedirectSignupLog"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Not yet registered? Signup"
-                android:layout_gravity="center"
-                android:padding="8dp"
-                android:textSize="18sp"
-                android:layout_marginTop="14dp"
-                android:textColor="@color/lavender"/>
-
-        </LinearLayout>
+        <!-- Sign Up Redirect -->
+        <TextView
+            android:id="@+id/txtRedirectSignupLog"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Not yet registered? Signup"
+            android:textColor="@color/lavender"
+            android:textSize="16sp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="20dp"
+            android:padding="8dp"
+            android:textStyle="bold"/>
 
     </LinearLayout>
 
-
-</LinearLayout>
+</ScrollView>

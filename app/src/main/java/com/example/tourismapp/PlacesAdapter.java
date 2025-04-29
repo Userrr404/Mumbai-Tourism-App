@@ -95,7 +95,7 @@ public class PlacesAdapter extends RecyclerView.Adapter<PlaceViewHolder> {
 
     private void removePlaceFromDatabase(String placeId) {
 
-        String url = "http://192.168.0.101/tourism/admin_api/db_remove_place.php?place_id=" + placeId; // Replace with actual URL
+        String url = "http://10.0.2.2/tourism/db_remove_place.php?place_id=" + placeId; // Replace with actual URL
 
         OkHttpClient client = new OkHttpClient();
         Request request = new Request.Builder().url(url).build();

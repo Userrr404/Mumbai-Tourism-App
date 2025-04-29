@@ -30,11 +30,6 @@ public class HomeActivity extends AppCompatActivity {
                 WindowManager.LayoutParams.FLAG_FULLSCREEN
         );
         setContentView(R.layout.activity_home);
-//        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
-//            Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
-//            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
-//            return insets;
-//        });
         bottomNavigationView = findViewById(R.id.bottomNavigationHome);
 
         // FOR BOTTOM NAVIGATION SELECT
@@ -43,10 +38,12 @@ public class HomeActivity extends AppCompatActivity {
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 int id = item.getItemId();
 
-                if(id == R.id.nav_home){
-                    loadFragment(new HomeFragment(),false);
-                } else if (id == R.id.nav_search) {
-                    loadFragment(new SearchFragment(),false);
+                if(id == R.id.nav_explore){
+                    loadFragment(new ExploreFragment(),false);
+                } else if (id == R.id.nav_itinerary) {
+                    loadFragment(new ItineraryFragment(),false);
+                } else if (id == R.id.nav_events) {
+                    loadFragment(new EventsFragment(),false);
                 } else if (id == R.id.nav_saved) {
                     loadFragment(new SaveFragment(),false);
                 } else{ // PROFILE

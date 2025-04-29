@@ -45,7 +45,7 @@ import java.util.Set;
 public class SaveFragment extends Fragment {
 
     RecyclerView recyclerView;
-    String URL = "http://192.168.0.100/tourism/TB_display_user_places.php";
+    String URL = "http://10.0.2.2/tourism/TB_display_user_places.php";
     List<SavePlaceModel> savePlaceModelList;
     SavePlaceModel savePlaceModel;
     LinearLayoutManager linearLayoutManager;
@@ -129,10 +129,10 @@ public class SaveFragment extends Fragment {
                 try {
                     JSONObject jsonObject = new JSONObject(response);
                     String success = jsonObject.getString("success");
-                    JSONArray jsonArray = jsonObject.getJSONArray("data");
 
                     if (success.equals("1")) {
 
+                        JSONArray jsonArray = jsonObject.getJSONArray("data");
                         for (int i = 0; i < jsonArray.length(); i++) {
                             JSONObject object = jsonArray.getJSONObject(i);
                             String id = object.getString("place_id");
@@ -157,6 +157,8 @@ public class SaveFragment extends Fragment {
                                 recyclerView.setVisibility(View.VISIBLE);
                             }
                         },5000);
+                    }else{
+                        Toast.makeText(getContext(), "No saved places found.", Toast.LENGTH_SHORT).show();
                     }
                 } catch (JSONException e) {
 //                    throw new RuntimeException(e);

@@ -6,7 +6,17 @@
     android:layout_height="match_parent"
     android:padding="5dp"
     android:orientation="vertical"
-    tools:context=".HomeFragment">
+    tools:context=".ExploreFragment">
+
+    <!-- SearchView to filter places -->
+    <androidx.appcompat.widget.SearchView
+        android:id="@+id/searchView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:queryHint="Search places"
+        android:iconifiedByDefault="false"
+        android:padding="10dp"
+        android:layout_marginBottom="10dp"/>
 
     <FrameLayout
         android:id="@+id/fakeHomeScreenLayoutHome"
@@ -32,9 +42,6 @@
 
     </FrameLayout>
 
-
-<!--    To check internet is on or off-->
-
     <TextView
         android:id="@+id/txtInternetOffHome"
         android:layout_width="wrap_content"
@@ -55,7 +62,6 @@
         android:layout_gravity="center_horizontal"
         android:padding="10dp"/>
 
-    <!-- TODO: Update blank fragment layout -->
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerViewHome"
         android:layout_width="match_parent"

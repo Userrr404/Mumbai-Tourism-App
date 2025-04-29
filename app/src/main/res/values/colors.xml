@@ -12,5 +12,7 @@
     <color name="purple_700">#3700B3</color>
     <color name="purple_500">#6200EE</color>
     <color name="purple_200">#BB86FC</color>
+    <color name="background_color">#F2F2F2</color> <!-- Light gray background -->
+    <color name="card_background">#FFFFFF</color> <!-- White background for CardView -->
 
 </resources>

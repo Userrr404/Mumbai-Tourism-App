@@ -27,6 +27,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.tourismapp.Utills.ApiClient;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -118,7 +119,7 @@ public class AddPlaceActivity extends AppCompatActivity {
         final String location = locationEditText.getText().toString().trim();
 
         RequestQueue queue = Volley.newRequestQueue(getApplicationContext());
-        String url = "http://192.168.0.101/tourism/admin_api/db_add_places.php";
+        String url = ApiClient.ADD_PLACE_URL;
 
         StringRequest stringRequest = new StringRequest(Request.Method.POST, url,
                 new Response.Listener<String>() {

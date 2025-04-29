@@ -19,6 +19,7 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 import com.bumptech.glide.Glide;
+import com.example.tourismapp.Utills.ApiClient;
 
 import java.io.IOException;
 
@@ -81,7 +82,7 @@ public class DetailsActivity extends AppCompatActivity {
         // Get username from SharedPreferences
         SharedPreferences preferences = getSharedPreferences("login", MODE_PRIVATE);
         loggedUserId = preferences.getString("user_id", null);
-        loggedUserEmail = preferences.getString("email",null);
+        loggedUserEmail = preferences.getString("user_email",null);
 
         if (loggedUserId == null && loggedUserEmail == null) {
             Toast.makeText(DetailsActivity.this, "User not logged in", Toast.LENGTH_SHORT).show();
@@ -123,7 +124,7 @@ public class DetailsActivity extends AppCompatActivity {
                 iBook.putExtra("name",name);
                 iBook.putExtra("description",info);
                 iBook.putExtra("user_id",loggedUserId);
-                iBook.putExtra("email",loggedUserEmail);
+                iBook.putExtra("user_email",loggedUserEmail);
                 startActivity(iBook);
             }
         });
@@ -156,7 +157,7 @@ public class DetailsActivity extends AppCompatActivity {
 
         // Create the request to send the feedback to the server
         OkHttpClient client = new OkHttpClient();
-        String url = "http://192.168.0.101/tourism/db_submit_feedback.php"; // Your server URL
+        String url = ApiClient.SUBMIT_FEEDBACK; // Your server URL
 
         RequestBody formBody = new FormBody.Builder()
                 .add("username", username)

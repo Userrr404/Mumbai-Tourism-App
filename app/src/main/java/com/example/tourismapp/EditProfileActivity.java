@@ -23,6 +23,8 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import com.example.tourismapp.Utills.ApiClient;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -63,7 +65,7 @@ public class EditProfileActivity extends AppCompatActivity {
         SharedPreferences sharedPreferences = getSharedPreferences("login",MODE_PRIVATE);
         String userId = sharedPreferences.getString("user_id","N/A");
         String username = sharedPreferences.getString("username","N/A");
-        String fullName = sharedPreferences.getString("fullName","User NO: "+userId);
+        String fullName = sharedPreferences.getString("user_fullName","User NO: "+userId);
         txtUserIDProfile.setText(userId);
         editUsernameProfile.setText(username);
         editFullNameProfile.setText(fullName);
@@ -83,11 +85,11 @@ public class EditProfileActivity extends AppCompatActivity {
 
                 OkHttpClient client = new OkHttpClient();
 
-                String URL = "http://192.168.0.104/tourism/db_updateProfile_pro.php";
+                String URL = ApiClient.UPDATE_USER_PROFILE;
                 RequestBody formBody = new FormBody.Builder()
-                        .add("id",USERID)
+                        .add("user_id",USERID)
                         .add("username",USERNAME)
-                        .add("full_name",FULLNAME)
+                        .add("user_fullName",FULLNAME)
                         .build();
 
                 Request request = new Request.Builder()
@@ -116,7 +118,7 @@ public class EditProfileActivity extends AppCompatActivity {
                                 if(status.equals("success")){
                                     SharedPreferences.Editor editor = sharedPreferences.edit();
                                     editor.putString("username",editUsernameProfile.getText().toString().trim());
-                                    editor.putString("fullName",editFullNameProfile.getText().toString().trim());
+                                    editor.putString("user_fullName",editFullNameProfile.getText().toString().trim());
                                     editor.apply();
 
                                     Toast.makeText(EditProfileActivity.this, "Profile updated successfully", Toast.LENGTH_SHORT).show();

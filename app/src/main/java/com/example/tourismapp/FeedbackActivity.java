@@ -9,6 +9,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.tourismapp.FeedbackAdapter;
 import com.example.tourismapp.Feedback;
+import com.example.tourismapp.Utills.ApiClient;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -54,7 +55,7 @@ public class FeedbackActivity extends AppCompatActivity {
 
         // Create the GET request
         Request request = new Request.Builder()
-                .url("http://192.168.0.101/tourism/admin_api/db_fetch_feedback.php") // Replace with your server URL
+                .url(ApiClient.VIEW_ALL_FEEDBACK) // Replace with your server URL
                 .build();
 
         // Execute the request asynchronously

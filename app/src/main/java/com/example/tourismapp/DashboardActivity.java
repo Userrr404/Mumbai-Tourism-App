@@ -21,7 +21,7 @@ public class DashboardActivity extends AppCompatActivity {
     TextView textLoggedInUser;
     ImageView userProfileIcon;
 
-    CardView cardAddPlace, cardViewPlaces, cardViewUsers, cardViewBookings, cardViewFeedback;
+    CardView cardAddPlace, cardViewPlaces, cardViewUsers, cardViewBookings, cardViewFeedback,cardManageEvents;
 
     Button buttonLogout, buttonSignup;
 
@@ -45,6 +45,7 @@ public class DashboardActivity extends AppCompatActivity {
         cardViewUsers = findViewById(R.id.cardViewUsers);
         cardViewBookings = findViewById(R.id.cardManageBookings);
         cardViewFeedback = findViewById(R.id.cardFeedback);
+        cardManageEvents = findViewById(R.id.cardManageEvents);
 
         buttonLogout = findViewById(R.id.buttonLogout);
         buttonSignup = findViewById(R.id.buttonSignup);
@@ -94,6 +95,14 @@ public class DashboardActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent iFeedback = new Intent(DashboardActivity.this, FeedbackActivity.class);
                 startActivity(iFeedback);
+            }
+        });
+
+        cardManageEvents.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent iEvents = new Intent(DashboardActivity.this, AddEventActivity.class);
+                startActivity(iEvents);
             }
         });
 

@@ -281,7 +281,7 @@ public class SearchFragment extends Fragment {
             return;
         }
 
-        String searchURL = "http://192.168.0.101/tourism/DB_search_user_places.php";
+        String searchURL = "http://10.0.2.2/tourism/DB_search_user_places.php";
 
         StringRequest request = new StringRequest(Request.Method.POST, searchURL, new Response.Listener<String>() {
             @SuppressLint("NotifyDataSetChanged")
@@ -311,7 +311,7 @@ public class SearchFragment extends Fragment {
                             String fees = object.getString("fees");
                             String contact = object.getString("contact");
 
-                            String urlImage = "http://192.168.0.101/tourism/"+url2;
+                            String urlImage = "http://10.0.2.2/tourism/"+url2;
 
                             model = new Model(id,urlImage,name,description,category,tags,exact_location,timing,fees,contact);
                             imagelist.add(model);

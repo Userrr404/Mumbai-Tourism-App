@@ -11,6 +11,8 @@ import androidx.core.view.WindowInsetsCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.tourismapp.Utills.ApiClient;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -54,7 +56,7 @@ public class AdminBookingsActivity extends AppCompatActivity {
     private void fetchBookings() {
         OkHttpClient client = new OkHttpClient();
         Request request = new Request.Builder()
-                .url("http://192.168.0.101/tourism/admin_api/db_fetch_all_bookings.php")
+                .url(ApiClient.VIEW_ALL_BOOKING)
                 .build();
 
         client.newCall(request).enqueue(new Callback() {

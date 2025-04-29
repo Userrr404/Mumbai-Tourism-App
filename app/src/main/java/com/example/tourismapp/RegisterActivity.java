@@ -6,12 +6,15 @@ import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.example.tourismapp.Utills.ApiClient;
 
 import java.io.IOException;
 
@@ -23,125 +26,115 @@ import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.Response;
 
-
 public class RegisterActivity extends AppCompatActivity {
 
-    // Signup the users API
-    private static final String BASE_URL = "http://192.168.0.104/tourism/db_insert_reg.php";
-
-    // OkHttp library
+    private static final String BASE_URL = ApiClient.USER_REGISTER;
     private final OkHttpClient client = new OkHttpClient();
 
+    // UI Components
     EditText editUsernameReg, editEmailAddReg, editPasswordReg, editConfirmPassReg;
     Button btnSignupReg;
     TextView txtRedirectLoginReg;
+    ProgressBar progressBar;  // ProgressBar
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
-        // label hide
         getSupportActionBar().hide();
-
-        getWindow().setFlags(
-                WindowManager.LayoutParams.FLAG_FULLSCREEN,
-                WindowManager.LayoutParams.FLAG_FULLSCREEN
-        );
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_register);
-//        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
-//            Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
-//            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
-//            return insets;
-//        });
 
+        // Initializing UI components
         editUsernameReg = findViewById(R.id.editUsernameReg);
         editEmailAddReg = findViewById(R.id.editEmailAddReg);
         editPasswordReg = findViewById(R.id.editPasswordReg);
         editConfirmPassReg = findViewById(R.id.editConfirmPassReg);
         btnSignupReg = findViewById(R.id.btnRegisterReg);
         txtRedirectLoginReg = findViewById(R.id.clickableRedirectLoginReg);
+        progressBar = findViewById(R.id.progressBar);  // ProgressBar
 
-        // Redirect login activity
-        txtRedirectLoginReg.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent iLogin = new Intent(getApplicationContext(), LoginActivity.class);
-                startActivity(iLogin);
-            }
+        // Redirect to Login Activity
+        txtRedirectLoginReg.setOnClickListener(v -> {
+            Intent iLogin = new Intent(getApplicationContext(), LoginActivity.class);
+            startActivity(iLogin);
         });
 
         // Insert data in database
-        btnSignupReg.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String username = editUsernameReg.getText().toString();
-                String email = editEmailAddReg.getText().toString();
-                String password = editPasswordReg.getText().toString();
-                String confirmPaas = editConfirmPassReg.getText().toString();
+        btnSignupReg.setOnClickListener(v -> {
+            String username = editUsernameReg.getText().toString();
+            String email = editEmailAddReg.getText().toString();
+            String password = editPasswordReg.getText().toString();
+            String confirmPass = editConfirmPassReg.getText().toString();
 
-                if(username.isEmpty() || email.isEmpty() || password.isEmpty() || confirmPaas.isEmpty()){
-                    Toast.makeText(RegisterActivity.this, "All fields are Required", Toast.LENGTH_SHORT).show();
-                }else{
-                    if(password.equals(confirmPaas)){
-                        savaData(username,email,password);
-                    }else{
-                        Toast.makeText(RegisterActivity.this, "Invalid Password", Toast.LENGTH_SHORT).show();
-                    }
+            if (username.isEmpty() || email.isEmpty() || password.isEmpty() || confirmPass.isEmpty()) {
+                Toast.makeText(RegisterActivity.this, "All fields are Required", Toast.LENGTH_SHORT).show();
+            } else {
+                if (password.equals(confirmPass)) {
+                    saveData(username, email, password);
+                } else {
+                    Toast.makeText(RegisterActivity.this, "Passwords do not match", Toast.LENGTH_SHORT).show();
                 }
             }
         });
     }
 
-    public void savaData(String username, String email, String password){
-        // CREATE REQUEST BODY
+    // Method to save user data via OkHttp
+    private void saveData(String username, String email, String password) {
+        // Show ProgressBar
+        progressBar.setVisibility(View.VISIBLE);
+
+        // Create Request Body
         RequestBody formData = new FormBody.Builder()
-                .add("username",username)
-                .add("email",email)
-                .add("password",password)
+                .add("username", username)
+                .add("user_email", email)
+                .add("user_password", password)
                 .build();
 
-        // CREATE REQUEST
+        // Create Request
         Request request = new Request.Builder().url(BASE_URL).post(formData).build();
 
-        // CALL THE REQUEST
+        // Call the request
         Call call = client.newCall(request);
 
-        // MANAGE THE CALL
+        // Manage Call Response
         call.enqueue(new Callback() {
             @Override
             public void onFailure(@NonNull Call call, @NonNull IOException e) {
-                runOnUiThread(() ->{
-                    Toast.makeText(RegisterActivity.this,"Request Failed: " +e.getMessage(),Toast.LENGTH_SHORT).show();
-                    editUsernameReg.setText("");
-                    editEmailAddReg.setText("");
-                    editPasswordReg.setText("");
-                    editConfirmPassReg.setText("");
-                    txtRedirectLoginReg.setText("Request Failed: " + e.getMessage());
+                runOnUiThread(() -> {
+                    progressBar.setVisibility(View.GONE);  // Hide ProgressBar
+                    Toast.makeText(RegisterActivity.this, "Request Failed: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                    resetFields();
                 });
             }
+
             @Override
             public void onResponse(@NonNull Call call, @NonNull Response response) throws IOException {
                 assert response.body() != null;
                 String resp = response.body().string();
 
-                runOnUiThread(() ->{
-                    if(resp.contains("Inserted Successfully")){
-                        Toast.makeText(RegisterActivity.this,"Signup Successfully",Toast.LENGTH_SHORT).show();
-                        editUsernameReg.setText("");
-                        editEmailAddReg.setText("");
-                        editPasswordReg.setText("");
-                        editConfirmPassReg.setText("");
-                        
-                        Intent iLogin = new Intent(RegisterActivity.this, LoginActivity.class);
-                        startActivity(iLogin);
+                runOnUiThread(() -> {
+                    progressBar.setVisibility(View.GONE);  // Hide ProgressBar
+
+                    if (resp.contains("Inserted Successfully")) {
+                        Toast.makeText(RegisterActivity.this, "Signup Successful", Toast.LENGTH_SHORT).show();
+                        resetFields();
+                        startActivity(new Intent(RegisterActivity.this, LoginActivity.class));
                     } else if (resp.contains("Username already in use")) {
-                        Toast.makeText(RegisterActivity.this,"Username is already in use.Choose a different one.",Toast.LENGTH_SHORT).show();
-                    }else{
-                        Toast.makeText(RegisterActivity.this,"Signup Failed!",Toast.LENGTH_SHORT).show();
+                        Toast.makeText(RegisterActivity.this, "Username already taken", Toast.LENGTH_SHORT).show();
+                    } else {
+                        Toast.makeText(RegisterActivity.this, "Signup Failed", Toast.LENGTH_SHORT).show();
                     }
                 });
             }
         });
+    }
+
+    // Reset input fields
+    private void resetFields() {
+        editUsernameReg.setText("");
+        editEmailAddReg.setText("");
+        editPasswordReg.setText("");
+        editConfirmPassReg.setText("");
     }
 }

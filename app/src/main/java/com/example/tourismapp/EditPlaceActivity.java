@@ -14,6 +14,7 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 import com.bumptech.glide.Glide;
+import com.example.tourismapp.Utills.ApiClient;
 
 import java.io.IOException;
 
@@ -123,7 +124,7 @@ public class EditPlaceActivity extends AppCompatActivity {
                 .build();
 
         Request request = new Request.Builder()
-                .url("http://192.168.0.101/tourism/admin_api/db_update_place.php") // your PHP API
+                .url(ApiClient.UPDATE_PLACE_URL) // your PHP API
                 .post(formBody)
                 .build();
 

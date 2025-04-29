@@ -70,7 +70,7 @@ public class ViewPlacesActivity extends AppCompatActivity {
     private void fetchPlaces() {
         OkHttpClient client = new OkHttpClient();
 
-        String url = "http://192.168.0.101/tourism/admin_api/fetch_places.php"; // Replace with your actual PHP URL
+        String url = "http://10.0.2.2/tourism/fetch_places.php"; // Replace with your actual PHP URL
 
         Request request = new Request.Builder()
                 .url(url)
@@ -126,7 +126,7 @@ public class ViewPlacesActivity extends AppCompatActivity {
                                 String contact = placeObject.getString("contact");
                                 String location = placeObject.getString("location");
 
-                                String urlImage = "http://192.168.0.100/tourism/" + imageUrl;
+                                String urlImage = "http://10.0.2.2/tourism/" + imageUrl;
 
                                 Place place = new Place();
                                 place.setPlaceId(id);

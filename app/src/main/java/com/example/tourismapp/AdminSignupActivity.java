@@ -91,7 +91,7 @@ public class AdminSignupActivity extends AppCompatActivity {
                 .build();
 
         Request request = new Request.Builder()
-                .url(ApiClient.BASE_URL)
+                .url(ApiClient.ADMIN_SIGNUP_URL)
                 .post(formBody)
                 .build();
 

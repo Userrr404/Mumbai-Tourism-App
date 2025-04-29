@@ -136,7 +136,7 @@ public class ProfileFragment extends Fragment {
         String userId = sharedPreferences.getString("user_id","N/A");
         //        String email = sharedPreferences.getString("email","N/A");
         String username = sharedPreferences.getString("username","N/A");
-        String fullName = sharedPreferences.getString("fullName","N/A");
+        String fullName = sharedPreferences.getString("user_fullName","N/A");
 
 //        txtProfilePro.setText("User ID: " +userId);
 //        txtFullNamePro.setText("User No: " +fullName);

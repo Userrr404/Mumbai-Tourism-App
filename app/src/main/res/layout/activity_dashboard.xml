@@ -249,6 +249,41 @@
 
         </androidx.cardview.widget.CardView>
 
+        <!-- Manage Events Card -->
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cardManageEvents"
+            android:layout_width="0dp"
+            android:layout_height="150dp"
+            app:cardCornerRadius="16dp"
+            app:cardElevation="8dp"
+            android:layout_margin="8dp"
+            app:layout_columnWeight="1"
+            android:foreground="?attr/selectableItemBackground">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:layout_width="64dp"
+                    android:layout_height="64dp"
+                    android:src="@drawable/events_svgrepo_com"
+                    app:tint="@color/teal" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Manage Events"
+                    android:textSize="18sp"
+                    android:textColor="@color/darkGray"
+                    android:layout_marginTop="8dp"/>
+            </LinearLayout>
+
+        </androidx.cardview.widget.CardView>
+
+
     </androidx.gridlayout.widget.GridLayout>
 
     <!-- New Buttons: Signup and Logout -->
