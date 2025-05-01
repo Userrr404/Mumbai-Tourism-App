@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.view.View;
 import android.view.WindowManager;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -38,6 +39,8 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 
 public class ViewPlacesActivity extends AppCompatActivity {
+    TextView adminNameText;
+    ImageView backButton;
 
     RecyclerView recyclerView;
     PlacesAdapter placesAdapter;
@@ -53,6 +56,8 @@ public class ViewPlacesActivity extends AppCompatActivity {
                 WindowManager.LayoutParams.FLAG_FULLSCREEN
         );
         setContentView(R.layout.activity_view_places);
+        adminNameText = findViewById(R.id.adminNameText);
+        backButton = findViewById(R.id.backButton);
 
         recyclerView = findViewById(R.id.recyclerViewPlaces);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
@@ -60,6 +65,20 @@ public class ViewPlacesActivity extends AppCompatActivity {
         placeList = new ArrayList<>();
         placesAdapter = new PlacesAdapter(ViewPlacesActivity.this,placeList);
         recyclerView.setAdapter(placesAdapter);
+
+        // Get admin name from Intent
+        String adminEmail = getIntent().getStringExtra("adminEmail");
+        if (adminEmail != null) {
+            adminNameText.setText("Logged in: " + adminEmail);
+        }
+
+// Back button listener
+        backButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
+            }
+        });
 
 
         fetchPlaces();

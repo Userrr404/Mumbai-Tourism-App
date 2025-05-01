@@ -16,6 +16,16 @@
         android:theme="@style/Theme.TourismApp"
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="AIzaSyDg7I-r8YpspefXAX_6Q9QDxhtpHIJyQ4U"/>
+
+        <activity
+            android:name=".DetailsEventActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ViewEventActivity"
+            android:exported="false" />
         <activity
             android:name=".AddEventActivity"
             android:exported="false" />

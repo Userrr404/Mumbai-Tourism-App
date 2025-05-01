@@ -1,7 +1,10 @@
 package com.example.tourismapp;
 
 import android.os.Bundle;
+import android.view.View;
 import android.view.WindowManager;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -28,10 +31,11 @@ import okhttp3.Request;
 import okhttp3.Response;
 
 public class AdminBookingsActivity extends AppCompatActivity {
-
+    TextView adminEmailText;
     RecyclerView recyclerView;
     List<Booking> bookingList = new ArrayList<>();
     BookingAdapter adapter;
+    ImageView backButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,12 +47,28 @@ public class AdminBookingsActivity extends AppCompatActivity {
                 WindowManager.LayoutParams.FLAG_FULLSCREEN
         );
         setContentView(R.layout.activity_admin_bookings);
+        adminEmailText = findViewById(R.id.adminEmailText);
+        backButton = findViewById(R.id.backButton);
+
+        // Get admin name from Intent
+        String adminEmail = getIntent().getStringExtra("adminEmail");
+        if (adminEmail != null) {
+            adminEmailText.setText("Logged in: " + adminEmail);
+        }
 
         recyclerView = findViewById(R.id.recyclerViewBookings);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
         adapter = new BookingAdapter(this, bookingList);
         recyclerView.setAdapter(adapter);
+
+        // Back button listener
+        backButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
+            }
+        });
 
         fetchBookings();
     }
@@ -81,10 +101,12 @@ public class AdminBookingsActivity extends AppCompatActivity {
                             booking.name = obj.getString("name");
                             booking.description = obj.getString("description");
                             booking.user_id = obj.getInt("user_id");
-                            booking.email = obj.getString("email");
+                            booking.email = obj.getString("user_email");
                             booking.number_of_people = obj.getInt("number_of_people");
                             booking.booking_date = obj.getString("booking_date");
                             booking.fees = obj.getInt("fees");
+                            booking.full_name = obj.getString("full_name");
+                            booking.mobile_number = obj.getString("mobile_number");
                             booking.booking_status = obj.getString("booking_status");
 
                             bookingList.add(booking);

@@ -45,7 +45,7 @@ public class ProfileFragment extends Fragment {
         // Inflate the layout for this fragment
         View rootView = inflater.inflate(R.layout.fragment_profile, container, false);
 
-        txtProfilePro = rootView.findViewById(R.id.txtProfilePro);
+//        txtProfilePro = rootView.findViewById(R.id.txtProfilePro);
         txtFullNamePro = rootView.findViewById(R.id.txtFullNamePro);
         txtUsernamePro = rootView.findViewById(R.id.txtUsernamePro);
         txtAdminAccess = rootView.findViewById(R.id.txtAdminAccess);

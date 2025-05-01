@@ -1,160 +1,146 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:background="#0000FF"
+    android:background="@color/purple_500"
     tools:context=".ProfileFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <ScrollView
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/gray">
+        android:background="@color/purple_500">
 
-        <LinearLayout
+        <TextView
+            android:id="@+id/txtAdminAccess"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_margin="16dp"
+            android:clickable="true"
+            android:focusable="true"
+            android:text="Admin"
+            android:textColor="@android:color/white"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+        <ScrollView
+            android:id="@+id/scrollView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical"
-            android:gravity="center_horizontal"
-            android:padding="35dp">
+            android:layout_below="@id/txtAdminAccess">
 
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-                <TextView
-                    android:id="@+id/txtProfilePro"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Profile"
-                    android:textSize="35sp"
-                    android:textStyle="bold"
-                    android:textColor="@color/white"
-                    android:layout_marginBottom="36dp"/>
-
-                <TextView
-                    android:id="@+id/txtAdminAccess"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Admin"
-                    android:textColor="@android:color/white"
-                    android:textStyle="bold"
-                    android:textSize="18sp"
-                    android:layout_alignParentRight="true"
-                    android:clickable="true"
-                    android:focusable="true" />
-
-            </RelativeLayout>
-
-
-            <androidx.cardview.widget.CardView
-                android:layout_width="200dp"
-                android:layout_height="200dp"
-                app:cardCornerRadius="100dp"
-                android:layout_marginBottom="30dp">
-
-                <ImageView
-                    android:id="@+id/imgProfilePro"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:src="@drawable/default_person_img"
-                    android:scaleType="fitXY"/>
-
-            </androidx.cardview.widget.CardView>
-
-            <TextView
-                android:id="@+id/txtFullNamePro"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Full Name"
-                android:textColor="@color/white"
-                android:textSize="35sp"
-                android:textStyle="bold"
-                android:layout_marginBottom="10dp"/>
-
-            <TextView
-                android:id="@+id/txtUsernamePro"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Username"
-                android:textColor="@color/white"
-                android:textSize="20sp"
-                android:textStyle="bold"
-                android:layout_marginBottom="30dp"/>
-
-            <Button
-                android:id="@+id/btnEditProfilePro"
-                android:layout_width="match_parent"
-                android:layout_height="70dp"
-                android:background="@drawable/edittext_lavender_border"
-                android:layout_marginBottom="40dp"
-                android:text="Edit Profile"
-                android:textAllCaps="false"
-                android:padding="10dp"
-                android:textAlignment="textStart"
-                android:textStyle="bold"
-                android:textSize="20sp"
-                android:drawableStart="@drawable/user_svgrepo_com__1_"
-                android:drawableEnd="@drawable/right_arrow_backup_2_svgrepo_com"
-                android:drawablePadding="8dp"/>
-
-            <Button
-                android:id="@+id/btnEditChangeEmailAddPro"
-                android:layout_width="match_parent"
-                android:layout_height="70dp"
-                android:background="@drawable/edittext_lavender_border"
-                android:layout_marginBottom="40dp"
-                android:text="Change Email Address"
-                android:textAllCaps="false"
-                android:padding="10dp"
-                android:textAlignment="textStart"
-                android:textStyle="bold"
-                android:textSize="20sp"
-                android:drawableStart="@drawable/email_svgrepo_com"
-                android:drawableEnd="@drawable/right_arrow_backup_2_svgrepo_com"
-                android:drawablePadding="8dp"/>
-
-            <Button
-                android:id="@+id/btnEditChangePassPro"
-                android:layout_width="match_parent"
-                android:layout_height="70dp"
-                android:background="@drawable/edittext_lavender_border"
-                android:layout_marginBottom="40dp"
-                android:text="Change Password"
-                android:textAllCaps="false"
-                android:padding="10dp"
-                android:textAlignment="textStart"
-                android:textStyle="bold"
-                android:textSize="20sp"
-                android:drawableStart="@drawable/closed_lock_password_svgrepo_com"
-                android:drawableEnd="@drawable/right_arrow_backup_2_svgrepo_com"
-                android:drawablePadding="8dp"/>
-
+            <!-- Your LinearLayout and other contents -->
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="?attr/actionBarSize"
-                android:orientation="horizontal"
-                android:layout_marginBottom="50dp">
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="35dp"
+                android:gravity="center_horizontal">
 
+                <!-- Profile Picture -->
+                <androidx.cardview.widget.CardView
+                    android:layout_width="200dp"
+                    android:layout_height="200dp"
+                    app:cardCornerRadius="100dp"
+                    app:cardElevation="8dp"
+                    android:layout_marginBottom="30dp">
+
+                    <ImageView
+                        android:id="@+id/imgProfilePro"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:src="@drawable/default_person_img"
+                        android:scaleType="centerCrop"/>
+                </androidx.cardview.widget.CardView>
+
+                <!-- Name Info -->
+                <TextView
+                    android:id="@+id/txtFullNamePro"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Full Name"
+                    android:textColor="@android:color/white"
+                    android:textSize="28sp"
+                    android:textStyle="bold"
+                    android:layout_marginBottom="10dp"/>
+
+                <TextView
+                    android:id="@+id/txtUsernamePro"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Username"
+                    android:textColor="@android:color/white"
+                    android:textSize="20sp"
+                    android:textStyle="bold"
+                    android:layout_marginBottom="30dp"/>
+
+                <!-- Buttons -->
+                <Button
+                    android:id="@+id/btnEditProfilePro"
+                    android:layout_width="match_parent"
+                    android:layout_height="70dp"
+                    android:background="@drawable/edittext_lavender_border"
+                    android:layout_marginBottom="30dp"
+                    android:text="Edit Profile"
+                    android:textAllCaps="false"
+                    android:textStyle="bold"
+                    android:textSize="20sp"
+                    android:textAlignment="textStart"
+                    android:drawableStart="@drawable/user_svgrepo_com__1_"
+                    android:drawableEnd="@drawable/right_arrow_backup_2_svgrepo_com"
+                    android:drawablePadding="8dp"/>
+
+                <Button
+                    android:id="@+id/btnEditChangeEmailAddPro"
+                    android:layout_width="match_parent"
+                    android:layout_height="70dp"
+                    android:background="@drawable/edittext_lavender_border"
+                    android:layout_marginBottom="30dp"
+                    android:text="Change Email Address"
+                    android:textAllCaps="false"
+                    android:textStyle="bold"
+                    android:textSize="20sp"
+                    android:textAlignment="textStart"
+                    android:drawableStart="@drawable/email_svgrepo_com"
+                    android:drawableEnd="@drawable/right_arrow_backup_2_svgrepo_com"
+                    android:drawablePadding="8dp"/>
+
+                <Button
+                    android:id="@+id/btnEditChangePassPro"
+                    android:layout_width="match_parent"
+                    android:layout_height="70dp"
+                    android:background="@drawable/edittext_lavender_border"
+                    android:layout_marginBottom="30dp"
+                    android:text="Change Password"
+                    android:textAllCaps="false"
+                    android:textStyle="bold"
+                    android:textSize="20sp"
+                    android:textAlignment="textStart"
+                    android:drawableStart="@drawable/closed_lock_password_svgrepo_com"
+                    android:drawableEnd="@drawable/right_arrow_backup_2_svgrepo_com"
+                    android:drawablePadding="8dp"/>
+
+                <!-- Logout Button -->
                 <Button
                     android:id="@+id/btnLogoutPro"
                     android:layout_width="match_parent"
                     android:layout_height="70dp"
-                    android:layout_gravity="center"
-                    android:background="@color/lavender"
-                    android:drawableStart="@drawable/log_out_outline_svgrepo_com"
-                    android:paddingStart="20dp"
+                    android:background="@color/purple_700"
                     android:text="Log out"
-                    android:textColor="@color/white"
-                    android:textSize="25sp"
-                    tools:ignore="RtlSymmetry,TextContrastCheck"/>
-
+                    android:textColor="@android:color/white"
+                    android:textSize="22sp"
+                    android:textStyle="bold"
+                    android:drawableStart="@drawable/log_out_outline_svgrepo_com"
+                    android:drawablePadding="10dp"/>
             </LinearLayout>
 
-        </LinearLayout>
+        </ScrollView>
 
-    </ScrollView>
+    </RelativeLayout>
+
+
+
 
 </FrameLayout>

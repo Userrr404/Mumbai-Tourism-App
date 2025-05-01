@@ -1,56 +1,110 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="16dp">
+    android:background="#F5F5F5">
 
-    <LinearLayout
+    <!-- Header Bar -->
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:layout_height="56dp"
+        android:background="#2196F3"
+        android:padding="12dp">
 
-        <EditText
-            android:id="@+id/editEventName"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Event Name" />
-
-        <EditText
-            android:id="@+id/editEventDate"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Event Date"
-            android:focusable="false"/>
-
-        <EditText
-            android:id="@+id/editEventDescription"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Event Description"
-            android:minLines="3"
-            android:gravity="top" />
-
+        <!-- Back Button -->
         <ImageView
-            android:id="@+id/imageViewEvent"
-            android:layout_width="match_parent"
-            android:layout_height="200dp"
-            android:layout_marginTop="16dp"
-            android:scaleType="centerCrop"
-            android:background="#CCCCCC" />
+            android:id="@+id/backButton"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:src="@drawable/arrow_back_solid_svgrepo_com"
+            android:layout_alignParentStart="true"
+            android:layout_centerVertical="true"
+            android:contentDescription="Back" />
 
-        <Button
-            android:id="@+id/buttonSelectImage"
+        <!-- Admin Info -->
+        <TextView
+            android:id="@+id/textAdmin"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Welcome, Admin"
+            android:textColor="#FFFFFF"
+            android:textStyle="bold"
+            android:textSize="16sp"
+            android:layout_centerInParent="true" />
+    </RelativeLayout>
+
+    <!-- Scrollable Content -->
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="16dp">
+
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Select Image"
-            android:layout_marginTop="8dp" />
+            android:orientation="vertical"
+            android:padding="16dp"
+            android:background="@drawable/bg_card"
+            android:elevation="4dp"
+            android:layout_gravity="center"
+            android:layout_margin="8dp">
 
-        <Button
-            android:id="@+id/buttonUploadEvent"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Upload Event"
-            android:layout_marginTop="16dp" />
+            <EditText
+                android:id="@+id/editEventName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Event Name"
+                android:padding="12dp"
+                android:background="@drawable/bg_edittext"
+                android:layout_marginBottom="12dp" />
 
-    </LinearLayout>
-</ScrollView>
+            <EditText
+                android:id="@+id/editEventDate"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Event Date"
+                android:focusable="false"
+                android:padding="12dp"
+                android:background="@drawable/bg_edittext"
+                android:layout_marginBottom="12dp" />
+
+            <EditText
+                android:id="@+id/editEventDescription"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Event Description"
+                android:minLines="3"
+                android:gravity="top"
+                android:padding="12dp"
+                android:background="@drawable/bg_edittext"
+                android:layout_marginBottom="12dp" />
+
+            <ImageView
+                android:id="@+id/imageViewEvent"
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:layout_marginBottom="12dp"
+                android:scaleType="centerCrop"
+                android:background="@drawable/default_person_img" />
+
+            <Button
+                android:id="@+id/buttonSelectImage"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Select Image"
+                android:background="@drawable/bg_button"
+                android:textColor="#FFFFFF"
+                android:layout_marginBottom="8dp" />
+
+            <Button
+                android:id="@+id/buttonUploadEvent"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Upload Event"
+                android:background="@drawable/bg_button_primary"
+                android:textColor="#FFFFFF" />
+
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>

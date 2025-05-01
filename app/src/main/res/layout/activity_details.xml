@@ -1,5 +1,5 @@
-<ScrollView
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -9,7 +9,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:padding="5dp"
+        android:padding="16dp"
         android:gravity="center_horizontal">
 
         <!-- Place Name -->
@@ -19,76 +19,69 @@
             android:layout_height="wrap_content"
             android:text="Place Name"
             android:textStyle="bold"
-            android:textSize="28sp"
-            android:textColor="#333333"
-            android:gravity="center"
-            android:paddingBottom="12dp" />
+            android:textSize="26sp"
+            android:textColor="#212121"
+            android:paddingBottom="12dp"
+            android:gravity="center" />
 
-        <!-- Image inside simple FrameLayout for better style -->
-        <FrameLayout
+        <!-- Image inside CardView -->
+        <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="250dp"
             android:layout_marginBottom="16dp"
-            android:background="@drawable/image_background">
+            android:layout_marginTop="8dp"
+            android:elevation="4dp"
+            app:cardCornerRadius="12dp">
 
             <ImageView
                 android:id="@+id/imageViewDetail"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:scaleType="centerCrop" />
-        </FrameLayout>
+                android:scaleType="centerCrop"
+                android:contentDescription="Place Image" />
+        </androidx.cardview.widget.CardView>
 
-        <!-- Info -->
-        <TextView
-            android:id="@+id/txtViewInfo"
-            style="@style/DetailTextStyle"
-            android:text="Info about the place" />
+        <!-- Details Section -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="8dp">
 
-        <!-- Category -->
-        <TextView
-            android:id="@+id/txtViewCategory"
-            style="@style/DetailTextStyle"
-            android:text="Category" />
-
-        <!-- Tags -->
-        <TextView
-            android:id="@+id/txtViewTags"
-            style="@style/DetailTextStyle"
-            android:text="Tags" />
-
-        <!-- Location -->
-        <TextView
-            android:id="@+id/txtViewLocation"
-            style="@style/DetailTextStyle"
-            android:text="Location" />
-
-        <!-- Timing -->
-        <TextView
-            android:id="@+id/txtViewTiming"
-            style="@style/DetailTextStyle"
-            android:text="Timing" />
-
-        <!-- Fees -->
-        <TextView
-            android:id="@+id/txtViewFees"
-            style="@style/DetailTextStyle"
-            android:text="Fees" />
-
-        <!-- Contact -->
-        <TextView
-            android:id="@+id/txtViewContact"
-            style="@style/DetailTextStyle"
-            android:text="Contact" />
+            <TextView android:id="@+id/txtViewInfo" style="@style/DetailTextStyle" android:text="Info about the place" />
+            <TextView android:id="@+id/txtViewCategory" style="@style/DetailTextStyle" android:text="Category" />
+            <TextView android:id="@+id/txtViewTags" style="@style/DetailTextStyle" android:text="Tags" />
+            <TextView android:id="@+id/txtViewLocation" style="@style/DetailTextStyle" android:text="Location" />
+            <TextView android:id="@+id/txtViewTiming" style="@style/DetailTextStyle" android:text="Timing" />
+            <TextView android:id="@+id/txtViewFees" style="@style/DetailTextStyle" android:text="Fees" />
+            <TextView android:id="@+id/txtViewContact" style="@style/DetailTextStyle" android:text="Contact" />
+        </LinearLayout>
 
         <!-- Optional ID -->
         <TextView
             android:id="@+id/txtViewId"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="16sp"
+            android:textSize="14sp"
             android:textColor="#888888"
-            android:paddingBottom="16dp"
             android:visibility="gone" />
+
+        <!-- Google Map Placeholder -->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Location on Map"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:textColor="#333333"
+            android:paddingTop="24dp"
+            android:paddingBottom="8dp" />
+
+        <fragment
+            android:id="@+id/map"
+            android:name="com.google.android.gms.maps.SupportMapFragment"
+            android:layout_width="match_parent"
+            android:layout_height="200dp" />
 
         <!-- Booking Button -->
         <Button
@@ -103,7 +96,6 @@
             android:paddingRight="24dp"
             android:layout_gravity="center" />
 
-
         <!-- Feedback Title -->
         <TextView
             android:id="@+id/txtViewFeedback"
@@ -113,7 +105,7 @@
             android:textSize="20sp"
             android:textStyle="bold"
             android:textColor="#333333"
-            android:paddingTop="16dp"
+            android:paddingTop="24dp"
             android:paddingBottom="8dp" />
 
         <!-- Feedback EditText -->
@@ -143,7 +135,5 @@
             android:paddingLeft="24dp"
             android:paddingRight="24dp"
             android:layout_gravity="center" />
-
     </LinearLayout>
-
 </ScrollView>

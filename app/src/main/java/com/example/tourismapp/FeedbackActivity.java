@@ -2,7 +2,10 @@ package com.example.tourismapp;
 
 import android.os.Bundle;
 import android.view.WindowManager;
+import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -25,6 +28,8 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 public class FeedbackActivity extends AppCompatActivity {
+    TextView textAdminInfo;
+    ImageView backButton;
 
     private ListView listViewFeedback;
     private FeedbackAdapter feedbackAdapter;
@@ -39,11 +44,22 @@ public class FeedbackActivity extends AppCompatActivity {
                 WindowManager.LayoutParams.FLAG_FULLSCREEN
         );
         setContentView(R.layout.activity_feedback);
+        textAdminInfo = findViewById(R.id.adminEmailText);
+        backButton = findViewById(R.id.backButton);
 
         listViewFeedback = findViewById(R.id.listViewFeedback);
 
         // Initialize feedback list
         feedbackList = new ArrayList<>();
+
+        // Get admin email from intent
+        String adminEmail = getIntent().getStringExtra("adminEmail");
+        if (adminEmail != null) {
+            textAdminInfo.setText("Logged in: " + adminEmail);
+        }
+
+// Handle back button
+        backButton.setOnClickListener(v -> onBackPressed());
 
         // Fetch feedback data from the database
         fetchFeedbackData();

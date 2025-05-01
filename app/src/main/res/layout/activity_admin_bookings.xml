@@ -7,10 +7,44 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:padding="16dp"
+    android:background="#F5F5F5"
+    android:padding="0dp"
     tools:context=".AdminBookingsActivity">
 
-    <!-- Title for Admin Panel -->
+    <!-- Top Bar -->
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        android:background="#2196F3"
+        android:paddingStart="12dp"
+        android:paddingEnd="12dp"
+        android:gravity="center_vertical">
+
+        <!-- Back Button -->
+        <ImageView
+            android:id="@+id/backButton"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_centerVertical="true"
+            android:src="@drawable/arrow_back_solid_svgrepo_com"
+            android:contentDescription="Back"
+            app:tint="#FFFFFF" />
+
+        <!-- Logged in Admin Email -->
+        <TextView
+            android:id="@+id/adminEmailText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toEndOf="@id/backButton"
+            android:layout_marginStart="16dp"
+            android:text="Logged in as: admin@example.com"
+            android:textColor="#FFFFFF"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:layout_centerVertical="true" />
+    </RelativeLayout>
+
+    <!-- Title -->
     <TextView
         android:id="@+id/title"
         android:layout_width="match_parent"
@@ -19,15 +53,16 @@
         android:textSize="20sp"
         android:textStyle="bold"
         android:textColor="#000000"
-        android:layout_marginBottom="16dp"
-        android:gravity="center"/>
+        android:gravity="center"
+        android:layout_margin="16dp" />
 
-    <!-- RecyclerView to display all bookings -->
+    <!-- Bookings RecyclerView -->
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerViewBookings"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
-        android:scrollbars="vertical" />
-
+        android:padding="8dp"
+        android:clipToPadding="false"
+        android:scrollbars="vertical"/>
 </LinearLayout>

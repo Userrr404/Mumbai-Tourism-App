@@ -3,6 +3,8 @@ package com.example.tourismapp;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.location.Address;
+import android.location.Geocoder;
 import android.os.Bundle;
 import android.view.View;
 import android.view.WindowManager;
@@ -13,6 +15,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
@@ -20,8 +23,16 @@ import androidx.core.view.WindowInsetsCompat;
 
 import com.bumptech.glide.Glide;
 import com.example.tourismapp.Utills.ApiClient;
+import com.google.android.gms.maps.CameraUpdateFactory;
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MarkerOptions;
 
 import java.io.IOException;
+import java.util.List;
+import java.util.Locale;
 
 import okhttp3.Call;
 import okhttp3.Callback;
@@ -31,7 +42,7 @@ import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.Response;
 
-public class DetailsActivity extends AppCompatActivity {
+public class DetailsActivity extends AppCompatActivity implements OnMapReadyCallback {
 
     ImageView imageViewDetail;
     TextView txtViewId, txtViewName, txtViewInfo, txtViewCategory,txtViewTags, txtViewLocation, txtViewTiming, txtViewFees, txtViewContact;
@@ -41,6 +52,8 @@ public class DetailsActivity extends AppCompatActivity {
 
     String imageUrl, id, name, info; // Declare globally to access inside button click
     String loggedUserId,loggedUserEmail;
+
+    private GoogleMap map;
 
     @SuppressLint({"MissingInflatedId"})
     @Override
@@ -100,6 +113,9 @@ public class DetailsActivity extends AppCompatActivity {
         String timing = intent.getStringExtra("timing");
         String fees = intent.getStringExtra("fees");
         String contact = intent.getStringExtra("contact");
+        String latStr = intent.getStringExtra("latitude");
+        String lngStr = intent.getStringExtra("longitude");
+
 
         txtViewId.setText(id);
         txtViewName.setText(name);
@@ -136,6 +152,30 @@ public class DetailsActivity extends AppCompatActivity {
             }
         });
 
+        // Google map
+        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
+        mapFragment.getMapAsync(this);
+
+    }
+
+    @Override
+    public void onMapReady(@NonNull GoogleMap googleMap) {
+        map = googleMap;
+
+        Intent intent = getIntent();
+        String latStr = intent.getStringExtra("latitude");
+        String lngStr = intent.getStringExtra("longitude");
+
+        if(latStr != null && lngStr != null){
+            double latitude = Double.parseDouble(latStr);
+            double longitude = Double.parseDouble(lngStr);
+
+            LatLng placeLocation = new LatLng(latitude,longitude);
+            map.addMarker(new MarkerOptions().position(placeLocation).title(name));
+            map.moveCamera(CameraUpdateFactory.newLatLngZoom(placeLocation,15));
+        }else{
+            Toast.makeText(this, "Location not available", Toast.LENGTH_SHORT).show();
+        }
     }
 
     private void submitFeedback() {

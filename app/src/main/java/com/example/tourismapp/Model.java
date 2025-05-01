@@ -1,9 +1,9 @@
 package com.example.tourismapp;
 
 public class Model {
-    private String id,image,name,description, category, tags, exact_location, timing, fees, contact;
+    private String id,image,name,description, category, tags, exact_location, timing, fees, contact,latitude,longitude;
     private boolean isSaved;
-    public Model(String id, String image, String name, String description,String category,String tags, String exact_location, String timing,String fees, String contact){
+    public Model(String id, String image, String name, String description,String category,String tags, String exact_location, String timing,String fees, String contact,String latitude,String longitude){
         this.id = id;
         this.image = image;
         this.name = name;
@@ -14,6 +14,8 @@ public class Model {
         this.timing = timing;
         this.fees = fees;
         this.contact = contact;
+        this.latitude = latitude;
+        this.longitude = longitude;
     }
     public String getCategory() {
         return category;
@@ -75,6 +77,23 @@ public class Model {
     public void setTiming(String timing) {
         this.timing = timing;
     }
+
+    public String getLatitude() {
+        return latitude;
+    }
+
+    public void setLatitude(String latitude) {
+        this.latitude = latitude;
+    }
+
+    public String getLongitude() {
+        return longitude;
+    }
+
+    public void setLongitude(String longitude) {
+        this.longitude = longitude;
+    }
+
     public boolean isSaved() {
         return isSaved;
     }

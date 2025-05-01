@@ -84,6 +84,8 @@ public class Adapter extends RecyclerView.Adapter<ImageViewHolder>{
                 intent.putExtra("timing",model.getTiming());
                 intent.putExtra("fees",model.getFees());
                 intent.putExtra("contact",model.getContact());
+                intent.putExtra("latitude",model.getLatitude());
+                intent.putExtra("longitude",model.getLongitude());
                 context.startActivity(intent);
             }
         });

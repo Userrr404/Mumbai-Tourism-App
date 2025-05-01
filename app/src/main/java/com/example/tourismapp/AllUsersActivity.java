@@ -2,6 +2,9 @@ package com.example.tourismapp;
 
 import android.annotation.SuppressLint;
 import android.os.Bundle;
+import android.view.View;
+import android.view.WindowManager;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.activity.EdgeToEdge;
@@ -29,6 +32,8 @@ import okhttp3.Request;
 import okhttp3.Response;
 
 public class AllUsersActivity extends AppCompatActivity {
+
+    ImageView backButton;
     private RecyclerView recyclerView;
     private UsersAdapter usersAdapter;
     private List<User> userList;
@@ -39,12 +44,24 @@ public class AllUsersActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        getSupportActionBar().hide();
+
+        getWindow().setFlags(
+                WindowManager.LayoutParams.FLAG_FULLSCREEN,
+                WindowManager.LayoutParams.FLAG_FULLSCREEN
+        );
         setContentView(R.layout.activity_all_users);  // Your layout for AllUsersActivity
 
+        backButton = findViewById(R.id.backButton);
         recyclerView = findViewById(R.id.recyclerViewUsers);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        textLoggedInUserAdmin = findViewById(R.id.textLoggedInUserAdmin);
+        textLoggedInUserAdmin = findViewById(R.id.adminEmailText);
 
+        // Get admin name from Intent
+        String adminEmail = getIntent().getStringExtra("adminEmail");
+        if (adminEmail != null) {
+            textLoggedInUserAdmin.setText("Logged in: " + adminEmail);
+        }
 
         // Initialize the user list and fetch data
         userList = new ArrayList<>();
@@ -52,6 +69,14 @@ public class AllUsersActivity extends AppCompatActivity {
 
         usersAdapter = new UsersAdapter(this,userList);
         recyclerView.setAdapter(usersAdapter);
+
+        // Back button listener
+        backButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
+            }
+        });
     }
 
     private void fetchUsers() {

@@ -1,5 +1,6 @@
 package com.example.tourismapp;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.content.Intent;
@@ -9,9 +10,11 @@ import android.os.Bundle;
 import android.provider.MediaStore;
 import android.util.Base64;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -27,19 +30,41 @@ import okhttp3.*;
 public class AddEventActivity extends AppCompatActivity {
 
     private static final int PICK_IMAGE_REQUEST = 1;
+    TextView textAdmin;
     private Uri imageUri;
     private Bitmap bitmap;
 
     private EditText editEventName, editEventDate, editEventDescription;
-    private ImageView imageViewEvent;
+    private ImageView imageViewEvent, backButton;
     private Button buttonSelectImage, buttonUploadEvent;
 
     private static final String UPLOAD_URL = "http://10.0.2.2/tourism/upload_event.php";
 
+    @SuppressLint("WrongViewCast")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        getSupportActionBar().hide();
+
+        getWindow().setFlags(
+                WindowManager.LayoutParams.FLAG_FULLSCREEN,
+                WindowManager.LayoutParams.FLAG_FULLSCREEN
+        );
+
         setContentView(R.layout.activity_add_event);
+
+        textAdmin = findViewById(R.id.textAdmin);
+        backButton = findViewById(R.id.backButton);
+
+// Get admin email from intent
+        String adminEmail = getIntent().getStringExtra("adminEmail");
+        if (adminEmail != null) {
+            textAdmin.setText("Logged in: " + adminEmail);
+        }
+
+// Handle back button
+        backButton.setOnClickListener(v -> onBackPressed());
+
 
         editEventName = findViewById(R.id.editEventName);
         editEventDate = findViewById(R.id.editEventDate);

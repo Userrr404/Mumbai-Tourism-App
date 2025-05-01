@@ -11,9 +11,12 @@ public class Booking {
     int number_of_people;
     String booking_date;
     int fees;
+    String full_name;
+
+    String mobile_number;
     String booking_status;
 
-    public Booking(int id, int place_id,String image_path, String name, String description, int user_id, String email, int number_of_people, String booking_date, int fees){
+    public Booking(int id, int place_id,String image_path, String name, String description, int user_id, String email, int number_of_people, String booking_date, int fees, String full_name, String mobile_number){
         this.id = id;
         this.place_id = place_id;
         this.image_path = image_path;
@@ -24,6 +27,8 @@ public class Booking {
         this.number_of_people = number_of_people;
         this.booking_date = booking_date;
         this.fees = fees;
+        this.full_name = full_name;
+        this.mobile_number = mobile_number;
     }
 
     public Booking() {
@@ -108,6 +113,22 @@ public class Booking {
 
     public void setFees(int fees) {
         this.fees = fees;
+    }
+
+    public void getFull_name(String full_name){
+        this.full_name = full_name;
+    }
+
+    public String getFull_name() {
+        return full_name;
+    }
+
+    public String getMobile_number() {
+        return mobile_number;
+    }
+
+    public void setMobile_number(String mobile_number) {
+        this.mobile_number = mobile_number;
     }
 
     public String getBooking_status() {

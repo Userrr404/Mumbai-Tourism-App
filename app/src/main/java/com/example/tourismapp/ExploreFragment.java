@@ -153,10 +153,12 @@ public class ExploreFragment extends Fragment {
                             String timing = object.getString("timing");
                             String fees = object.getString("fees");
                             String contact = object.getString("contact");
+                            String latitude = object.getString("latitude");
+                            String longitude = object.getString("longitude");
 
                             String urlImage = ApiClient.SHORT_URL+url2;
 
-                            model = new Model(id,urlImage,name,description,category,tags,exact_location,timing,fees,contact);
+                            model = new Model(id,urlImage,name,description,category,tags,exact_location,timing,fees,contact,latitude,longitude);
                             imagelist.add(model);
                         }
 
@@ -269,8 +271,10 @@ public class ExploreFragment extends Fragment {
                             String timing = object.getString("timing");
                             String fees = object.getString("fees");
                             String contact = object.getString("contact");
+                            String latitude = object.getString("latitude");
+                            String longitude = object.getString("longitude");
                             String urlImage = ApiClient.SHORT_URL + url2;
-                            model = new Model(id,urlImage,name,description,category,tags,exact_location,timing,fees,contact);
+                            model = new Model(id,urlImage,name,description,category,tags,exact_location,timing,fees,contact,latitude,longitude);
                             imagelist.add(model);
                         }
                         new Handler().postDelayed(new Runnable() {

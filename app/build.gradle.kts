@@ -40,6 +40,8 @@ dependencies {
     implementation(libs.gridlayout)
     implementation(libs.tools.core)
     implementation(libs.games.activity)
+    implementation(libs.play.services.maps)
+    implementation (libs.play.services.maps.v1820)
     testImplementation(libs.junit)
     androidTestImplementation(libs.ext.junit)
     androidTestImplementation(libs.espresso.core)

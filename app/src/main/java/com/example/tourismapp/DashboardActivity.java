@@ -1,5 +1,6 @@
 package com.example.tourismapp;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -21,10 +22,11 @@ public class DashboardActivity extends AppCompatActivity {
     TextView textLoggedInUser;
     ImageView userProfileIcon;
 
-    CardView cardAddPlace, cardViewPlaces, cardViewUsers, cardViewBookings, cardViewFeedback,cardManageEvents;
+    CardView cardAddPlace, cardViewPlaces, cardViewUsers, cardViewBookings, cardViewFeedback,cardManageEvents, cardViewManageEvents;
 
     Button buttonLogout, buttonSignup;
 
+    @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -46,6 +48,7 @@ public class DashboardActivity extends AppCompatActivity {
         cardViewBookings = findViewById(R.id.cardManageBookings);
         cardViewFeedback = findViewById(R.id.cardFeedback);
         cardManageEvents = findViewById(R.id.cardManageEvents);
+        cardViewManageEvents = findViewById(R.id.cardViewManageEvents);
 
         buttonLogout = findViewById(R.id.buttonLogout);
         buttonSignup = findViewById(R.id.buttonSignup);
@@ -62,6 +65,7 @@ public class DashboardActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent iAddPlace = new Intent(DashboardActivity.this, AddPlaceActivity.class);
+                iAddPlace.putExtra("adminEmail", adminEmail);
                 startActivity(iAddPlace);
             }
         });
@@ -70,6 +74,7 @@ public class DashboardActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(DashboardActivity.this, ViewPlacesActivity.class);
+                intent.putExtra("adminEmail", adminEmail);
                 startActivity(intent);
             }
         });
@@ -78,6 +83,7 @@ public class DashboardActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent iUsers = new Intent(DashboardActivity.this, AllUsersActivity.class);
+                iUsers.putExtra("adminEmail", adminEmail);
                 startActivity(iUsers);
             }
         });
@@ -86,6 +92,7 @@ public class DashboardActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent iBooking = new Intent(DashboardActivity.this, AdminBookingsActivity.class);
+                iBooking.putExtra("adminEmail", adminEmail);
                 startActivity(iBooking);
             }
         });
@@ -94,6 +101,7 @@ public class DashboardActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent iFeedback = new Intent(DashboardActivity.this, FeedbackActivity.class);
+                iFeedback.putExtra("adminEmail", adminEmail);
                 startActivity(iFeedback);
             }
         });
@@ -102,10 +110,19 @@ public class DashboardActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent iEvents = new Intent(DashboardActivity.this, AddEventActivity.class);
+                iEvents.putExtra("adminEmail", adminEmail);
                 startActivity(iEvents);
             }
         });
 
+        cardViewManageEvents.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent iEventView = new Intent(DashboardActivity.this, ViewEventActivity.class);
+                iEventView.putExtra("adminEmail", adminEmail);
+                startActivity(iEventView);
+            }
+        });
         buttonLogout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

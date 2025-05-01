@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -30,7 +31,7 @@ import okhttp3.RequestBody;
 import okhttp3.Response;
 
 public class AdminSignupActivity extends AppCompatActivity {
-
+    ImageView backButton;
     EditText edtUsername, edtEmail, edtPassword,edtConfirmPassword;
     Button btnSignup;
 
@@ -42,7 +43,14 @@ public class AdminSignupActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        getSupportActionBar().hide();
+
+        getWindow().setFlags(
+                WindowManager.LayoutParams.FLAG_FULLSCREEN,
+                WindowManager.LayoutParams.FLAG_FULLSCREEN
+        );
         setContentView(R.layout.activity_admin_signup);
+        backButton = findViewById(R.id.backButton);
 
         edtUsername = findViewById(R.id.edtUsername);
         edtEmail = findViewById(R.id.edtEmail);
@@ -51,6 +59,14 @@ public class AdminSignupActivity extends AppCompatActivity {
         btnSignup = findViewById(R.id.btnSignup);
 
         txtRedirectLoginAdmin = findViewById(R.id.clickableRedirectLoginAdmin);
+
+        // Back button listener
+        backButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
+            }
+        });
 
         txtRedirectLoginAdmin.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
@@ -30,7 +31,7 @@ import okhttp3.Request;
 import okhttp3.Response;
 
 public class AdminLoginActivity extends AppCompatActivity {
-
+    ImageView backButton;
     EditText etEmail, etPassword,txtRedirectSignupAdmin;
     Button btnLogin;
 
@@ -47,19 +48,19 @@ public class AdminLoginActivity extends AppCompatActivity {
                 WindowManager.LayoutParams.FLAG_FULLSCREEN
         );
         setContentView(R.layout.activity_admin_login);
-
+        backButton = findViewById(R.id.backButton);
         etEmail = findViewById(R.id.etAdminEmail);
         etPassword = findViewById(R.id.etAdminPassword);
-//        txtRedirectSignupAdmin = findViewById(R.id.txtRedirectSignupAdmin);
         btnLogin = findViewById(R.id.btnAdminLogin);
 
-//        txtRedirectSignupAdmin.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Intent iSignupAdmin = new Intent(AdminLoginActivity.this,AdminSignupActivity.class);
-//                startActivity(iSignupAdmin);
-//            }
-//        });
+        // Back button listener
+        backButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
+            }
+        });
+
 
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override

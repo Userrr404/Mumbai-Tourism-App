@@ -13,6 +13,7 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.activity.result.ActivityResult;
@@ -35,10 +36,11 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class AddPlaceActivity extends AppCompatActivity {
+    TextView adminNameText;
 
     private EditText nameEditText, descriptionEditText, categoryEditText, tagsEditText, exact_locationEditText, timingEditText, feesEditText, contactEditText, locationEditText;
     private Button saveButton;
-    private ImageView placeImageView;
+    ImageView placeImageView, backButton;
 
     Bitmap bitmap;
 
@@ -48,6 +50,10 @@ public class AddPlaceActivity extends AppCompatActivity {
         getSupportActionBar().hide();
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_add_place);
+
+        adminNameText = findViewById(R.id.adminNameText);
+        backButton = findViewById(R.id.backButton);
+
 
         placeImageView = findViewById(R.id.placeImageView);
         saveButton = findViewById(R.id.saveButton);
@@ -61,6 +67,20 @@ public class AddPlaceActivity extends AppCompatActivity {
         feesEditText = findViewById(R.id.feesEditText);
         contactEditText = findViewById(R.id.contactEditText);
         locationEditText = findViewById(R.id.locationEditText);
+
+        // Get admin name from Intent
+        String adminEmail = getIntent().getStringExtra("adminEmail");
+        if (adminEmail != null) {
+            adminNameText.setText("Logged in: " + adminEmail);
+        }
+
+// Back button listener
+        backButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
+            }
+        });
 
         ActivityResultLauncher<Intent> activityResultLauncher = registerForActivityResult(
                 new ActivityResultContracts.StartActivityForResult(),
