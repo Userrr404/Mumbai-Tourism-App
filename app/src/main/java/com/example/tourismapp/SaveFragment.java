@@ -145,8 +145,10 @@ public class SaveFragment extends Fragment {
                             String timing = object.getString("timing");
                             String fees = object.getString("fees");
                             String contact = object.getString("contact");
+                            String latitude = object.getString("latitude");
+                            String longitude = object.getString("longitude");
 //                            String urlImage = "http://192.168.0.100/tourism/"+url2;
-                            savePlaceModel = new SavePlaceModel(id,url2,name,description,category,tags,exact_location,timing,fees,contact);
+                            savePlaceModel = new SavePlaceModel(id,url2,name,description,category,tags,exact_location,timing,fees,contact,latitude,longitude);
                             savePlaceModelList.add(savePlaceModel);
                         }
                         new Handler().postDelayed(new Runnable() {

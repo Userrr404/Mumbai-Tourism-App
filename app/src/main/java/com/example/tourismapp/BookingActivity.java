@@ -1,8 +1,10 @@
 package com.example.tourismapp;
 
 import android.annotation.SuppressLint;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.Editable;
+import android.text.InputType;
 import android.text.TextWatcher;
 import android.view.View;
 import android.view.WindowManager;
@@ -12,12 +14,17 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.bumptech.glide.Glide;
 import com.example.tourismapp.Utills.ApiClient;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.io.IOException;
+import java.util.Random;
 
 import okhttp3.Call;
 import okhttp3.Callback;
@@ -29,7 +36,7 @@ import okhttp3.Response;
 
 public class BookingActivity extends AppCompatActivity {
     ImageView imageViewBooking;
-    TextView txtPlaceName, txtPlaceDescription, txtUserId, txtUserEmail, txtPlaceId;
+    TextView txtPlaceName, txtPlaceDescription;
     Button btnConfirmBooking;
     String placeId, imagePath, placeName, placeDescription, userId, userEmail;
     TextView feesTextView;
@@ -106,10 +113,13 @@ public class BookingActivity extends AppCompatActivity {
         btnConfirmBooking.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                sendBookingToServer();
+                // Generate 6-digit OTP
+                String otp = String.valueOf(new Random().nextInt(900000) + 100000);
+                sendOtpToEmail(otp);
             }
         });
     }
+
     private void updateFees() {
         String numberStr = editNumberOfPeople.getText().toString().trim();
         int numberOfPeople = 1; // Default to 1 if empty
@@ -127,124 +137,113 @@ public class BookingActivity extends AppCompatActivity {
         feesTextView.setText("Fees: ₹" + totalFees);
     }
 
-
-    private void sendBookingToServer() {
-        if (placeId == null || imagePath == null || placeName == null || placeDescription == null || userId == null || userEmail == null) {
-            Toast.makeText(this, "Some booking details are missing!", Toast.LENGTH_SHORT).show();
-            return;
-        }
-
-        String numberOfPeople = editNumberOfPeople.getText().toString().trim();
-        String bookingDate = editBookingDate.getText().toString().trim();
-        String fullName = editFullName.getText().toString().trim();
-        String mobileNumber = editMobileNumber.getText().toString().trim();
-
-        if (fullName.isEmpty() || mobileNumber.isEmpty() || numberOfPeople.isEmpty() || bookingDate.isEmpty()) {
-            Toast.makeText(this, "Please enter full details", Toast.LENGTH_SHORT).show();
-            return;
-        }
-
+    private void sendOtpToEmail(String otp) {
         OkHttpClient client = new OkHttpClient();
 
-        String url = ApiClient.ADD_BOOKING_URL;
-
         RequestBody formBody = new FormBody.Builder()
-                .add("place_id", placeId)
-                .add("image_path", imagePath)
-                .add("name", placeName)
-                .add("description", placeDescription)
-                .add("user_id", userId)
                 .add("user_email", userEmail)
-                .add("number_of_people", numberOfPeople)    // NEW FIELD
-                .add("booking_date", bookingDate)
-                .add("fees", String.valueOf(totalFees)) // NEW FIELD
-                .add("full_name",fullName)
-                .add("mobile_number",mobileNumber)
+                .add("full_name", editFullName.getText().toString().trim())
+                .add("otp", otp)
                 .build();
 
         Request request = new Request.Builder()
-                .url(url)
+                .url("http://10.0.2.2/tourism/db_sendOtpMail.php")
                 .post(formBody)
                 .build();
 
         client.newCall(request).enqueue(new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
-                e.printStackTrace();
-                runOnUiThread(() -> Toast.makeText(BookingActivity.this, "Failed to connect to server", Toast.LENGTH_SHORT).show());
+                runOnUiThread(() ->
+                        Toast.makeText(getApplicationContext(), "Failed to send OTP", Toast.LENGTH_SHORT).show()
+                );
             }
 
             @Override
             public void onResponse(Call call, Response response) throws IOException {
-                String responseBody = response.body().string().trim();
-
+                String body = response.body().string().trim();
                 runOnUiThread(() -> {
-                    if (response.isSuccessful() && responseBody.equalsIgnoreCase("success")) {
-                        Toast.makeText(BookingActivity.this, "Booking successful", Toast.LENGTH_SHORT).show();
-                        sendBookingDetailsToServer(userEmail,fullName,placeName,bookingDate,numberOfPeople,String.valueOf(totalFees),mobileNumber);
-                        finish();
+                    if (body.equalsIgnoreCase("success")) {
+                        showOtpDialog(otp);
                     } else {
-                        Toast.makeText(BookingActivity.this, "Booking failed: " + responseBody, Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getApplicationContext(), "Failed to send OTP", Toast.LENGTH_SHORT).show();
                     }
                 });
             }
-
         });
     }
 
-    // Call this method when booking is confirmed
-    private void sendBookingDetailsToServer(String email, String fullName, String placeName,
-                                            String bookingDate, String numberOfPeople, String fees,
-                                            String mobileNumber) {
+    private void showOtpDialog(String generatedOtp) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("Enter OTP");
 
+        final EditText input = new EditText(this);
+        input.setInputType(InputType.TYPE_CLASS_NUMBER);
+        builder.setView(input);
+
+        builder.setPositiveButton("Verify", (dialog, which) -> {
+            String enteredOtp = input.getText().toString().trim();
+            if (enteredOtp.equals(generatedOtp)) {
+                sendBookingToServer();
+            } else {
+                Toast.makeText(this, "Invalid OTP!", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        builder.setNegativeButton("Cancel", (dialog, which) -> dialog.cancel());
+        builder.show();
+    }
+
+
+    private void sendBookingToServer() {
         OkHttpClient client = new OkHttpClient();
 
-        // Create the body with form data
         RequestBody formBody = new FormBody.Builder()
-                .add("user_email", email)
-                .add("full_name", fullName)
-                .add("place_name", placeName)
-                .add("booking_date", bookingDate)
-                .add("number_of_people", numberOfPeople)
-                .add("booking_fees", fees)
-                .add("mobile_number", mobileNumber)
+                .add("user_id", userId)
+                .add("user_email", userEmail)
+                .add("place_id",placeId)
+                .add("name", placeName)
+                .add("image_path", imagePath)
+                .add("description", placeDescription)
+                .add("number_of_people",editNumberOfPeople.getText().toString().trim())
+                .add("booking_date",editBookingDate.getText().toString().trim())
+                .add("fees", String.valueOf(totalFees))
+                .add("full_name", editFullName.getText().toString().trim())
+                .add("mobile_number", editMobileNumber.getText().toString().trim())
+
                 .build();
 
-        // Your PHP file URL
-        String url = "http://10.0.2.2/tourism/db_sendBookingMail.php";
-
         Request request = new Request.Builder()
-                .url(url)
+                .url("http://10.0.2.2/tourism/db_insert_booking.php")
                 .post(formBody)
                 .build();
 
-        // Execute the request
         client.newCall(request).enqueue(new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
-                // Failed to connect to server
-                e.printStackTrace();
-                runOnUiThread(() -> {
-                    Toast.makeText(getApplicationContext(), "Failed to send email", Toast.LENGTH_SHORT).show();
-                });
+                runOnUiThread(() ->
+                        Toast.makeText(getApplicationContext(), "Failed to book", Toast.LENGTH_SHORT).show()
+                );
             }
 
             @Override
             public void onResponse(Call call, Response response) throws IOException {
-                if (response.isSuccessful()) {
-                    String responseBody = response.body().string();
-                    runOnUiThread(() -> {
-                        if (responseBody.trim().equalsIgnoreCase("success")) {
-
-                            Toast.makeText(getApplicationContext(), "Email sent successfully!", Toast.LENGTH_SHORT).show();
+                String result = response.body().string();
+                runOnUiThread(() -> {
+                    try {
+                        JSONObject json = new JSONObject(result);
+                        if (json.getBoolean("success")) {
+                            Toast.makeText(getApplicationContext(), "Booking confirmed!", Toast.LENGTH_LONG).show();
+                            finish(); // close activity
                         } else {
-                            Toast.makeText(getApplicationContext(), "Failed to send email", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getApplicationContext(), "Booking failed!", Toast.LENGTH_SHORT).show();
                         }
-                    });
-                }
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                        Toast.makeText(getApplicationContext(), "Server Error!", Toast.LENGTH_SHORT).show();
+                    }
+                });
             }
         });
     }
-
-
 }
