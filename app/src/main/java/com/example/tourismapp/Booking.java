@@ -16,12 +16,9 @@ public class Booking {
     String mobile_number;
     String booking_status;
 
-    public Booking(int id, int place_id,String image_path, String name, String description, int user_id, String email, int number_of_people, String booking_date, int fees, String full_name, String mobile_number){
+    public Booking(int id, int place_id, int user_id, String email, int number_of_people, String booking_date, int fees, String full_name, String mobile_number){
         this.id = id;
         this.place_id = place_id;
-        this.image_path = image_path;
-        this.name = name;
-        this.description = description;
         this.user_id = user_id;
         this.email = email;
         this.number_of_people = number_of_people;

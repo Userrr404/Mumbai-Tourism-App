@@ -117,8 +117,8 @@ public class SaveFragment extends Fragment {
             public void onResponse(String response) {
                 savePlaceModelList.clear();
 
-                if(!isValidJson(response)){
-                    if(!fakeHomeActivityStarted){
+                if (!isValidJson(response)) {
+                    if (!fakeHomeActivityStarted) {
                         fakeHomeActivityStarted = true;
                         Intent iFake = new Intent(getContext(), FakeHomeActivity.class);
                         startActivity(iFake);
@@ -136,8 +136,8 @@ public class SaveFragment extends Fragment {
                         for (int i = 0; i < jsonArray.length(); i++) {
                             JSONObject object = jsonArray.getJSONObject(i);
                             String id = object.getString("place_id");
-                            String url2 = object.getString("image_path");
                             String name = object.getString("name");
+                            String image = object.getString("image");
                             String description = object.getString("description");
                             String category = object.getString("category");
                             String tags = object.getString("tags");
@@ -145,28 +145,30 @@ public class SaveFragment extends Fragment {
                             String timing = object.getString("timing");
                             String fees = object.getString("fees");
                             String contact = object.getString("contact");
+                            String location = object.getString("location");
                             String latitude = object.getString("latitude");
                             String longitude = object.getString("longitude");
-//                            String urlImage = "http://192.168.0.100/tourism/"+url2;
-                            savePlaceModel = new SavePlaceModel(id,url2,name,description,category,tags,exact_location,timing,fees,contact,latitude,longitude);
+                            String imageURL = "http://10.0.2.2/tourism/" + image;
+
+
+                            // Now, create the SavePlaceModel with name and image as well
+                            savePlaceModel = new SavePlaceModel(id, imageURL,name,description,category,tags,exact_location,timing,fees,contact,latitude,longitude);
                             savePlaceModelList.add(savePlaceModel);
                         }
                         new Handler().postDelayed(new Runnable() {
                             @Override
                             public void run() {
                                 savePlaceAdapter.notifyDataSetChanged();
-//                                fakeScreen.setVisibility(View.GONE);
                                 recyclerView.setVisibility(View.VISIBLE);
                             }
-                        },5000);
-                    }else{
+                        }, 5000);
+                    } else {
                         Toast.makeText(getContext(), "No saved places found.", Toast.LENGTH_SHORT).show();
                     }
                 } catch (JSONException e) {
-//                    throw new RuntimeException(e);
                     e.printStackTrace();
-                    Toast.makeText(getContext(),"Error Parsing data", Toast.LENGTH_SHORT).show();
-                    if(!fakeHomeActivityStarted){
+                    Toast.makeText(getContext(), "Error Parsing data", Toast.LENGTH_SHORT).show();
+                    if (!fakeHomeActivityStarted) {
                         fakeHomeActivityStarted = true;
                         Intent iFake = new Intent(getContext(), FakeHomeActivity.class);
                         startActivity(iFake);
@@ -176,27 +178,18 @@ public class SaveFragment extends Fragment {
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-
-                Context context = requireContext().getApplicationContext();  // Get the context (activity) associated with the fragment
-                if (context != null) {
-                    Toast.makeText(getContext(),"Error fetching data results",Toast.LENGTH_SHORT).show();
-
-                    if(!fakeHomeActivityStarted){
-                        fakeHomeActivityStarted = true;
-                        Intent iFake = new Intent(getContext(), FakeHomeActivity.class);
-                        startActivity(iFake);
-                    }
-
-                } else {
-                    Log.e("SaveFragment", "Context is null, can't show Toast.");
+                Toast.makeText(getContext(), "Error fetching data results", Toast.LENGTH_SHORT).show();
+                if (!fakeHomeActivityStarted) {
+                    fakeHomeActivityStarted = true;
+                    Intent iFake = new Intent(getContext(), FakeHomeActivity.class);
+                    startActivity(iFake);
                 }
-//                fakeScreen.setVisibility(View.GONE);
             }
         });
         RequestQueue requestQueue = Volley.newRequestQueue(requireContext());
         requestQueue.add(request);
-
     }
+
 
     private boolean isValidJson(String response){
         try {

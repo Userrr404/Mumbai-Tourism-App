@@ -199,15 +199,12 @@ public class BookingActivity extends AppCompatActivity {
         OkHttpClient client = new OkHttpClient();
 
         RequestBody formBody = new FormBody.Builder()
-                .add("user_id", userId)
+                .add("place_id", placeId)
+                .add("fees", String.valueOf(totalFees))
+                .add("user_id",userId)
                 .add("user_email", userEmail)
-                .add("place_id",placeId)
-                .add("name", placeName)
-                .add("image_path", imagePath)
-                .add("description", placeDescription)
                 .add("number_of_people",editNumberOfPeople.getText().toString().trim())
                 .add("booking_date",editBookingDate.getText().toString().trim())
-                .add("fees", String.valueOf(totalFees))
                 .add("full_name", editFullName.getText().toString().trim())
                 .add("mobile_number", editMobileNumber.getText().toString().trim())
 

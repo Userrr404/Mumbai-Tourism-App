@@ -45,7 +45,7 @@ public class Adapter extends RecyclerView.Adapter<ImageViewHolder>{
         this.savedPlaceIds = savedPlaceIds;
         SharedPreferences sharedPreferences = context.getSharedPreferences("login", Context.MODE_PRIVATE);
         this.userId = sharedPreferences.getString("user_id", "N/A");
-        this.username = sharedPreferences.getString("username",username);
+        this.username = sharedPreferences.getString("username","N/A");
         if ("N/A".equals(this.username)) {
             Toast.makeText(context, "Error: username not found in shared preferences", Toast.LENGTH_SHORT).show();
         }
@@ -149,7 +149,7 @@ public class Adapter extends RecyclerView.Adapter<ImageViewHolder>{
     }
     private void savePlace(Model model, ImageView itemNormalSaveIcon) {
         String savePlaceURL = ApiClient.SAVE_PLACE_URL;
-        if (username == null || username.isEmpty()) {
+        if (username == null || username.equals("N/A") || username.isEmpty()) {
             Toast.makeText(context, "Username missing!", Toast.LENGTH_SHORT).show();
             return;
         }
@@ -180,15 +180,6 @@ public class Adapter extends RecyclerView.Adapter<ImageViewHolder>{
                 params.put("user_id", userId);
                 params.put("username", username);
                 params.put("place_id", model.getId()); // Assuming your model has getId()
-                params.put("image_path", model.getImage());
-                params.put("name", model.getName());
-                params.put("description", model.getDescription());
-                params.put("category", model.getCategory());
-                params.put("tags", model.getTags());
-                params.put("exact_location", model.getExact_location());
-                params.put("timing", model.getTiming());
-                params.put("fees", model.getFees());
-                params.put("contact", model.getContact());
                 return params;
             }
         };

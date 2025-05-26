@@ -12,6 +12,7 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.widget.SearchView;
+import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -57,6 +58,8 @@ public class ExploreFragment extends Fragment {
     private BroadcastReceiver networkReceiver;
     private boolean fakeHomeActivityStarted = false;
     Set<String> savedPlacesIds = new HashSet<>();
+
+    CardView cardTemple, cardBeaches, cardPark, cardMonument, cardForts, cardCaves, cardMuseums;
     public ExploreFragment() {
         // Required empty public constructor
     }
@@ -94,6 +97,14 @@ public class ExploreFragment extends Fragment {
         fakeScreen.setVisibility(View.VISIBLE);
         recyclerView.setVisibility(View.GONE);
 
+        cardTemple = rootView.findViewById(R.id.cardTemple);
+        cardBeaches = rootView.findViewById(R.id.cardBeaches);
+        cardPark = rootView.findViewById(R.id.cardPark);
+        cardMonument = rootView.findViewById(R.id.cardMonument);
+        cardForts = rootView.findViewById(R.id.cardForts);
+        cardCaves = rootView.findViewById(R.id.cardCaves);
+        cardMuseums = rootView.findViewById(R.id.cardMuseums);
+
         // SEARCH VIEW
         searchView = rootView.findViewById(R.id.searchView);
         searchView.clearFocus();
@@ -109,6 +120,62 @@ public class ExploreFragment extends Fragment {
             public boolean onQueryTextChange(String newText) {
                 filteredList(newText);
                 return true;
+            }
+        });
+
+        cardTemple.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String TempleSearch = "Temple";
+                filteredList(TempleSearch);
+            }
+        });
+
+        cardBeaches.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String BeachSearch = "Beach";
+                filteredList(BeachSearch);
+            }
+        });
+
+        cardPark.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String ParkSearch = "Park";
+                filteredList(ParkSearch);
+            }
+        });
+
+        cardMonument.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String MonumentSearch = "Monument";
+                filteredList(MonumentSearch);
+            }
+        });
+
+        cardForts.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String FortSearch = "Fort";
+                filteredList(FortSearch);
+            }
+        });
+
+        cardCaves.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String CavesSearch = "Caves";
+                filteredList(CavesSearch);
+            }
+        });
+
+        cardMuseums.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String MuseumsSearch = "Museums";
+                filteredList(MuseumsSearch);
             }
         });
 
@@ -153,8 +220,8 @@ public class ExploreFragment extends Fragment {
                             String timing = object.getString("timing");
                             String fees = object.getString("fees");
                             String contact = object.getString("contact");
-                            String latitude = object.getString("latitude");
-                            String longitude = object.getString("longitude");
+                            String latitude = object.optString("latitude", "0.0");
+                            String longitude = object.optString("longitude", "0.0");
 
                             String urlImage = ApiClient.SHORT_URL+url2;
 
@@ -271,8 +338,8 @@ public class ExploreFragment extends Fragment {
                             String timing = object.getString("timing");
                             String fees = object.getString("fees");
                             String contact = object.getString("contact");
-                            String latitude = object.getString("latitude");
-                            String longitude = object.getString("longitude");
+                            String latitude = object.optString("latitude", "0.0");
+                            String longitude = object.optString("longitude", "0.0");
                             String urlImage = ApiClient.SHORT_URL + url2;
                             model = new Model(id,urlImage,name,description,category,tags,exact_location,timing,fees,contact,latitude,longitude);
                             imagelist.add(model);

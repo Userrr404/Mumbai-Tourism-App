@@ -52,7 +52,6 @@ public class RegisterActivity extends AppCompatActivity {
         editConfirmPassReg = findViewById(R.id.editConfirmPassReg);
         btnSignupReg = findViewById(R.id.btnRegisterReg);
         txtRedirectLoginReg = findViewById(R.id.clickableRedirectLoginReg);
-        progressBar = findViewById(R.id.progressBar);  // ProgressBar
 
         // Redirect to Login Activity
         txtRedirectLoginReg.setOnClickListener(v -> {
@@ -82,7 +81,7 @@ public class RegisterActivity extends AppCompatActivity {
     // Method to save user data via OkHttp
     private void saveData(String username, String email, String password) {
         // Show ProgressBar
-        progressBar.setVisibility(View.VISIBLE);
+//        progressBar.setVisibility(View.VISIBLE);
 
         // Create Request Body
         RequestBody formData = new FormBody.Builder()

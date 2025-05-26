@@ -1,23 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
+        android:id="@+id/nav_events"
+        android:icon="@drawable/calendar_19_svgrepo_com"
+        android:title="Events" />
+    <item
+        android:id="@+id/nav_itinerary"
+        android:icon="@drawable/booking_booking_svgrepo_com__1_"
+        android:title="Booking List" />
+    <item
         android:id="@+id/nav_explore"
         android:icon="@drawable/explore_svgrepo_com"
         android:title="Explore" />
-    <item
-        android:id="@+id/nav_itinerary"
-        android:icon="@drawable/outdoor_trip_schedule_svgrepo_com"
-        android:title="Booking List" />
-    <item
-        android:id="@+id/nav_profile"
-        android:icon="@drawable/user_svgrepo_com__1_"
-        android:title="Profile" />
     <item
         android:id="@+id/nav_saved"
         android:icon="@drawable/saved_svgrepo_com"
         android:title="User Saved" />
     <item
-        android:id="@+id/nav_events"
-        android:icon="@drawable/events_svgrepo_com"
-        android:title="Event List" />
+        android:id="@+id/nav_profile"
+        android:icon="@drawable/user_circle_svgrepo_com__1_"
+        android:title="Profile" />
 </menu>

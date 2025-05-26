@@ -1,91 +1,125 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/loginRoot"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:id="@+id/main"
-    tools:context=".LoginActivity">
+    android:layout_height="match_parent">
 
-    <LinearLayout
+    <!-- Background Image -->
+    <ImageView
+        android:id="@+id/bg_image"
         android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="fitXY"
+        android:src="@drawable/city_background"
+        android:alpha="0.6" />
+
+    <!-- Overlay -->
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#66000000" />
+
+    <!-- Logo -->
+    <ImageView
+        android:id="@+id/loginLogo"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="220dp"
+        android:src="@drawable/tourism_logo"
+        android:contentDescription="Logo" />
+
+    <!-- Email Container -->
+    <RelativeLayout
+        android:id="@+id/emailContainer"
+        android:layout_width="300dp"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:gravity="center_horizontal"
-        android:padding="24dp">
+        android:layout_below="@id/loginLogo"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="80dp">
 
-        <!-- App Logo (optional) -->
-        <ImageView
-            android:id="@+id/loginLogo"
-            android:layout_width="150dp"
-            android:layout_height="150dp"
-            android:src="@drawable/tourism_logo"
-            android:scaleType="centerInside"
-            android:layout_marginTop="80dp"
-            android:layout_marginBottom="24dp"/>
-
-        <!-- Email -->
-        <com.google.android.material.textfield.TextInputLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            app:startIconDrawable="@drawable/email_svgrepo_com"
-            app:boxBackgroundMode="outline"
-            app:boxStrokeColor="@color/lavender">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/editEmailAddLog"
-                android:layout_width="match_parent"
-                android:layout_height="60dp"
-                android:hint="Email"
-                android:inputType="textEmailAddress"/>
-        </com.google.android.material.textfield.TextInputLayout>
-
-        <!-- Password -->
-        <com.google.android.material.textfield.TextInputLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            app:startIconDrawable="@drawable/password_svgrepo_com"
-            app:endIconMode="password_toggle"
-            app:boxBackgroundMode="outline"
-            app:boxStrokeColor="@color/lavender">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/editPasswordLog"
-                android:layout_width="match_parent"
-                android:layout_height="60dp"
-                android:hint="Password"
-                android:inputType="textPassword"/>
-        </com.google.android.material.textfield.TextInputLayout>
-
-        <!-- Login Button -->
-        <Button
-            android:id="@+id/btnLoginLog"
-            android:layout_width="match_parent"
-            android:layout_height="60dp"
-            android:text="Login"
-            android:textColor="@color/white"
-            android:backgroundTint="@color/sky_blue"
-            android:textSize="18sp"
-            android:layout_marginTop="24dp"
-            app:cornerRadius="30dp"
-            android:elevation="4dp"/>
-
-        <!-- Sign Up Redirect -->
         <TextView
-            android:id="@+id/txtRedirectSignupLog"
+            android:id="@+id/emailLabel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Not yet registered? Signup"
-            android:textColor="@color/lavender"
+            android:text="Email"
+            android:textColor="#ccc"
             android:textSize="16sp"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginTop="20dp"
-            android:padding="8dp"
-            android:textStyle="bold"/>
+            android:visibility="invisible"
+            android:layout_marginStart="8dp"/>
 
-    </LinearLayout>
+        <EditText
+            android:id="@+id/editEmailAddLog"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_below="@id/emailLabel"
+            android:drawableStart="@drawable/email_svgrepo_com"
+            android:hint="Email"
+            android:textColor="#fff"
+            android:textColorHint="#ccc"
+            android:padding="10dp"
+            android:background="@drawable/edittext_background"
+            android:inputType="textEmailAddress" />
+    </RelativeLayout>
 
-</ScrollView>
+    <!-- Password Container -->
+    <RelativeLayout
+        android:id="@+id/passwordContainer"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/emailContainer"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp">
+
+        <TextView
+            android:id="@+id/passwordLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Password"
+            android:textColor="#ccc"
+            android:textSize="16sp"
+            android:visibility="invisible"
+            android:layout_marginStart="8dp"/>
+
+        <EditText
+            android:id="@+id/editPasswordLog"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_below="@id/passwordLabel"
+            android:drawableStart="@drawable/password_svgrepo_com"
+            android:hint="Password"
+            android:textColor="#fff"
+            android:textColorHint="#ccc"
+            android:padding="10dp"
+            android:background="@drawable/edittext_background"
+            android:inputType="textPassword" />
+    </RelativeLayout>
+
+    <!-- Login Button -->
+    <Button
+        android:id="@+id/btnLoginLog"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/passwordContainer"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="30dp"
+        android:background="@drawable/btn_login"
+        android:text="Login"
+        android:textColor="#fff"
+        android:backgroundTint="#3EC6FF" />
+
+    <!-- Sign Up Redirect -->
+    <TextView
+        android:id="@+id/txtRedirectSignupLog"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/btnLoginLog"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp"
+        android:padding="8dp"
+        android:text="Not yet registered? Signup"
+        android:textColor="@color/lavender"
+        android:textSize="16sp"
+        android:textStyle="bold" />
+
+</RelativeLayout>

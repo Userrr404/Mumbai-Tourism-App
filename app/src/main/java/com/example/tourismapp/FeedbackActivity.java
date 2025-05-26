@@ -97,6 +97,7 @@ public class FeedbackActivity extends AppCompatActivity {
                             JSONObject feedbackObject = jsonArray.getJSONObject(i);
                             Feedback feedback = new Feedback();
                             feedback.setId(feedbackObject.getInt("id"));
+                            feedback.setUser_id(feedbackObject.getInt("user_id"));
                             feedback.setUsername(feedbackObject.getString("username"));
                             feedback.setUser_feed(feedbackObject.getString("user_feed"));
                             feedback.setCreated_At(feedbackObject.getString("created_at"));

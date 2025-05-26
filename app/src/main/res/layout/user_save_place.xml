@@ -1,52 +1,50 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_margin="4dp">
+    android:layout_margin="8dp"
+    app:cardCornerRadius="16dp"
+    app:cardElevation="4dp"
+    android:foreground="?android:attr/selectableItemBackground"
+    android:backgroundTint="@android:color/white">
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:padding="8dp"
-        android:layout_marginTop="20dp">
+        android:layout_height="wrap_content">
 
-        <LinearLayout
-            android:id="@+id/linearSave"
+        <!-- Main image -->
+        <ImageView
+            android:id="@+id/item_Img_user_Save"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:layout_height="200dp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/default_person_img"
+            android:background="@drawable/rounded_image"
+            android:clipToOutline="true" />
 
-            <ImageView
-                android:id="@+id/item_Img_user_Save"
-                android:layout_width="160dp"
-                android:layout_height="160dp"
-                android:scaleType="fitXY"/>
-
-            <TextView
-                android:id="@+id/item_txt_user_Save"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:hint="name"
-                android:textSize="20sp"
-                android:textStyle="bold"
-                android:paddingStart="20dp"
-                android:paddingEnd="20dp"
-                android:layout_gravity="center_vertical"
-                android:textColor="@color/black"/>
-
-        </LinearLayout>
-
+        <!-- Bookmark icon in top-right -->
         <ImageView
             android:id="@+id/item_saveIcon_Save"
-            android:layout_width="44dp"
-            android:layout_height="44dp"
-            android:src="@drawable/saved_svgrepo_com"
+            android:layout_width="34dp"
+            android:layout_height="34dp"
             android:layout_alignParentEnd="true"
-            android:layout_alignBottom="@id/linearSave"
-            android:contentDescription="saved"
-            app:tint="@color/black" />
+            android:layout_margin="12dp"
+            android:src="@drawable/saved_svgrepo_com"
+            android:contentDescription="Save"
+            app:tint="@android:color/white" />
+
+        <!-- Title text at bottom-left -->
+        <TextView
+            android:id="@+id/item_txt_user_Save"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_margin="12dp"
+            android:text="Check"
+            android:textColor="@android:color/white"
+            android:textSize="20sp"
+            android:textStyle="bold" />
 
     </RelativeLayout>
 

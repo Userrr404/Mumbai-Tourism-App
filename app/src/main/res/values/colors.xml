@@ -14,5 +14,7 @@
     <color name="purple_200">#BB86FC</color>
     <color name="background_color">#F2F2F2</color> <!-- Light gray background -->
     <color name="card_background">#FFFFFF</color> <!-- White background for CardView -->
+    <color name="light_yellow">#FFD077</color>
+    <color name="yellow">#F6C260</color>
 
 </resources>

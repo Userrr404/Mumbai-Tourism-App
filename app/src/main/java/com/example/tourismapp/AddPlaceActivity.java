@@ -1,6 +1,7 @@
 // AddPlaceActivity.java
 package com.example.tourismapp;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -38,12 +39,13 @@ import java.util.Map;
 public class AddPlaceActivity extends AppCompatActivity {
     TextView adminNameText;
 
-    private EditText nameEditText, descriptionEditText, categoryEditText, tagsEditText, exact_locationEditText, timingEditText, feesEditText, contactEditText, locationEditText;
+    private EditText nameEditText, descriptionEditText, categoryEditText, tagsEditText, exact_locationEditText, timingEditText, feesEditText, contactEditText, locationEditText, latitudeEditText, longitudeEditText;
     private Button saveButton;
     ImageView placeImageView, backButton;
 
     Bitmap bitmap;
 
+    @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -67,7 +69,8 @@ public class AddPlaceActivity extends AppCompatActivity {
         feesEditText = findViewById(R.id.feesEditText);
         contactEditText = findViewById(R.id.contactEditText);
         locationEditText = findViewById(R.id.locationEditText);
-
+        latitudeEditText = findViewById(R.id.latitudeEditText);
+        longitudeEditText = findViewById(R.id.longitudeEditText);
         // Get admin name from Intent
         String adminEmail = getIntent().getStringExtra("adminEmail");
         if (adminEmail != null) {
@@ -137,6 +140,8 @@ public class AddPlaceActivity extends AppCompatActivity {
         final String fees = feesEditText.getText().toString().trim();
         final String contact = contactEditText.getText().toString().trim();
         final String location = locationEditText.getText().toString().trim();
+        final String latitude = latitudeEditText.getText().toString().trim();
+        final String longitude = longitudeEditText.getText().toString().trim();
 
         RequestQueue queue = Volley.newRequestQueue(getApplicationContext());
         String url = ApiClient.ADD_PLACE_URL;
@@ -169,6 +174,8 @@ public class AddPlaceActivity extends AppCompatActivity {
                 params.put("fees", fees);
                 params.put("contact", contact);
                 params.put("location", location);
+                params.put("latitude",latitude);
+                params.put("longitude",longitude);
                 return params;
             }
         };

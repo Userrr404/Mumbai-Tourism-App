@@ -64,4 +64,5 @@ dependencies {
     implementation (libs.material.v1110)
 
     implementation (libs.volley)
+    implementation (libs.circleimageview)
 }

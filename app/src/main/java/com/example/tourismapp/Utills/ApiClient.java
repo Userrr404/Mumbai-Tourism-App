@@ -27,5 +27,9 @@ public class ApiClient {
     public static final String ADMIN_SIGNUP_URL = "http://10.0.2.2/tourism/db_admin_signup.php";
     public static final String ADMIN_LOGIN_URL = "http://10.0.2.2/tourism/db_admin_login.php";
     public static final String GET_ITINERARY_URL = "http://10.0.2.2/tourism/get_itinerary.php";
+    // Base URL for image loading (assuming images are stored in htdocs/uploads/)
+    public static final String IMAGE_BASE_URL = "http://10.0.2.2/tourism/";
+
+    public static final String FILTER_BY_CATEGORY_URL = "http://10.0.2.2/tourism/db_filter_places.php";
 
 }

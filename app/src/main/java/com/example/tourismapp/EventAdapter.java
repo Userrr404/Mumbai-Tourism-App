@@ -51,20 +51,20 @@ public class EventAdapter extends RecyclerView.Adapter<EventViewHolder> {
 
         Glide.with(context).load("http://10.0.2.2/tourism/" + event.getImage()).into(holder.imgEvent);
 
-        holder.txtEdit.setOnClickListener(v -> {
-            Intent intent = new Intent(context, DetailsEventActivity.class);
-            intent.putExtra("event_id", event.getId());
-            intent.putExtra("event_name", event.getName());
-            intent.putExtra("event_date", event.getDate());
-            intent.putExtra("event_desc", event.getDescription());
-            intent.putExtra("event_image","http://10.0.2.2/tourism/" + event.getImage());
-            // Optionally pass image URL or path
-            context.startActivity(intent);
-        });
-
-        holder.txtRemove.setOnClickListener(v -> {
-            removeEventFromDatabase(event.getId(), position);
-        });
+//        holder.txtEdit.setOnClickListener(v -> {
+//            Intent intent = new Intent(context, DetailsEventActivity.class);
+//            intent.putExtra("event_id", event.getId());
+//            intent.putExtra("event_name", event.getName());
+//            intent.putExtra("event_date", event.getDate());
+//            intent.putExtra("event_desc", event.getDescription());
+//            intent.putExtra("event_image","http://10.0.2.2/tourism/" + event.getImage());
+//            // Optionally pass image URL or path
+//            context.startActivity(intent);
+//        });
+//
+//        holder.txtRemove.setOnClickListener(v -> {
+//            removeEventFromDatabase(event.getId(), position);
+//        });
 
     }
 
@@ -117,7 +117,7 @@ class EventViewHolder extends RecyclerView.ViewHolder {
         txtEventName = itemView.findViewById(R.id.txtEventName);
         txtEventDate = itemView.findViewById(R.id.txtEventDate);
         txtEventDesc = itemView.findViewById(R.id.txtEventDesc);
-        txtEdit = itemView.findViewById(R.id.txtEdit);
-        txtRemove = itemView.findViewById(R.id.txtRemove);
+//        txtEdit = itemView.findViewById(R.id.txtEdit);
+//        txtRemove = itemView.findViewById(R.id.txtRemove);
     }
 }

@@ -22,6 +22,15 @@ public class SavePlaceModel {
         this.longitude = longitude;
     }
 
+    public SavePlaceModel(String id) {
+    }
+
+    public SavePlaceModel(String id, String name, String image) {
+        this.id = id;
+        this.name = name;
+        this.image = image;
+    }
+
     public String getCategory() {
         return category;
     }

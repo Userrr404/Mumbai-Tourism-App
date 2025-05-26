@@ -52,35 +52,6 @@
             android:paddingTop="6dp"
             android:paddingBottom="8dp" />
 
-        <!-- Action Buttons -->
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:gravity="end">
-
-            <TextView
-                android:id="@+id/txtEdit"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Edit"
-                android:textColor="#1976D2"
-                android:textStyle="bold"
-                android:paddingEnd="16dp"
-                android:clickable="true"
-                android:focusable="true" />
-
-            <TextView
-                android:id="@+id/txtRemove"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Remove"
-                android:textColor="#D32F2F"
-                android:textStyle="bold"
-                android:clickable="true"
-                android:focusable="true" />
-
-        </LinearLayout>
 
     </LinearLayout>
 

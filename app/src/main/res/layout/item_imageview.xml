@@ -1,69 +1,60 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.cardview.widget.CardView
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    app:cardCornerRadius="5dp"
-    android:layout_margin="5dp">
+    android:layout_width="match_parent"
+    android:layout_height="200dp"
+    android:layout_margin="8dp"
+    app:cardCornerRadius="16dp"
+    app:cardElevation="8dp">
 
-    <RelativeLayout
+    <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:padding="8dp"
-        android:layout_marginTop="20dp">
+        android:layout_height="match_parent">
 
-        <LinearLayout
-            android:id="@+id/linear"
+        <!-- Background Image -->
+        <ImageView
+            android:id="@+id/item_imageView"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:layout_height="match_parent"
+            android:scaleType="centerCrop" />
 
-            <ImageView
-                android:id="@+id/item_imageView"
-                android:layout_width="160dp"
-                android:layout_height="160dp"
-                android:scaleType="fitXY"/>
-
-            <TextView
-                android:id="@+id/item_txtImageName"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:hint="name"
-                android:textSize="20sp"
-                android:textStyle="bold"
-                android:paddingStart="20dp"
-                android:paddingEnd="20dp"
-                android:layout_gravity="center_vertical"
-                android:textColor="@color/black"/>
-
-        </LinearLayout>
-
-
-
+        <!-- Save Icon (Normal) -->
         <ImageView
             android:id="@+id/item_Normal_saveIcon"
-            android:layout_width="44dp"
-            android:layout_height="44dp"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:layout_margin="10dp"
+            android:layout_gravity="top|end"
             android:src="@drawable/normal_bookmark_svgrepo_com_"
-            android:layout_alignParentEnd="true"
-            android:layout_alignBottom="@id/linear"
             android:contentDescription="save"
-            app:tint="@color/black" />
+            app:tint="@android:color/white" />
 
+        <!-- Save Icon (Filled) -->
         <ImageView
             android:id="@+id/item_Filed_SaveIcon"
-            android:layout_width="44dp"
-            android:layout_height="44dp"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:layout_margin="10dp"
+            android:layout_gravity="top|end"
             android:src="@drawable/filed_bookmark_svgrepo_com"
-            android:layout_alignParentEnd="true"
-            android:layout_alignBottom="@id/linear"
             android:contentDescription="saved"
-            app:tint="@color/black"
-            android:visibility="gone"/>
+            android:visibility="gone"
+            app:tint="@android:color/white" />
 
-    </RelativeLayout>
+        <!-- Image Name Overlay -->
+        <TextView
+            android:id="@+id/item_txtImageName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|start"
+            android:layout_margin="12dp"
+            android:text="Worli sealink"
+            android:textSize="28sp"
+            android:textStyle="bold"
+            android:textColor="@android:color/white"
+            android:background="#00000000"
+            android:padding="6dp"/>
+    </FrameLayout>
 
 </androidx.cardview.widget.CardView>

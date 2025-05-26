@@ -24,6 +24,25 @@
         <item name="android:layout_marginBottom">4dp</item>
     </style>
 
+    <style name="ProfileOptionButton">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">50dp</item>
+        <item name="android:background">@drawable/input_bg</item>
+        <item name="android:textColor">@android:color/white</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:layout_marginBottom">12dp</item>
+    </style>
+
+    <style name="LogoutButton">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">50dp</item>
+        <item name="android:background">@drawable/button_bg</item>
+        <item name="android:textColor">@android:color/white</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:layout_marginTop">12dp</item>
+    </style>
+
+
 
 
     <style name="Theme.TourismApp" parent="Base.Theme.TourismApp" />

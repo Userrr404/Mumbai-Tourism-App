@@ -57,6 +57,11 @@ public class BookingAdapter extends RecyclerView.Adapter<BookingViewHolder>{
         // Load image using Glide
         Glide.with(context).load(booking.image_path).into(holder.image);
 
+        Glide.with(context)
+                .load(ApiClient.IMAGE_BASE_URL + booking.image_path)
+                .placeholder(R.drawable.default_person_img)
+                .into(holder.image);
+
         holder.deleteBtn.setOnClickListener(v -> {
             deleteBooking(booking.id, position);
         });
@@ -72,7 +77,7 @@ public class BookingAdapter extends RecyclerView.Adapter<BookingViewHolder>{
         }
 
         holder.approveBtn.setOnClickListener(v -> {
-            updateBookingStatus(booking.id, "Approved", position);
+            updateBookingStatus(booking.id, "confirmed", position);
         });
 
         holder.cancelBtn.setOnClickListener(v -> {

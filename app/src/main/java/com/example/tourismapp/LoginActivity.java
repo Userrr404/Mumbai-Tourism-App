@@ -8,8 +8,11 @@ import android.os.Bundle;
 import android.util.Patterns;
 import android.view.View;
 import android.view.WindowManager;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -41,6 +44,7 @@ public class LoginActivity extends AppCompatActivity {
 
     private final OkHttpClient client = new OkHttpClient();
 
+    ImageView logo;
     private EditText editEmailAddLog, editPasswordLog;
     private Button btnLoginLog;
     private TextView txtRedirectSignupLog;
@@ -59,10 +63,46 @@ public class LoginActivity extends AppCompatActivity {
 
         setContentView(R.layout.activity_login);
 
+        logo = findViewById(R.id.loginLogo);
         editEmailAddLog = findViewById(R.id.editEmailAddLog);
         editPasswordLog = findViewById(R.id.editPasswordLog);
         btnLoginLog = findViewById(R.id.btnLoginLog);
         txtRedirectSignupLog = findViewById(R.id.txtRedirectSignupLog);
+
+        // Load Animations
+        Animation fadeIn = AnimationUtils.loadAnimation(this,R.anim.fade_in);
+        Animation slideUp = AnimationUtils.loadAnimation(this,R.anim.slide_up);
+        Animation bounce = AnimationUtils.loadAnimation(this,R.anim.bounce);
+
+        // Apply animations
+        logo.startAnimation(bounce);
+        editEmailAddLog.startAnimation(slideUp);
+        editPasswordLog.startAnimation(slideUp);
+        btnLoginLog.startAnimation(fadeIn);
+        txtRedirectSignupLog.startAnimation(fadeIn);
+
+        TextView emailLabel = findViewById(R.id.emailLabel);
+        TextView passwordLabel = findViewById(R.id.passwordLabel);
+
+        editEmailAddLog.setOnFocusChangeListener((v, hasFocus) -> {
+            if (hasFocus || !editEmailAddLog.getText().toString().isEmpty()) {
+                emailLabel.setVisibility(View.VISIBLE);
+                editEmailAddLog.setHint("");
+            } else {
+                emailLabel.setVisibility(View.INVISIBLE);
+                editEmailAddLog.setHint("Email");
+            }
+        });
+
+        editPasswordLog.setOnFocusChangeListener((v, hasFocus) -> {
+            if (hasFocus || !editPasswordLog.getText().toString().isEmpty()) {
+                passwordLabel.setVisibility(View.VISIBLE);
+                editPasswordLog.setHint("");
+            } else {
+                passwordLabel.setVisibility(View.INVISIBLE);
+                editPasswordLog.setHint("Password");
+            }
+        });
 
         txtRedirectSignupLog.setOnClickListener(v -> {
             startActivity(new Intent(LoginActivity.this, RegisterActivity.class));

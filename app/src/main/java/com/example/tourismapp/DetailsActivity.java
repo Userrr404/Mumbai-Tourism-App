@@ -187,9 +187,10 @@ public class DetailsActivity extends AppCompatActivity implements OnMapReadyCall
 
         // Get username from SharedPreferences
         SharedPreferences preferences = getSharedPreferences("login", MODE_PRIVATE);
+        String  user_id = preferences.getString("user_id",null);
         String username = preferences.getString("username", null);
 
-        if (username == null) {
+        if (username == null || user_id == null) {
             Toast.makeText(DetailsActivity.this, "User not logged in", Toast.LENGTH_SHORT).show();
             return;
         }
@@ -200,6 +201,7 @@ public class DetailsActivity extends AppCompatActivity implements OnMapReadyCall
         String url = ApiClient.SUBMIT_FEEDBACK; // Your server URL
 
         RequestBody formBody = new FormBody.Builder()
+                .add("user_id",user_id)
                 .add("username", username)
                 .add("user_feed", feedback)
                 .build();

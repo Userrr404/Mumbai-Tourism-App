@@ -105,6 +105,7 @@ public class SavePlaceAdapter extends RecyclerView.Adapter<SaveImageAdapter> {
 
             @Override
             public void onResponse(@NonNull Call call, @NonNull Response response) throws IOException {
+                assert response.body() != null;
                 String res = response.body().string().trim();
                 ((android.app.Activity) context).runOnUiThread(() -> {
                     if (res.equals("success")) {

@@ -1,139 +1,125 @@
+<?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#FAFAFA">
+    android:fillViewport="true"
+    android:background="#FFFFFF">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:padding="16dp"
-        android:gravity="center_horizontal">
+        android:padding="16dp">
 
-        <!-- Place Name -->
+        <ImageView
+            android:id="@+id/imageViewDetail"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:scaleType="centerCrop"
+            android:contentDescription="Place Image" />
+
+        <TextView android:id="@+id/txtViewId"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="gone" />
+
         <TextView
             android:id="@+id/txtViewName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Place Name"
             android:textStyle="bold"
-            android:textSize="26sp"
-            android:textColor="#212121"
-            android:paddingBottom="12dp"
-            android:gravity="center" />
+            android:textSize="20sp"
+            android:textColor="#000000"
+            android:layout_marginTop="8dp" />
 
-        <!-- Image inside CardView -->
-        <androidx.cardview.widget.CardView
-            android:layout_width="match_parent"
-            android:layout_height="250dp"
-            android:layout_marginBottom="16dp"
-            android:layout_marginTop="8dp"
-            android:elevation="4dp"
-            app:cardCornerRadius="12dp">
-
-            <ImageView
-                android:id="@+id/imageViewDetail"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:scaleType="centerCrop"
-                android:contentDescription="Place Image" />
-        </androidx.cardview.widget.CardView>
-
-        <!-- Details Section -->
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:padding="8dp">
-
-            <TextView android:id="@+id/txtViewInfo" style="@style/DetailTextStyle" android:text="Info about the place" />
-            <TextView android:id="@+id/txtViewCategory" style="@style/DetailTextStyle" android:text="Category" />
-            <TextView android:id="@+id/txtViewTags" style="@style/DetailTextStyle" android:text="Tags" />
-            <TextView android:id="@+id/txtViewLocation" style="@style/DetailTextStyle" android:text="Location" />
-            <TextView android:id="@+id/txtViewTiming" style="@style/DetailTextStyle" android:text="Timing" />
-            <TextView android:id="@+id/txtViewFees" style="@style/DetailTextStyle" android:text="Fees" />
-            <TextView android:id="@+id/txtViewContact" style="@style/DetailTextStyle" android:text="Contact" />
-        </LinearLayout>
-
-        <!-- Optional ID -->
         <TextView
-            android:id="@+id/txtViewId"
+            android:id="@+id/txtViewInfo"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="14sp"
-            android:textColor="#888888"
-            android:visibility="gone" />
+            android:textSize="16sp"
+            android:layout_marginTop="4dp" />
 
-        <!-- Google Map Placeholder -->
+        <TextView
+            android:id="@+id/txtViewCategory"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp" />
+
+        <TextView
+            android:id="@+id/txtViewTags"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp" />
+
+        <TextView
+            android:id="@+id/txtViewLocation"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp" />
+
+        <TextView
+            android:id="@+id/txtViewTiming"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp" />
+
+        <TextView
+            android:id="@+id/txtViewFees"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp" />
+
+        <TextView
+            android:id="@+id/txtViewContact"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp" />
+
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Location on Map"
-            android:textSize="20sp"
+            android:text="Map Location"
             android:textStyle="bold"
-            android:textColor="#333333"
-            android:paddingTop="24dp"
-            android:paddingBottom="8dp" />
+            android:textSize="18sp"
+            android:layout_marginTop="20dp"
+            android:textColor="#000000" />
 
         <fragment
             android:id="@+id/map"
             android:name="com.google.android.gms.maps.SupportMapFragment"
             android:layout_width="match_parent"
-            android:layout_height="200dp" />
+            android:layout_height="200dp"
+            android:layout_marginTop="8dp" />
 
-        <!-- Booking Button -->
         <Button
             android:id="@+id/btnBooking"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Book Now"
+            android:layout_marginTop="12dp"
             android:backgroundTint="#FF5722"
-            android:textColor="#FFFFFF"
-            android:layout_marginTop="20dp"
-            android:paddingLeft="24dp"
-            android:paddingRight="24dp"
-            android:layout_gravity="center" />
+            android:textColor="#FFFFFF" />
 
-        <!-- Feedback Title -->
-        <TextView
-            android:id="@+id/txtViewFeedback"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Leave your feedback:"
-            android:textSize="20sp"
-            android:textStyle="bold"
-            android:textColor="#333333"
-            android:paddingTop="24dp"
-            android:paddingBottom="8dp" />
-
-        <!-- Feedback EditText -->
         <EditText
             android:id="@+id/feedbackEditText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Enter your feedback"
-            android:minLines="3"
-            android:gravity="top|start"
-            android:background="@drawable/feedback_edittext_bg"
-            android:padding="12dp"
-            android:textColor="#000000"
-            android:textColorHint="#888888"
-            android:textSize="16sp"
-            android:inputType="textMultiLine" />
+            android:hint="Write your feedback here"
+            android:layout_marginTop="16dp"
+            android:background="@android:drawable/editbox_background"
+            android:padding="12dp" />
 
-        <!-- Submit Button -->
         <Button
             android:id="@+id/submitFeedbackButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Submit Feedback"
-            android:backgroundTint="#009688"
+            android:layout_marginTop="8dp"
+            android:backgroundTint="#4CAF50"
             android:textColor="#FFFFFF"
-            android:layout_marginTop="16dp"
-            android:paddingLeft="24dp"
-            android:paddingRight="24dp"
-            android:layout_gravity="center" />
+            android:layout_gravity="center"/>
+
     </LinearLayout>
+
 </ScrollView>
